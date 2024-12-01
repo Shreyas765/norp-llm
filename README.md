@@ -40,7 +40,8 @@ In order to set up the Redis instance, use the following commands
 ## Running the app
 To run the server, use the following command
 ```
-python 
+cd ./llm-engine/app
+uvicorn app:app --reload --host 127.0.0.1 --port 8000
 ```
 
 ## Hitting the app with API requests
