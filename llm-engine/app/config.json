@@ -1,5 +1,7 @@
 {
   "db_url": "",
   "db_username": "",
-  "db_password": ""
+  "db_password": "",
+  "redis_host_url": "localhost",
+  "redis_port": 6379
 }
