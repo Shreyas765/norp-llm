@@ -44,6 +44,13 @@ cd ./llm-engine/app
 uvicorn app:app --reload --host 127.0.0.1 --port 8000
 ```
 
+## Setting up the MySQL database connection
+
+```
+```
+---
+
+
 ## Hitting the app with API requests
 
 ```
