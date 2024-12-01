@@ -15,8 +15,7 @@ class ServiceManager:
     def initialize_services(self, config):
         
         # Initialize database connection
-        uri = f"{}"
-        # uri = "mysql+mysqlconnector://{name}{password}/{database name}"
+        uri = f"{config['db_url']}?user={config['db_username']}&password={config['db_password']}"        # uri = "mysql+mysqlconnector://{name}{password}/{database name}"
         db_manager = DatabaseManager(uri)
         self.db_manager = db_manager.db
 
