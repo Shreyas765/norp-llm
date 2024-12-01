@@ -22,11 +22,25 @@ from prompts import *
 SENSITIVE_PATH = "sensitive/openai.txt"
 
 # gpg = gnupg.GPG(binary=GPG_BINARY_PATH)
+def read_json(file_name):
+    try:
+        with open(file_name, 'r') as file:
+            data = json.load(file)
+            return data
+    except FileNotFoundError:
+        print(f"Error: File '{file_name}' not found.")
+    except json.JSONDecodeError:
+        print(f"Error: File '{file_name}' is not a valid JSON.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+# Example usage
+db_details = read_json('config.json')
 
 app = FastAPI()
 
 # Initialize the service manager
-service_manager = ServiceManager()
+service_manager = ServiceManager(db_details)
 redis_client = service_manager.get_redis()
 redis_client = redis_client.redis
 db = service_manager.get_db()
