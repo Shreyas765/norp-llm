@@ -32,6 +32,8 @@ conda activate NORP_LLM
 pip install -r requirements.txt
 ```
 
+For using an OpenAI token, create a folder named `sensitive` and a file `sensitive/openai.txt` that holds the OpenAI key.
+
 ## Setting up the Redis instance
 In order to set up the Redis instance, use the following commands
 ```
