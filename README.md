@@ -22,14 +22,30 @@ This application is a chatbot that interacts with users, generates SQL queries b
 - Redis server
 - A running SQL database (e.g., MySQL, PostgreSQL)
 
-### Libraries
-Install the required Python libraries using `pip`.
+## Setup
 
+Create an environment using pip, activate the environment and install the required Python libraries using `pip`.
+
+```bash
+conda create -n NORP_llm python=3.9
+conda activate NORP_LLM
+pip install -r requirements.txt
+```
+
+## Setting up the Redis instance
+In order to set up the Redis instance, use the following commands
+```
+```
+
+## Running the app
+To run the server, use the following command
+```
+python 
+```
+
+## Hitting the app with API requests
+
+```
+```
 ---
 
-## Installation
-
-1. **Clone the Repository**
-   ```bash
-   git clone <repository_url>
-   cd <repository_directory>
