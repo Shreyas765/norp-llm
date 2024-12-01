@@ -9,7 +9,6 @@ class DatabaseManager:
             uri (str): The uri of the database.
         """
         # Update below for connecting with local MySQL database
-        uri = "mysql+mysqlconnector://{name}{password}/{database name}"
         self.db = SQLDatabase.from_uri(uri)
 
     def execute(self, query):
