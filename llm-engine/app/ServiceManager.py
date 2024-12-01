@@ -7,18 +7,17 @@ class ServiceManager:
     """
     ServiceManager class to handle llm and db connections
     """
-    def __init__(self):
+    def __init__(self, config):
         self.db_manager = None
         self.llm_manager = None
-        self.initialize_services()
+        self.initialize_services(config)
 
-    def initialize_services(self):
-        """
-        TODO: Pass any params for overriding default connection settings
-        url for database, api key for llm, redis ports urls etc
-        """
+    def initialize_services(self, config):
+        
         # Initialize database connection
-        db_manager = DatabaseManager()
+        uri = f"{}"
+        # uri = "mysql+mysqlconnector://{name}{password}/{database name}"
+        db_manager = DatabaseManager(uri)
         self.db_manager = db_manager.db
 
         # Initialize LLM connection
@@ -26,7 +25,7 @@ class ServiceManager:
         self.llm_manager = llm_manager.llm
         
         # Initialize Redis connection
-        self.redis_manager = RedisManager()
+        self.redis_manager = RedisManager(config["redis_host_url"], config["redis_port"])
 
     def get_db(self):
         if not self.db_manager:
