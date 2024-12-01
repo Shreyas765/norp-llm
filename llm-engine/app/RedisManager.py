@@ -2,16 +2,17 @@ import redis
 
 
 class RedisManager:
-    def __init__(self, host="localhost"):
+    def __init__(self, host_, port_):
         """
         Initialize the Redis connection.
 
         Args:
-            host (str): The host connection for redis.
+            host (str): The host url for redis.
+            port (int): The port for the redis connection
         """
         redis_client = redis.Redis(
-            host=host,
-            port=6379,
+            host=host_,
+            port=port_,
             db=0,
             decode_responses=True
         )
