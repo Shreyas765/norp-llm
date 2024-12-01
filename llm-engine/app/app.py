@@ -35,12 +35,12 @@ def read_json(file_name):
         print(f"An unexpected error occurred: {e}")
 
 # Example usage
-db_details = read_json('config.json')
+config_details = read_json('config.json')
 
 app = FastAPI()
 
 # Initialize the service manager
-service_manager = ServiceManager(db_details)
+service_manager = ServiceManager(config_details)
 redis_client = service_manager.get_redis()
 redis_client = redis_client.redis
 db = service_manager.get_db()
