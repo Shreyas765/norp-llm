@@ -45,9 +45,7 @@ The file `llm-engine/app/config.json` holds the details for the SQL and Redis co
 }
 ```
 ## Setting up the Redis instance
-In order to set up the Redis instance, use the following commands
-```
-```
+In order to set up the Redis instance, simply connect the port number to the `llm-engine/app/RedisManager.py` and `llm-engine/app/config.json`.
 
 ## Running the app
 To run the server, use the following command
@@ -57,15 +55,30 @@ uvicorn app:app --reload --host 127.0.0.1 --port 8000
 ```
 
 ## Setting up the MySQL database connection
-
-```
-```
----
+Simply connect the Database URL and password from `llm-engine/app/config.json` or environment variables and update `llm-engine/app/DatabaseManager.py` if needed.
+You can also connect to local MySQL Database by passing the relevant URL to ServiceManager.
 
 
 ## Hitting the app with API requests
+First approach is using a CURL command after the app is running.
+```
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/query" ` 
 
+  -Method Post ` 
+
+  -ContentType "application/json" ` 
+
+  -Body '{"question": "Give me the number of employees who are male", "session_id": 12345, "message_type": "human"}' 
 ```
+Another approach is to run `test_responses.py` script.
 ```
+python .\test_responses.py --question "For each month, get count of victims killed and average of victims killed in each shooting incident." --session_id 585
+```
+
+## Local Setup
+1. To test locally setup local MySQL Database and Redis instance in desired way and ensure to connect the port numbers and relevant URLs.
+2. Now, run `create_NORP_tables.py` to create local sample tables.
+3. Run the app using `uvicorn app:app --reload --host 127.0.0.1 --port 8000`
+4. Use `test_responses.py` script to see the results.
 ---
 
