@@ -1,7 +1,8 @@
 {
-  "db_url": "",
-  "db_username": "",
-  "db_password": "",
+  "db_url": "mysql+mysqlconnector://<DB_USERNAME>:<DB_PASSWORD>@localhost/<DB_NAME>",
+  "db_username": "<DB_USERNAME>",
+  "db_password": "<DB_PASSWORD>",
   "redis_host_url": "localhost",
-  "redis_port": 6379
+  "redis_port": "<REDIS_PORT>", 
+  "redis_password": "<REDIS_PASSWORD>"
 }
