@@ -35,16 +35,19 @@ pip install -r requirements.txt
 For using an OpenAI token, create a folder named `sensitive` and a file `sensitive/openai.txt` that holds the OpenAI key.
 
 The file `llm-engine/app/config.json` holds the details for the SQL and Redis connections. The descriptions of the fields are given below
+
 ```json
 {
   "db_url": "The database URL which follows the schema 
-mysql+mysqlconnector://{username}:{password}@{host}/{database name}",
+mysql+mysqlconnector://{username}:{password}@{host}/{database_name}",
   "db_username": "The username of the database",
   "db_password": "The password of the database",
   "redis_host_url": "The URL of the Redis host instance",
   "redis_port": "(int) The port on which the Redis instance is being hosted",
   "redis_password": "(Optional) The password of the Redis instance if authentication is enabled"
 }
+```
+
 ## Setting up the Redis instance
 In order to set up the Redis instance, simply connect the port number to the `llm-engine/app/RedisManager.py` and `llm-engine/app/config.json`.
 
