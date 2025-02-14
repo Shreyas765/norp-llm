@@ -38,8 +38,7 @@ The file `llm-engine/app/config.json` holds the details for the SQL and Redis co
 
 ```json
 {
-  "db_url": "The database URL which follows the schema 
-mysql+mysqlconnector://{username}:{password}@{host}/{database_name}",
+  "db_url": "The database URL which follows the schema mysql+mysqlconnector://{username}:{password}@{host}/{database_name}",
   "db_username": "The username of the database",
   "db_password": "The password of the database",
   "redis_host_url": "The URL of the Redis host instance",
