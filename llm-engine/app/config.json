@@ -4,5 +4,5 @@
   "db_password": "<DB_PASSWORD>",
   "redis_host_url": "localhost",
   "redis_port": "<REDIS_PORT>", 
-  "redis_password": "<REDIS_PASSWORD>"
+  "redis_password": "<REDIS_PASSWORD> | null"
 }
