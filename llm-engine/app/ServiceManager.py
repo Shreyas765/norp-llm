@@ -24,7 +24,7 @@ class ServiceManager:
         self.llm_manager = llm_manager.llm
         
         # Initialize Redis connection
-        self.redis_manager = RedisManager(config["redis_host_url"], config["redis_port"])
+        self.redis_manager = RedisManager(config["redis_host_url"], config["redis_port"], config["redis_password"])
 
     def get_db(self):
         if not self.db_manager:
