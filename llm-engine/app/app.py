@@ -15,6 +15,7 @@ from langchain.schema import HumanMessage, AIMessage, SystemMessage, BaseMessage
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.prompt_values import ChatPromptValue
 from langchain_core.runnables.base import RunnableLambda
+from summarizer import summarize_chat_history
 from constants import *
 from prompts import *
 
@@ -50,6 +51,17 @@ llm = service_manager.get_llm()
 async def redirect_root_to_docs():
     return RedirectResponse("/docs")
 
+def to_dict(msg):
+    if isinstance(msg, dict):
+        return msg
+    elif isinstance(msg, SystemMessage):
+        return {"type": "system", "content": msg.content}
+    elif isinstance(msg, HumanMessage):
+        return {"type": "human", "content": msg.content}
+    elif isinstance(msg, AIMessage):
+        return {"type": "ai", "content": msg.content}
+    else:
+        return {"type": "unknown", "content": str(msg)}
 
 class ChatMessage(BaseModel):
     session_id: str
@@ -64,17 +76,33 @@ class ChatResponse(BaseModel):
     query_result: Optional[str]
     history: List[dict]
 
+
 def run_sql_chain(question: str, history: List[dict], session_id: str, memory: ConversationBufferMemory):
     """Run the SQL generation chain with conversation history"""
-    # TODO implement just the relavant tables information if needed
-    # this might totally remove the below separation format
     table_info = db.get_table_info()
- 
-    # Prepare messages for the prompt
     messages = []
+
+    HISTORY_THRESHOLD = 10
+    print("debug history len", len(history))
+    if len(history) > HISTORY_THRESHOLD:
+        print("###debug the old history ###", history)
+        summary_data = summarize_chat_history(history, llm)
+        
+        print("###debug summarized data: ###", summary_data)
+        summary_message = SystemMessage(content=summary_data["summary"])
+        new_history = [summary_message] + summary_data["messages"]
+        print("Conversation history was summarized due to length.")
+        # Update Redis cache: delete old history and set the new summarized history
+        redis_client.delete(f"chat:{session_id}")
+        for msg in new_history:
+            redis_client.rpush(f"chat:{session_id}", json.dumps(msg.model_dump(mode="json")))
+        # Update the local history variable to use in the prompt
+        history = new_history
+        print("debug new history: ", history)
     
     if not history:
         # For initial prompt (no history)
+        print("###debug the initial history ###", history)
         initial_prompt_value = INITIAL_PROMPT.invoke({
             "table_info": table_info,
             "top_k": TOP_K_ROWS  
@@ -85,8 +113,9 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
         })
         messages.extend(initial_prompt_value.messages)
         messages.extend(continuation_prompt_value.messages)
+        print("debug messages", messages)
     else:
-        # For continuation prompt (with history)
+        print("###debug the continuation history ###", history)
         continuation_prompt_value = CONTINUATION_PROMPT.invoke({
             "question": question,
             "history": history
@@ -95,6 +124,7 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
 
     # Ensure all messages are of type BaseMessage with correct types
     formatted_messages = []
+    print("debug messages: ", messages)
     for msg in messages:
         if isinstance(msg, dict):
             msg_type = msg.get("type", "human")  # Default to "human" if type is missing
@@ -168,11 +198,12 @@ def get_message_history(session_id: str) -> ConversationBufferMemory:
     if cached_messages:
         for msg in cached_messages:
             msg = json.loads(msg)
-            if msg['type'] == 'human':
+            print("\ndebug msg:", msg)
+            if msg['type'][0] == 'human':
                 memory.chat_memory.add_message(HumanMessage(content=msg['content']))
-            elif msg['type'] == 'ai':
+            elif msg['type'][0] == 'ai':
                 memory.chat_memory.add_message(AIMessage(content=msg['content']))
-            elif msg['type'] == 'system':
+            elif msg['type'][0] == 'system':
                 memory.chat_memory.add_message(SystemMessage(content=msg['content']))
     return memory
 
@@ -189,7 +220,8 @@ def update_chat_memory_and_redis_history(session_id: str, message_content:str, m
     message_json = json.dumps(message)
     # Append the message to the list associated with the session ID
     # rpush takes care if the session_id does not exist
-    redis_client.rpush(f"chat:{session_id}", message_json)
+    redis_client.rpush(f"chat:{session_id}", json.dumps(message_json))
+
     # Update the TTL for the session ID
     redis_client.expire(session_id, CHAT_HISTORY_TTL)
     print(f"Message appended to session {session_id} and TTL updated to {CHAT_HISTORY_TTL} seconds")
