@@ -51,18 +51,6 @@ llm = service_manager.get_llm()
 async def redirect_root_to_docs():
     return RedirectResponse("/docs")
 
-def to_dict(msg):
-    if isinstance(msg, dict):
-        return msg
-    elif isinstance(msg, SystemMessage):
-        return {"type": "system", "content": msg.content}
-    elif isinstance(msg, HumanMessage):
-        return {"type": "human", "content": msg.content}
-    elif isinstance(msg, AIMessage):
-        return {"type": "ai", "content": msg.content}
-    else:
-        return {"type": "unknown", "content": str(msg)}
-
 class ChatMessage(BaseModel):
     session_id: str
     message: str
@@ -82,8 +70,9 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
     table_info = db.get_table_info()
     messages = []
 
-    HISTORY_THRESHOLD = 10
+    HISTORY_THRESHOLD = 100
     print("debug history len", len(history))
+    print("debug history without summarizer:", history)
     if len(history) > HISTORY_THRESHOLD:
         print("###debug the old history ###", history)
         summary_data = summarize_chat_history(history, llm)
@@ -153,16 +142,13 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
     for msg in messages:
         # Check message type
         message_type = ""
-        message = ""
+        message = msg.content
         if isinstance(msg, SystemMessage):
-            message_type="system",
-            message = msg.content
+            message_type="system"
         elif isinstance(msg, HumanMessage):
-            message_type="human",
-            message = msg.content
+            message_type="human"
         elif isinstance(msg, AIMessage):
-            message_type="ai",
-            message = msg.content
+            message_type="ai"
         elif isinstance(msg, MessagesPlaceholder):
             continue
         if message_type and message:
@@ -194,16 +180,16 @@ def get_message_history(session_id: str) -> ConversationBufferMemory:
         return_messages=True
     )
     cached_messages = redis_client.lrange(f"chat:{session_id}", 0, -1)
-    print("length of cached essages ", len(cached_messages))
+    print("length of cached messages ", len(cached_messages))
     if cached_messages:
         for msg in cached_messages:
             msg = json.loads(msg)
-            print("\ndebug msg:", msg)
-            if msg['type'][0] == 'human':
+            print("\ndebug msg:", msg, type(msg))
+            if msg['type'] == 'human':
                 memory.chat_memory.add_message(HumanMessage(content=msg['content']))
-            elif msg['type'][0] == 'ai':
+            elif msg['type'] == 'ai':
                 memory.chat_memory.add_message(AIMessage(content=msg['content']))
-            elif msg['type'][0] == 'system':
+            elif msg['type'] == 'system':
                 memory.chat_memory.add_message(SystemMessage(content=msg['content']))
     return memory
 
@@ -220,10 +206,10 @@ def update_chat_memory_and_redis_history(session_id: str, message_content:str, m
     message_json = json.dumps(message)
     # Append the message to the list associated with the session ID
     # rpush takes care if the session_id does not exist
-    redis_client.rpush(f"chat:{session_id}", json.dumps(message_json))
+    redis_client.rpush(f"chat:{session_id}", message_json)
 
     # Update the TTL for the session ID
-    redis_client.expire(session_id, CHAT_HISTORY_TTL)
+    redis_client.expire(f"chat:{session_id}", CHAT_HISTORY_TTL)
     print(f"Message appended to session {session_id} and TTL updated to {CHAT_HISTORY_TTL} seconds")
 
     # Update conversation buffer memory
@@ -263,6 +249,8 @@ async def handle_query(request: Request):
     query_results = None 
     memory = get_message_history(chat_request.session_id)
     # Invoke the chain with the question
+    print("debug memory: ", memory)
+    print("debug memory history: ", memory.load_memory_variables({})["history"])
     try:
         sql_query, memory = run_sql_chain(
             chat_request.message,
