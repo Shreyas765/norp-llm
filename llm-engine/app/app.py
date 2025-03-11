@@ -91,7 +91,6 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
     
     if not history:
         # For initial prompt (no history)
-        print("###debug the initial history ###", history)
         initial_prompt_value = INITIAL_PROMPT.invoke({
             "table_info": table_info,
             "top_k": TOP_K_ROWS  
@@ -179,38 +178,55 @@ def get_message_history(session_id: str) -> ConversationBufferMemory:
         memory_key="history",
         return_messages=True
     )
-    cached_messages = redis_client.lrange(f"chat:{session_id}", 0, -1)
-    print("length of cached messages ", len(cached_messages))
-    if cached_messages:
-        for msg in cached_messages:
-            msg = json.loads(msg)
-            print("\ndebug msg:", msg, type(msg))
-            if msg['type'] == 'human':
-                memory.chat_memory.add_message(HumanMessage(content=msg['content']))
-            elif msg['type'] == 'ai':
-                memory.chat_memory.add_message(AIMessage(content=msg['content']))
-            elif msg['type'] == 'system':
-                memory.chat_memory.add_message(SystemMessage(content=msg['content']))
+
+    redis_key = f"chat:{session_id}"
+    system_key = f"system_message:{session_id}"
+
+    cached_messages = redis_client.lrange(redis_key, 0, -1)
+    system_messages = redis_client.smembers(system_key)
+
+    parsed_system_messages = []
+    for msg in system_messages:
+        if not msg: 
+            continue
+        try:
+            decoded_msg = msg.decode("utf-8") if isinstance(msg, bytes) else msg
+            parsed_msg = json.loads(decoded_msg)
+            parsed_system_messages.append(parsed_msg)
+        except json.JSONDecodeError:
+            print(f"❌ JSONDecodeError while parsing system message: {msg}")
+        except Exception as e:
+            print(f"❌ Unexpected error decoding system message: {msg}, Error: {e}")
+
+    print("✅ Successfully loaded system messages:")
+
+    for msg in cached_messages:
+        msg = json.loads(msg)
+        if msg["type"] == "human":
+            memory.chat_memory.add_message(HumanMessage(content=msg["content"]))
+        elif msg["type"] == "ai":
+            memory.chat_memory.add_message(AIMessage(content=msg["content"]))
+
     return memory
 
-
-def update_chat_memory_and_redis_history(session_id: str, message_content:str, message_type:str, 
+def update_chat_memory_and_redis_history(session_id: str, message_content: str, message_type: str, 
                                          memory: ConversationBufferMemory) -> ConversationBufferMemory:
-    """Save updated chat history to Redis cache and memory object"""
-    # Update cache
-    message = {
-        "type": message_type,
-        "content": message_content
-    }
-    # Convert the message to a JSON string
-    message_json = json.dumps(message)
-    # Append the message to the list associated with the session ID
-    # rpush takes care if the session_id does not exist
-    redis_client.rpush(f"chat:{session_id}", message_json)
+    """Save updated chat history to Redis cache and memory object.
+    We use chat:<session_id> for the Human and AI messages
+    system_message<session_id> is used to store the system message"""
+    
+    redis_key = f"chat:{session_id}"
+    system_message_key = f"system_message:{session_id}"  # Separate key for system messages
 
-    # Update the TTL for the session ID
-    redis_client.expire(f"chat:{session_id}", CHAT_HISTORY_TTL)
-    print(f"Message appended to session {session_id} and TTL updated to {CHAT_HISTORY_TTL} seconds")
+    if message_type == "system":
+        redis_client.sadd(system_message_key, json.dumps({"type": "system", "content": message_content}))
+    else:
+        redis_client.rpush(redis_key, json.dumps({"type": message_type, "content": message_content}))
+        print(f"✅ {message_type.capitalize()} message appended to session {session_id}.")
+
+    redis_client.expire(redis_key, CHAT_HISTORY_TTL)
+    redis_client.expire(system_message_key, CHAT_HISTORY_TTL)  # Expire system message key too
+    print(f"🕒 TTL updated to {CHAT_HISTORY_TTL} seconds for session {session_id}")
 
     # Update conversation buffer memory
     if message_type == 'human':
