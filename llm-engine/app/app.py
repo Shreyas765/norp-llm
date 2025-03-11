@@ -64,20 +64,15 @@ class ChatResponse(BaseModel):
     query_result: Optional[str]
     history: List[dict]
 
-
 def run_sql_chain(question: str, history: List[dict], session_id: str, memory: ConversationBufferMemory):
     """Run the SQL generation chain with conversation history"""
     table_info = db.get_table_info()
     messages = []
 
     HISTORY_THRESHOLD = 100
-    print("debug history len", len(history))
-    print("debug history without summarizer:", history)
     if len(history) > HISTORY_THRESHOLD:
-        print("###debug the old history ###", history)
         summary_data = summarize_chat_history(history, llm)
         
-        print("###debug summarized data: ###", summary_data)
         summary_message = SystemMessage(content=summary_data["summary"])
         new_history = [summary_message] + summary_data["messages"]
         print("Conversation history was summarized due to length.")
@@ -87,7 +82,6 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
             redis_client.rpush(f"chat:{session_id}", json.dumps(msg.model_dump(mode="json")))
         # Update the local history variable to use in the prompt
         history = new_history
-        print("debug new history: ", history)
     
     if not history:
         # For initial prompt (no history)
@@ -101,9 +95,8 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
         })
         messages.extend(initial_prompt_value.messages)
         messages.extend(continuation_prompt_value.messages)
-        print("debug messages", messages)
     else:
-        print("###debug the continuation history ###", history)
+        # For continuation prompt (with history)
         continuation_prompt_value = CONTINUATION_PROMPT.invoke({
             "question": question,
             "history": history
@@ -112,7 +105,6 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
 
     # Ensure all messages are of type BaseMessage with correct types
     formatted_messages = []
-    print("debug messages: ", messages)
     for msg in messages:
         if isinstance(msg, dict):
             msg_type = msg.get("type", "human")  # Default to "human" if type is missing
@@ -265,8 +257,6 @@ async def handle_query(request: Request):
     query_results = None 
     memory = get_message_history(chat_request.session_id)
     # Invoke the chain with the question
-    print("debug memory: ", memory)
-    print("debug memory history: ", memory.load_memory_variables({})["history"])
     try:
         sql_query, memory = run_sql_chain(
             chat_request.message,
