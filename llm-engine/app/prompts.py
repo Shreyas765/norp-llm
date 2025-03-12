@@ -28,6 +28,9 @@ Constraints:
 3. Provide meaningful aliases for calculated columns.
 
 For example:
+Write the query for this task:
+"Calculate victims killed per million capita for each state."
+
 Correct:
 SELECT State, 
        SUM(VictimsKilled) / SUM(PopulationCount) * 1000000 AS VictimsKilledPerMillionCapita
@@ -41,10 +44,6 @@ SELECT State,
 FROM us_shootings
 JOIN us_population ON us_shootings.State = us_population.State
 GROUP BY State;
-
-Now, write the query for this task:
-"Calculate victims killed per million capita for each state."
-
 """
 # Chat prompt template for a new chat
 INITIAL_PROMPT = ChatPromptTemplate.from_messages([
