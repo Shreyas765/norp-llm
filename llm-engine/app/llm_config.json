@@ -1,0 +1,8 @@
+{
+    "llm": {
+      "provider": "openai",
+      "model": "gpt-4o",
+      "api_key_path": "sensitive/openai.txt"
+    }
+  }
+  

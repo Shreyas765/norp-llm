@@ -1,7 +1,9 @@
 {
-  "db_url": "",
-  "db_username": "",
-  "db_password": "",
+
+  "db_url": "mysql+mysqlconnector://norp_user:norp@127.0.0.1:3306/norp_llm_db",
+  "db_username": "norp_user",
+  "db_password": "norp",
   "redis_host_url": "localhost",
-  "redis_port": 6379
+  "redis_port": "<REDIS_PORT>", 
+  "redis_password": "<REDIS_PASSWORD> | null"
 }

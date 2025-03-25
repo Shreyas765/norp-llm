@@ -6,25 +6,46 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from util import read_gpg_encrypted_file
 
-# TODO: Make this an env variable
-# Simply add the private key for LLM you are using
-OPEN_AI_SENSITIVE_PATH = "sensitive/openai.txt"
+class LLMManager:
+    """
+    LLMManager is responsible for initializing and managing connections to different
+    LLM providers (e.g., OpenAI, Anthropic, etc.).
 
-class LLMManager():
+    Currently supported:
+    - OpenAI (GPT-3.5, GPT-4, GPT-4o)
+
+    Usage: update the configuration in llm_config.json
+    -------
+    config = {
+        "provider": "openai",
+        "model": "gpt-4o",
+        "api_key_path": "sensitive/openai.txt",
+    }
     """
-    Initialize OPEN AI LLM connection with file_path where key is stored.
-    TO DO: Update LLM connection to the fine tuned model
-    """
-    def __init__(self, file_path = OPEN_AI_SENSITIVE_PATH):
-        self.set_key(file_path)
-        # TODO: Update connection to the fine tuned model
-        # This implementation works for ChatGPT APIs
-        self.llm = ChatOpenAI(model="gpt-3.5-turbo", temperature = 0)
-        
-    def set_key(self, file_path):
-        self.open_ai_key = read_gpg_encrypted_file(file_path)
-        os.environ["OPENAI_API_KEY"] = self.open_ai_key
-    
+    def __init__(self, config: dict):
+        self.provider = config.get("provider", "openai").lower()
+
+        if self.provider == "openai":
+            self.llm = self._init_openai(config)
+        else:
+            raise NotImplementedError(f"LLM provider '{self.provider}' is not yet supported.")
+
+    def _init_openai(self, config):
+        api_key_path = config.get("api_key_path")
+        env_var = config.get("env_var", "OPENAI_API_KEY")
+
+        if api_key_path:
+            key = read_gpg_encrypted_file(api_key_path)
+            os.environ["OPENAI_API_KEY"] = key
+        elif os.environ.get(env_var):
+            os.environ["OPENAI_API_KEY"] = os.environ[env_var]
+        else:
+            raise ValueError("OpenAI API key not provided")
+
+        model = config.get("model", "gpt-3.5-turbo")
+
+        return ChatOpenAI(model=model, temperature=0)
+
     def invoke(self, prompt: ChatPromptTemplate, **kwargs) -> str:
         messages = prompt.format_messages(**kwargs)
         response = self.llm.invoke(messages)
