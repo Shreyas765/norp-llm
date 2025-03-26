@@ -2,7 +2,7 @@ import redis
 
 
 class RedisManager:
-    def __init__(self, host_, port_):
+    def __init__(self, host_, port_, password_):
         """
         Initialize the Redis connection.
 
@@ -13,6 +13,7 @@ class RedisManager:
         redis_client = redis.Redis(
             host=host_,
             port=port_,
+            password=password_,
             db=0,
             decode_responses=True
         )
