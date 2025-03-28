@@ -6,16 +6,26 @@ def summarize_chat_history(history: List[Dict[str, str]], llm) -> Dict[str, str]
     def summarize(state):
         """Summarization logic"""
         summary_prompt = f"""
-        Summarize the following conversation while ensuring key details are retained:
-        - Include Database schema information.
-        - Capture all previously generated SQL queries.
-        - Preserve the user's intent and any modifications they requested.
-        - Ensure clarity and conciseness while maintaining essential details.
-        - Remove redundant prompts to reduce the length of the history
-        
-        Conversation History:
+        Summarize the following conversation, ensuring clarity, conciseness, and completeness:
+        - **SQL Queries:** Retain only **the last 3 unique queries** (if modified, store only the **final version**).
+        - **User Intent:** Summarize the key **questions or requests** made by the user.
+        - **Query Evolution:** Capture any **modifications, corrections, or refinements** in query logic.
+        - **Schema Updates:** If the user modified a table (added columns, constraints, etc.), update schema info.
+        - **Redundancy Removal:** Eliminate **repetitive or unnecessary prompts**, keeping only **essential context**.
+        - **Logical Grouping:** Group related **queries and their responses** to maintain a **coherent structure**.
+
+        ### Conversation History:
         {state["history"]}
+
+        ### Output Format:
+        - **User Request(s):** <Summarized user intent>
+        - **Final SQL Queries:**
+        1. <SQL Query 1>
+        2. <SQL Query 2>
+        3. <SQL Query 3> (if applicable)
+        - **Schema Changes (if any):** <Updated schema details>
         """
+
         response = llm.invoke([HumanMessage(content=summary_prompt)])
         return {"summary": response.content, "messages": state["history"][-2:]}
 

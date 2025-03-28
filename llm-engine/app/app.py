@@ -69,9 +69,14 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
     table_info = db.get_table_info()
     messages = []
 
-    HISTORY_THRESHOLD = 100
-    if len(history) > HISTORY_THRESHOLD:
-        summary_data = summarize_chat_history(history, llm)
+    HISTORY_THRESHOLD = 20
+
+    system_messages = [msg for msg in history if isinstance(msg, SystemMessage)]
+    chat_messages = [msg for msg in history if isinstance(msg, (HumanMessage, AIMessage))]
+
+    if len(chat_messages) > HISTORY_THRESHOLD:
+        print("###debug the old history ###", chat_messages)
+        summary_data = summarize_chat_history(chat_messages, llm)
         
         summary_message = SystemMessage(content=summary_data["summary"])
         new_history = [summary_message] + summary_data["messages"]
@@ -81,8 +86,17 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
         for msg in new_history:
             redis_client.rpush(f"chat:{session_id}", json.dumps(msg.model_dump(mode="json")))
         # Update the local history variable to use in the prompt
-        history = new_history
+        history = system_messages + new_history
+        print("debug new history: ", history)
     
+    # Retrieve system message from Redis to ensure table info is always present in the sql generation chain message
+    system_message_from_redis = redis_client.smembers(f"system_message:{session_id}")
+    if system_message_from_redis:
+        system_message_content = list(system_message_from_redis)[0]  # Assuming only one system message
+        system_message = SystemMessage(content=json.loads(system_message_content)["content"])
+        messages.insert(0, system_message)
+
+
     if not history:
         # For initial prompt (no history)
         initial_prompt_value = INITIAL_PROMPT.invoke({
@@ -95,6 +109,8 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
         })
         messages.extend(initial_prompt_value.messages)
         messages.extend(continuation_prompt_value.messages)
+        update_chat_memory_and_redis_history(session_id, initial_prompt_value.messages[0].content, 
+                                                "system", memory)
     else:
         # For continuation prompt (with history)
         continuation_prompt_value = CONTINUATION_PROMPT.invoke({
@@ -106,19 +122,12 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
     # Ensure all messages are of type BaseMessage with correct types
     formatted_messages = []
     for msg in messages:
-        if isinstance(msg, dict):
-            msg_type = msg.get("type", "human")  # Default to "human" if type is missing
-            content = msg.get("content", "")
-
-            if msg_type == "system":
-                formatted_messages.append(SystemMessage(content=content))
-            elif msg_type == "human":
-                formatted_messages.append(HumanMessage(content=content))
-        elif isinstance(msg, BaseMessage):
-            # If already a BaseMessage, add directly
-            formatted_messages.append(msg)
-        else:
-            raise ValueError(f"Unexpected message format: {msg}")
+        if isinstance(msg, SystemMessage):
+            formatted_messages.insert(0, msg)  # Ensure system message is at the start
+        elif isinstance(msg, HumanMessage):
+            formatted_messages.append(HumanMessage(content=msg.content))
+        elif isinstance(msg, AIMessage):
+            formatted_messages.append(AIMessage(content=msg.content))
 
     # Create the SQL generation chain
     sql_generation_chain = (
@@ -129,27 +138,22 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
     # Invoke the chain
     result = sql_generation_chain.invoke(formatted_messages)
 
-    # update redis and history
+    # Store updated history in Redis
     for msg in messages:
         # Check message type
         message_type = ""
         message = msg.content
         if isinstance(msg, SystemMessage):
             message_type="system"
-        elif isinstance(msg, HumanMessage):
-            message_type="human"
-        elif isinstance(msg, AIMessage):
-            message_type="ai"
-        elif isinstance(msg, MessagesPlaceholder):
-            continue
-        if message_type and message:
-           update_chat_memory_and_redis_history(session_id, message, 
+            update_chat_memory_and_redis_history(session_id, message, 
                                                 message_type, memory)
+
+    update_chat_memory_and_redis_history(session_id, question, 
+                                                "human", memory)
 
     memory = update_chat_memory_and_redis_history(session_id, result.content, 
                                                   "ai", memory)
     return (result, memory)
-    
 
 # Define the request body model using Pydantic
 class ChatRequest(BaseModel):
@@ -211,7 +215,9 @@ def update_chat_memory_and_redis_history(session_id: str, message_content: str, 
     system_message_key = f"system_message:{session_id}"  # Separate key for system messages
 
     if message_type == "system":
-        redis_client.sadd(system_message_key, json.dumps({"type": "system", "content": message_content}))
+        if not redis_client.sismember(system_message_key, json.dumps({"type": "system", "content": message_content})):
+            redis_client.sadd(system_message_key, json.dumps({"type": "system", "content": message_content}))
+            print("✅ Stored System Message in Redis.")
     else:
         redis_client.rpush(redis_key, json.dumps({"type": message_type, "content": message_content}))
         print(f"✅ {message_type.capitalize()} message appended to session {session_id}.")
