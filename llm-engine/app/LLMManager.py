@@ -3,6 +3,7 @@ Module to connect with LLM.
 """
 import os
 from langchain_openai import ChatOpenAI
+from langchain_together import ChatTogether
 from langchain_core.prompts import ChatPromptTemplate
 from util import read_gpg_encrypted_file
 
@@ -27,6 +28,8 @@ class LLMManager:
 
         if self.provider == "openai":
             self.llm = self._init_openai(config)
+        elif self.provider == "togetherai":
+            self.llm = self._init_togetherai(config)
         else:
             raise NotImplementedError(f"LLM provider '{self.provider}' is not yet supported.")
 
@@ -45,6 +48,21 @@ class LLMManager:
         model = config.get("model", "gpt-3.5-turbo")
 
         return ChatOpenAI(model=model, temperature=0)
+
+    def _init_togetherai(self, config):
+        api_key_path = config.get("api_key_path")
+        env_var = config.get("env_var", "TOGETHER_API_KEY")
+        if api_key_path:
+            key = read_gpg_encrypted_file(api_key_path)
+            os.environ["TOGETHER_API_KEY"] = key
+        elif os.environ.get(env_var):
+            os.environ["TOGETHER_API_KEY"] = os.environ[env_var]
+        else:
+            raise ValueError("Together AI API key not provided")
+
+        model = config.get("model", "meta-llama/Llama-3-8b-chat-hf")
+
+        return ChatTogether(model=model, temperature=0)
 
     def invoke(self, prompt: ChatPromptTemplate, **kwargs) -> str:
         messages = prompt.format_messages(**kwargs)
