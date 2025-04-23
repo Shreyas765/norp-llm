@@ -86,6 +86,10 @@ in the correct details for the database username and password.
 4. Use `test_responses.py` script to see the results. 
 ---
 
+### Summarizer Threshold Configuration
+The threshold for running summarization on the conversation history can be done by adjusting the `HISTORY_THRESHOLD` variable in the main [app file](llm-engine/app/app.py), in [this line](https://github.gatech.edu/NORP/norp-llm/blob/6a87490b0ec37c03ba8953acffd6396823eb263f/llm-engine/app/app.py#L73) as of writing (Apr 2025).
+
+
 ### Changing the LLM Provider
 ---
 Users can specify what LLM Provider to use and as long as they specify where the corresponding API key is stored, preferably in a `sensitive/*` folder path inside the `llm-engine/app` folder, by specifying it in a configuration file called [`llm_config.json`](llm-engine/app/llm_config.json) inside the `llm-engine/app` folder. An example is as follows:
@@ -104,4 +108,3 @@ Users can specify what LLM Provider to use and as long as they specify where the
 ### Prompts for Testing the App
 
 The standardized list of prompts used for testing and benchmarking are provided in [this spreadsheet](https://docs.google.com/spreadsheets/d/1EtjVqZ7lMCZYupPAFsDUoGma4EZeQ5htg_wDhnkPr0g/edit?usp=sharing)
-
