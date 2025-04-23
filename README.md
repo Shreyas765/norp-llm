@@ -83,6 +83,25 @@ python test_responses.py --question "For each month, get count of victims killed
 2. Now, run `create_NORP_tables.py` to create local sample tables after filling
 in the correct details for the database username and password.
 3. Run the app using `uvicorn app:app --reload --host 127.0.0.1 --port 8000`
-4. Use `test_responses.py` script to see the results.
+4. Use `test_responses.py` script to see the results. 
 ---
+
+### Changing the LLM Provider
+---
+Users can specify what LLM Provider to use and as long as they specify where the corresponding API key is stored, preferably in a `sensitive/*` folder path inside the `llm-engine/app` folder, by specifying it in a configuration file called [`llm_config.json`](llm-engine/app/llm_config.json) inside the `llm-engine/app` folder. An example is as follows:
+
+```json
+{
+    "llm": {
+      "provider": "togetherai",
+      "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "api_key_path": "sensitive/togetherai.txt"
+    }
+}
+```
+---
+
+### Prompts for Testing the App
+
+The standardized list of prompts used for testing and benchmarking are provided in [this spreadsheet](https://docs.google.com/spreadsheets/d/1EtjVqZ7lMCZYupPAFsDUoGma4EZeQ5htg_wDhnkPr0g/edit?usp=sharing)
 
