@@ -32,7 +32,7 @@ conda activate NORP_LLM
 pip install -r requirements.txt
 ```
 
-For using an OpenAI token, create a folder named `sensitive` and a file `sensitive/openai.txt` that holds the OpenAI key.
+For using an OpenAI token, create a folder named `sensitive` and a file `sensitive/openai.txt` that holds the OpenAI key. Similarly for other LLM providers, we recommend using a `sensitive/{provider}.txt` folder
 
 The file `llm-engine/app/config.json` holds the details for the SQL and Redis connections. The descriptions of the fields are given below
 
