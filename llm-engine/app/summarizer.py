@@ -1,6 +1,6 @@
 from langgraph.graph import StateGraph
 from typing import List, Dict
-from langchain.schema import HumanMessage
+from langchain_classic.schema import HumanMessage
 
 def summarize_chat_history(history: List[Dict[str, str]], llm) -> Dict[str, str]:
     def summarize(state):
@@ -36,6 +36,6 @@ def summarize_chat_history(history: List[Dict[str, str]], llm) -> Dict[str, str]
     app = workflow.compile()
 
     summarized_history = app.invoke({"history": history})
-    
+
     print("debug:", summarized_history)
     return summarized_history

@@ -167,3 +167,6 @@ llm-engine/README.md
 llm-engine/app/sensitive/*
 llm-engine/packages/
 llm-engine/pyproject.toml
+
+.devcontainer/redis
+.devcontainer/store
