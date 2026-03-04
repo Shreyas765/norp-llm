@@ -2,8 +2,12 @@
 Module to connect with LLM.
 """
 import os
+import sys
+from pathlib import Path
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_mcp_adapters.client import MultiServerMCPClient
+from langgraph.prebuilt import create_react_agent
 from util import read_gpg_encrypted_file
 
 class LLMManager:
@@ -24,6 +28,7 @@ class LLMManager:
     """
     def __init__(self, config: dict):
         self.provider = config.get("provider", "openai").lower()
+        self._mcp_client = None
 
         if self.provider == "openai":
             self.llm = self._init_openai(config)
@@ -46,7 +51,46 @@ class LLMManager:
 
         return ChatOpenAI(model=model, temperature=0)
 
-    def invoke(self, prompt: ChatPromptTemplate, **kwargs) -> str:
+    def _get_mcp_server_path(self) -> Path:
+        return Path(__file__).resolve().parents[2] / "mcp-server" / "server.py"
+
+    def get_mcp_client(self) -> MultiServerMCPClient:
+        if self._mcp_client is not None:
+            return self._mcp_client
+
+        server_path = self._get_mcp_server_path()
+        if not server_path.exists():
+            raise FileNotFoundError(f"MCP server not found at {server_path}")
+
+        self._mcp_client = MultiServerMCPClient(
+            {
+                "local_mcp": {
+                    "transport": "stdio",
+                    "command": sys.executable,
+                    "args": [str(server_path)],
+                }
+            }
+        )
+        return self._mcp_client
+
+    async def get_mcp_tools(self, client: MultiServerMCPClient = None):
+        if client is None:
+            client = self.get_mcp_client()
+        return await client.get_tools()
+
+    async def build_mcp_agent(self, llm=None, tools=None):
+        if llm is None:
+            llm = self.llm
+        if tools is None:
+            tools = await self.get_mcp_tools()
+        return create_react_agent(llm, tools)
+
+    async def invoke(self, prompt: ChatPromptTemplate, **kwargs) -> str:
+        # messages = prompt.format_messages(**kwargs)
+        # response = self.llm.invoke(messages)
+        # return response.content
+
         messages = prompt.format_messages(**kwargs)
-        response = self.llm.invoke(messages)
+        llm_mcp = self.build_mcp_agent()
+        response = llm_mcp.invoke(messages)
         return response.content
