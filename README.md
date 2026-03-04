@@ -24,13 +24,19 @@ This application is a chatbot that interacts with users, generates SQL queries b
 
 ## Setup
 
-Create an environment using pip, activate the environment and install the required Python libraries using `pip`.
+Use the provided devcontainer to spin up a consistent dev environment plus local MariaDB and Redis services.
 
-```bash
-conda create -n NORP_llm python=3.9
-conda activate NORP_LLM
-pip install -r requirements.txt
-```
+### Requirements
+- Docker Desktop (or Docker Engine + Docker Compose)
+- Visual Studio Code
+- VS Code Dev Containers extension
+
+### Devcontainer steps (VS Code)
+1. Open this repo in VS Code.
+2. Ensure Docker is running.
+3. Run the command `Dev Containers: Reopen in Container`.
+4. VS Code will build the devcontainer defined in [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json) and start services from [.devcontainer/docker-compose.yml](.devcontainer/docker-compose.yml).
+5. Wait for the container to finish its setup (it installs Python dependencies and keeps the container running).
 
 For using an OpenAI token, create a folder named `sensitive` and a file `sensitive/openai.txt` that holds the OpenAI key. Similarly for other LLM providers, we recommend using a `sensitive/{provider}.txt` folder
 

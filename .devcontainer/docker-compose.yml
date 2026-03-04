@@ -7,7 +7,7 @@ services:
     working_dir: /workspace
     volumes:
       - ..:/workspace
-    command: /bin/bash -c "pip install -r requirements.txt && sleep infinity"
+    command: /bin/bash -c "apt-get update && apt-get install -y git curl && pip install -r requirements.txt && sleep infinity"
     networks:
       - mysqlnetwork
     depends_on:
