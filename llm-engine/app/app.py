@@ -4,15 +4,15 @@ from pydantic import BaseModel
 from ServiceManager import ServiceManager
 from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.chains.base import Chain
+from langchain_classic.chains.base import Chain
 import gnupg
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 import json
-from langchain.memory import ConversationBufferMemory
-from langchain.schema import HumanMessage, AIMessage, SystemMessage, BaseMessage
-from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_classic.memory import ConversationBufferMemory
+from langchain_classic.schema import HumanMessage, AIMessage, SystemMessage, BaseMessage
+from langchain_classic.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.prompt_values import ChatPromptValue
 from langchain_core.runnables.base import RunnableLambda
 from summarizer import summarize_chat_history
@@ -78,7 +78,7 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
     if len(chat_messages) > HISTORY_THRESHOLD:
         print("###debug the old history ###", chat_messages)
         summary_data = summarize_chat_history(chat_messages, llm)
-        
+
         summary_message = SystemMessage(content=summary_data["summary"])
         new_history = [summary_message] + summary_data["messages"]
         print("Conversation history was summarized due to length.")
@@ -89,7 +89,7 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
         # Update the local history variable to use in the prompt
         history = system_messages + new_history
         print("debug new history: ", history)
-    
+
     # Retrieve system message from Redis to ensure table info is always present in the sql generation chain message
     system_message_from_redis = redis_client.smembers(f"system_message:{session_id}")
     if system_message_from_redis:
@@ -102,7 +102,7 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
         # For initial prompt (no history)
         initial_prompt_value = INITIAL_PROMPT.invoke({
             "table_info": table_info,
-            "top_k": TOP_K_ROWS  
+            "top_k": TOP_K_ROWS
         })
         continuation_prompt_value = CONTINUATION_PROMPT.invoke({
             "question": question,
@@ -110,7 +110,7 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
         })
         messages.extend(initial_prompt_value.messages)
         messages.extend(continuation_prompt_value.messages)
-        update_chat_memory_and_redis_history(session_id, initial_prompt_value.messages[0].content, 
+        update_chat_memory_and_redis_history(session_id, initial_prompt_value.messages[0].content,
                                                 "system", memory)
     else:
         # For continuation prompt (with history)
@@ -135,7 +135,7 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
         RunnableLambda(lambda x: x)  # Pass messages directly
         | llm
     )
-    
+
     # Invoke the chain
     result = sql_generation_chain.invoke(formatted_messages)
 
@@ -146,13 +146,13 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
         message = msg.content
         if isinstance(msg, SystemMessage):
             message_type="system"
-            update_chat_memory_and_redis_history(session_id, message, 
+            update_chat_memory_and_redis_history(session_id, message,
                                                 message_type, memory)
 
-    update_chat_memory_and_redis_history(session_id, question, 
+    update_chat_memory_and_redis_history(session_id, question,
                                                 "human", memory)
 
-    memory = update_chat_memory_and_redis_history(session_id, result.content, 
+    memory = update_chat_memory_and_redis_history(session_id, result.content,
                                                   "ai", memory)
     return (result, memory)
 
@@ -184,7 +184,7 @@ def get_message_history(session_id: str) -> ConversationBufferMemory:
 
     parsed_system_messages = []
     for msg in system_messages:
-        if not msg: 
+        if not msg:
             continue
         try:
             decoded_msg = msg.decode("utf-8") if isinstance(msg, bytes) else msg
@@ -206,12 +206,12 @@ def get_message_history(session_id: str) -> ConversationBufferMemory:
 
     return memory
 
-def update_chat_memory_and_redis_history(session_id: str, message_content: str, message_type: str, 
+def update_chat_memory_and_redis_history(session_id: str, message_content: str, message_type: str,
                                          memory: ConversationBufferMemory) -> ConversationBufferMemory:
     """Save updated chat history to Redis cache and memory object.
     We use chat:<session_id> for the Human and AI messages
     system_message<session_id> is used to store the system message"""
-    
+
     redis_key = f"chat:{session_id}"
     system_message_key = f"system_message:{session_id}"  # Separate key for system messages
 
@@ -261,7 +261,7 @@ async def handle_query(request: Request):
     if not chat_request.message:
         raise HTTPException(status_code=400, detail="No question provided")
     sql_query = None
-    query_results = None 
+    query_results = None
     memory = get_message_history(chat_request.session_id)
     # Invoke the chain with the question
     try:
@@ -279,7 +279,7 @@ async def handle_query(request: Request):
         sql_query = content[6:-3].strip()  # Remove the markdown ```sql and ```
     else:
         sql_query = content.strip()
-    
+
     query_results = execute_sql_query(
         sql_query
     )

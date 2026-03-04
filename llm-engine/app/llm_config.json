@@ -1,7 +1,7 @@
 {
     "llm": {
-      "provider": "togetherai",
-      "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
-      "api_key_path": "sensitive/togetherai.txt"
+      "provider": "openai",
+      "model": "gpt-5-mini",
+      "api_key_path": "sensitive/openai.txt"
     }
 }

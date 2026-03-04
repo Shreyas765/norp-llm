@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from db import DatabaseConnection
 from llm import LLMConnection
 from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
-from langchain.chains.sql import create_sql_query_chain
+from langchain_classic.chains.sql import create_sql_query_chain
 
 from db import DatabaseConnection
 from llm import LLMConnection
@@ -36,7 +36,7 @@ chain = write_query | execute_query
 # Define the request body model using Pydantic
 class QueryRequest(BaseModel):
     question: str
-    
+
 # Define the POST request handler for sending the prompt
 @app.post("/query")
 async def handle_query(query_request: QueryRequest):

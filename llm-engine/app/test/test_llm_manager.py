@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema import BaseMessage
+from langchain_classic.prompts import ChatPromptTemplate
+from langchain_classic.schema import BaseMessage
 from app.LLMManager import LLMManager
 
 class TestLLMManager(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestLLMManager(unittest.TestCase):
         # Mock ChatOpenAI behavior
         mock_llm_instance = MagicMock()
         mock_chat_openai.return_value = mock_llm_instance
-        
+
         # Mock the LLM response
         mock_response = MagicMock()
         mock_response.content = "mock_response"
@@ -32,7 +32,7 @@ class TestLLMManager(unittest.TestCase):
         mock_prompt = MagicMock(spec=ChatPromptTemplate)
         mock_prompt.format_messages.return_value = [MagicMock(spec=BaseMessage)]
         response = llm_manager.invoke(mock_prompt, key="value")
-        
+
         mock_prompt.format_messages.assert_called_once_with(key="value")
         mock_llm_instance.invoke.assert_called_once()
         self.assertEqual(response, "mock_response")

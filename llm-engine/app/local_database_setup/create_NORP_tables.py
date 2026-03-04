@@ -6,10 +6,10 @@ import pandas as pd
 
 
 
-HOST     = '127.0.0.1'
+HOST     = 'mysql'
 DATABASE = 'local_norp'
 USER     = 'root'
-PASSWORD = 'your password'
+PASSWORD = 'root'
 # ----------------------------------------------------------------------------------------------------------------------------
 # CREATE DATABASE
 # ----------------------------------------------------------------------------------------------------------------------------
@@ -196,10 +196,10 @@ def upload_data_from_file(file_path, insert_query):
         # Insert data row by row
         for row in reader:
             cleaned_row = [
-                None if field.strip() == "" else 
-                1 if field.strip().lower() == "true" else 
-                0 if field.strip().lower() == "false" else 
-                field.strip() 
+                None if field.strip() == "" else
+                1 if field.strip().lower() == "true" else
+                0 if field.strip().lower() == "false" else
+                field.strip()
                 for field in row
             ]
             cursor.execute(insert_query, cleaned_row)
@@ -212,11 +212,11 @@ table_data = {
         "insert_query": """INSERT INTO experiencing_homelessness_age_demographics (
     	CALENDAR_YEAR, LOCATION, AGE_GROUP_PUBLIC, EXPERIENCING_HOMELESSNESS_CNT
 		) VALUES (%s, %s, %s, %s);"""
-	},    
+	},
     "us_shootings": {
         "file_path":"us_shootings.txt",
         "insert_query": """INSERT INTO us_shootings (
-            IncidentID, Address, IncidentDate, State, CityOrCountry, VictimsKilled, VictimsInjured, 
+            IncidentID, Address, IncidentDate, State, CityOrCountry, VictimsKilled, VictimsInjured,
             SuspectsInjured, SuspectsKilled, SuspectsArrested
         ) VALUES (%s, %s, (STR_TO_DATE(%s,'%M %d, %Y')), %s, %s, %s, %s, %s, %s, %s);
         """
@@ -227,32 +227,32 @@ table_data = {
             PopulationCount, County
         ) VALUES (%s, %s);
         """
-    }, 
+    },
     "us_population": {
         "file_path":"us_population.txt",
         "insert_query": """INSERT INTO us_population (
             CensurYear, State, PopulationCount
         ) VALUES (%s, %s, %s);
         """
-    }, 
+    },
     "food_access": {
         "file_path":"food_access.txt",
         "insert_query": """INSERT INTO food_access (
-		CensusTract, State, County, Urban, Pop2010, Ohu2010, LILATracts_1And10, LILATracts_halfAnd10, 
-		LILATracks_1And20, LILATractsVehicle, HUNVFlag, LowIncomeTracts, PovertyRate, MedianFamilyIncome, 
-		LA1and10, LAhalfand10, LA1and20, LATracts_half, LATracts1, LATracts10, LATracts20, LATractsVehicle_20, 
-		LAPOP1_10, LAPOP05_10, LAPOP1_20, LALOWI1_10, LALOWI05_10, LALOWI1_20, lapophalf, lalowihalf, 
-		lakidshalf, laseniorshalf, lawhitehalf, lablackhalf, laasianhalf, lanhopihalf, laaianhalf, laomultirhalf, 
-		lahisphalf, lahunvhalf, lasnaphalf, lapop1, lalowi1, lakids1, laseniors1, lawhite1, lablack1, laasian1, 
-		lanhopi1, laaian1, laomultir1, lahisp1, lahunv1, lasnap1, lapop10, lalowi10, lakids10, laseniors10, 
-		lawhite10, lablack10, laasian10, lanhopi10, laaian10, laomultir10, lahisp10, lahunv10, lasnap10, 
-		lapop20, lalowi20, lakids20, laseniors20, lawhite20, lablack20, laasian20, lanhopi20, laaian20, 
-		laomultir20, lahisp20, lahunv20, lasnap20, TractLOWI, TractKids, TractSeniors, TractWhite, TractBlack, 
+		CensusTract, State, County, Urban, Pop2010, Ohu2010, LILATracts_1And10, LILATracts_halfAnd10,
+		LILATracks_1And20, LILATractsVehicle, HUNVFlag, LowIncomeTracts, PovertyRate, MedianFamilyIncome,
+		LA1and10, LAhalfand10, LA1and20, LATracts_half, LATracts1, LATracts10, LATracts20, LATractsVehicle_20,
+		LAPOP1_10, LAPOP05_10, LAPOP1_20, LALOWI1_10, LALOWI05_10, LALOWI1_20, lapophalf, lalowihalf,
+		lakidshalf, laseniorshalf, lawhitehalf, lablackhalf, laasianhalf, lanhopihalf, laaianhalf, laomultirhalf,
+		lahisphalf, lahunvhalf, lasnaphalf, lapop1, lalowi1, lakids1, laseniors1, lawhite1, lablack1, laasian1,
+		lanhopi1, laaian1, laomultir1, lahisp1, lahunv1, lasnap1, lapop10, lalowi10, lakids10, laseniors10,
+		lawhite10, lablack10, laasian10, lanhopi10, laaian10, laomultir10, lahisp10, lahunv10, lasnap10,
+		lapop20, lalowi20, lakids20, laseniors20, lawhite20, lablack20, laasian20, lanhopi20, laaian20,
+		laomultir20, lahisp20, lahunv20, lasnap20, TractLOWI, TractKids, TractSeniors, TractWhite, TractBlack,
 		TractAsian, TractNHOPI, TractAIAN, TractOMultir, TractHispanic, TractHUNV, TractSNAP
 	) VALUES (
-		%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
-		%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
-		%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+		%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+		%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+		%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
 		%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
 	);
 	""",
@@ -260,7 +260,7 @@ table_data = {
 }
 
 for table in table_data:
-    if table == "food_access": 
+    if table == "food_access":
         continue
     else:
         upload_data_from_file(table_data[table]["file_path"], table_data[table]["insert_query"])

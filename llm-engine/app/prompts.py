@@ -1,4 +1,4 @@
-from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_classic.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 ## Prompts to create SQL query
 # This is the first prompt with all table schema, 3 rows of every table information
@@ -32,14 +32,14 @@ Write the query for this task:
 "Calculate victims killed per million capita for each state."
 
 Correct:
-SELECT State, 
+SELECT State,
        SUM(VictimsKilled) / SUM(PopulationCount) * 1000000 AS VictimsKilledPerMillionCapita
 FROM us_shootings
 JOIN us_population ON us_shootings.State = us_population.State
 GROUP BY State;
 
 Incorrect:
-SELECT State, 
+SELECT State,
        SUM(VictimsKilled) / PopulationCount * 1000000 AS VictimsKilledPerMillionCapita
 FROM us_shootings
 JOIN us_population ON us_shootings.State = us_population.State
