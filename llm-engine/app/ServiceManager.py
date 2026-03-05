@@ -10,6 +10,7 @@ class ServiceManager:
     def __init__(self, config, llm_config):
         self.db_manager = None
         self.llm_manager = None
+        self.llm = None
         self.initialize_services(config, llm_config)
 
     def initialize_services(self, config, llm_config):
@@ -21,7 +22,8 @@ class ServiceManager:
 
         # Initialize LLM
         llm_manager = LLMManager(llm_config["llm"])
-        self.llm_manager = llm_manager.llm
+        self.llm_manager = llm_manager
+        self.llm = llm_manager.llm
         
         # Initialize Redis connection
         self.redis_manager = RedisManager(config["redis_host_url"], config["redis_port"], config["redis_password"])
@@ -32,8 +34,13 @@ class ServiceManager:
         return self.db_manager
 
     def get_llm(self):
-        if not self.llm_manager:
+        if not self.llm:
             raise HTTPException(status_code=500, detail="LLM connection not initialized.")
+        return self.llm
+
+    def get_llm_manager(self):
+        if not self.llm_manager:
+            raise HTTPException(status_code=500, detail="LLM manager not initialized.")
         return self.llm_manager
     
     def get_redis(self):

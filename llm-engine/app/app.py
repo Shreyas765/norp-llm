@@ -10,6 +10,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 import json
+import os
+import argparse
 from langchain_classic.memory import ConversationBufferMemory
 from langchain_classic.schema import HumanMessage, AIMessage, SystemMessage, BaseMessage
 from langchain_classic.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -47,6 +49,7 @@ redis_client = service_manager.get_redis()
 redis_client = redis_client.redis
 db = service_manager.get_db()
 llm = service_manager.get_llm()
+llm_manager = service_manager.get_llm_manager()
 
 @app.get("/")
 async def redirect_root_to_docs():
@@ -156,6 +159,64 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
                                                   "ai", memory)
     return (result, memory)
 
+async def run_mcp_chain(question: str, history: List[dict], session_id: str, memory: ConversationBufferMemory):
+    """Run the MCP-only chain with conversation history"""
+    messages = []
+
+    HISTORY_THRESHOLD = 20
+
+    system_messages = [msg for msg in history if isinstance(msg, SystemMessage)]
+    chat_messages = [msg for msg in history if isinstance(msg, (HumanMessage, AIMessage))]
+
+    if len(chat_messages) > HISTORY_THRESHOLD:
+        summary_data = summarize_chat_history(chat_messages, llm)
+
+        summary_message = SystemMessage(content=summary_data["summary"])
+        new_history = [summary_message] + summary_data["messages"]
+        print("Conversation history was summarized due to length.")
+        # Update Redis cache: delete old history and set the new summarized history
+        redis_client.delete(f"chat:{session_id}")
+        for msg in new_history:
+            redis_client.rpush(f"chat:{session_id}", json.dumps(msg.model_dump(mode="json")))
+        # Update the local history variable to use in the prompt
+        history = system_messages + new_history
+
+    prompt_value = MCP_PROMPT.invoke({
+        "question": question,
+        "history": history
+    })
+    messages.extend(prompt_value.messages)
+
+    # Ensure all messages are of type BaseMessage with correct types
+    formatted_messages = []
+    for msg in messages:
+        if isinstance(msg, SystemMessage):
+            formatted_messages.insert(0, msg)  # Ensure system message is at the start
+        elif isinstance(msg, HumanMessage):
+            formatted_messages.append(HumanMessage(content=msg.content))
+        elif isinstance(msg, AIMessage):
+            formatted_messages.append(AIMessage(content=msg.content))
+
+    tools = await llm_manager.get_mcp_tools()
+    agent = await llm_manager.build_mcp_agent(llm=llm, tools=tools)
+    result = await agent.ainvoke({"messages": formatted_messages})
+    result_messages = result.get("messages", [])
+    final_message = None
+    for msg in reversed(result_messages):
+        if isinstance(msg, AIMessage):
+            final_message = msg
+            break
+    if final_message is None:
+        raise RuntimeError("MCP agent returned no AI message.")
+
+    for msg in messages:
+        if isinstance(msg, SystemMessage):
+            update_chat_memory_and_redis_history(session_id, msg.content, "system", memory)
+
+    update_chat_memory_and_redis_history(session_id, question, "human", memory)
+    memory = update_chat_memory_and_redis_history(session_id, final_message.content, "ai", memory)
+    return (final_message, memory)
+
 # Define the request body model using Pydantic
 class ChatRequest(BaseModel):
     session_id: int
@@ -247,6 +308,10 @@ def execute_sql_query(sql_query:str):
         print(error_message)
     return query_results
 
+def is_mcp_only() -> bool:
+    value = os.getenv("MCP_ONLY", "").strip().lower()
+    return value in {"1", "true", "yes", "y", "on"}
+
 # Define the POST request handler for sending the prompt
 # remove chat response
 # @app.post("/query", response_model=ChatResponse)
@@ -263,29 +328,47 @@ async def handle_query(request: Request):
     sql_query = None
     query_results = None
     memory = get_message_history(chat_request.session_id)
-    # Invoke the chain with the question
-    try:
-        sql_query, memory = run_sql_chain(
-            chat_request.message,
-            memory.load_memory_variables({})["history"],
-            chat_request.session_id,
-            memory
-        )
-    except Exception as e:
-        print(e)
-        raise HTTPException(status_code=500, detail=str(e))
-    content = sql_query.content
-    if content.startswith('```sql') and content.endswith('```'):
-        sql_query = content[6:-3].strip()  # Remove the markdown ```sql and ```
+    if is_mcp_only():
+        try:
+            result, memory = await run_mcp_chain(
+                chat_request.message,
+                memory.load_memory_variables({})["history"],
+                chat_request.session_id,
+                memory
+            )
+        except Exception as e:
+            print(e)
+            raise HTTPException(status_code=500, detail=str(e))
+        return {"response": result.content, "sql_query": None, "query_results": None}
     else:
-        sql_query = content.strip()
+        # Invoke the SQL chain with the question
+        try:
+            sql_query, memory = run_sql_chain(
+                chat_request.message,
+                memory.load_memory_variables({})["history"],
+                chat_request.session_id,
+                memory
+            )
+        except Exception as e:
+            print(e)
+            raise HTTPException(status_code=500, detail=str(e))
+        content = sql_query.content
+        if content.startswith('```sql') and content.endswith('```'):
+            sql_query = content[6:-3].strip()  # Remove the markdown ```sql and ```
+        else:
+            sql_query = content.strip()
 
-    query_results = execute_sql_query(
-        sql_query
-    )
+        query_results = execute_sql_query(
+            sql_query
+        )
 
-    return {"sql_query": sql_query, "query_results": query_results}
+        return {"sql_query": sql_query, "query_results": query_results}
 
 if __name__ == "__main__":
     import uvicorn
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mcp-only", action="store_true", help="Run with MCP-only prompt and responses.")
+    args = parser.parse_args()
+    if args.mcp_only:
+        os.environ["MCP_ONLY"] = "1"
     uvicorn.run(app, host="0.0.0.0", port=8000)

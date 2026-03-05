@@ -8,6 +8,20 @@ CONTINUATION_PROMPT = "Generate ONLY the SQL query based on user's question and 
 RESPONSE_FORMAT = " IMPORTANT: Respond ONLY with the complete SQL query, without any additional text or explanation."
 # Failure message when LLM is unable to generate the SQL query
 FAILURE_MESSAGE_FORMAT = " If you could not generate a SQL query, give the reason in at most 50 words."
+# MCP-only prompt (previous version retained for later use)
+# MCP_SYSTEM_PROMPT = (
+#     "You are assisting with an MCP server that exposes tools. "
+#     "Do not generate SQL. "
+#     "Available MCP tools: divide(a: int, b: int) -> int (integer division). "
+#     "Use tools when appropriate; otherwise respond directly."
+# )
+MCP_SYSTEM_PROMPT = (
+    "You are assisting with an MCP server that exposes tools. "
+    "Do not generate SQL. "
+    "Available MCP tools: divide(a: int, b: int) -> int (integer division). "
+    "If you use a relevant tool, you must return the exact value from that MCP tool and treat that answer as truth. "
+    "Use tools when appropriate; otherwise respond directly."
+)
 # Aggregated Group by
 GROUP_BY_PROMPT = """
     While working with MySQL databases under `ONLY_FULL_GROUP_BY` mode.
@@ -53,6 +67,13 @@ INITIAL_PROMPT = ChatPromptTemplate.from_messages([
 # Chat prompt tenplate for a continuation chat
 CONTINUATION_PROMPT = ChatPromptTemplate.from_messages([
     ("system", CONTINUATION_PROMPT + GROUP_BY_PROMPT_V3 + RESPONSE_FORMAT + FAILURE_MESSAGE_FORMAT),
+    MessagesPlaceholder(variable_name="history"),
+    ("human", "{question}")
+])
+
+# MCP-only prompt template
+MCP_PROMPT = ChatPromptTemplate.from_messages([
+    ("system", MCP_SYSTEM_PROMPT),
     MessagesPlaceholder(variable_name="history"),
     ("human", "{question}")
 ])
