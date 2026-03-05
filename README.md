@@ -57,6 +57,12 @@ The file `llm-engine/app/config.json` holds the details for the SQL and Redis co
 In order to set up the Redis instance, simply connect the port number to the `llm-engine/app/RedisManager.py` and `llm-engine/app/config.json`.
 
 ## Running the app
+## Running the MCP server
+Start the MCP server before running the app:
+```
+python mcp-server/server.py
+```
+
 To run the server, use the following command
 ```
 cd ./llm-engine/app

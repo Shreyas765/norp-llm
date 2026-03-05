@@ -4,11 +4,13 @@
 - `llm-engine/app/` holds the FastAPI service, LLM integrations, Redis/DB managers, and config files.
 - `llm-engine/app/test/` contains unit tests (Python `unittest`).
 - `llm-engine/app/local_database_setup/` contains scripts and sample data for local MySQL setup.
+- `mcp-server/` holds a basic MCP server implementation and tests.
 - Root files: `requirements.txt` for dependencies and `README.md` for setup notes.
 
 ## Build, Test, and Development Commands
 - `pip install -r requirements.txt` installs Python dependencies.
 - `cd llm-engine/app && uvicorn app:app --reload --host 127.0.0.1 --port 8000` starts the API locally.
+- `python mcp-server/server.py` runs the MCP server (stdio transport).
 - `python test_responses.py --question "..." --session_id 123` sends a sample request to a running server.
 - `python -m unittest discover -s llm-engine/app/test` runs the test suite.
 
