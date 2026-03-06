@@ -11,7 +11,20 @@ spec.loader.exec_module(module)
 
 class TestMCPServer(unittest.TestCase):
     def test_add_tool(self):
-        self.assertEqual(module.add(1, 2), 3)
+        self.assertEqual(module.divide(1, 2), 0)
+
+    def test_execute_sql_live_select_1(self):
+        result = module.execute_sql("SELECT COUNT(*) FROM us_population_county")
+        self.assertIn("5", result)
+
+    def test_execute_sql_show_tables(self):
+        result = module.execute_sql("SHOW TABLES")
+        self.assertNotIn("Database error:", result)
+        self.assertNotIn("Configuration error:", result)
+
+    def test_execute_sql_rejects_write_query(self):
+        result = module.execute_sql("DELETE FROM fake_table")
+        self.assertIn("only read-only SQL is allowed", result)
 
     def test_server_has_run_method(self):
         self.assertTrue(hasattr(module, "mcp"))

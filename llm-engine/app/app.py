@@ -12,6 +12,7 @@ from typing import List, Optional, Dict, Any
 import json
 import os
 import argparse
+from pathlib import Path
 from langchain_classic.memory import ConversationBufferMemory
 from langchain_classic.schema import HumanMessage, AIMessage, SystemMessage, BaseMessage
 from langchain_classic.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -38,7 +39,9 @@ def read_json(file_name):
         print(f"An unexpected error occurred: {e}")
 
 # Example usage
-config_details = read_json('config.json')
+APP_DIR = Path(__file__).resolve().parent
+REPO_ROOT = APP_DIR.parent.parent
+config_details = read_json(str(REPO_ROOT / "config.json"))
 llm_config = read_json('llm_config.json')
 
 app = FastAPI()

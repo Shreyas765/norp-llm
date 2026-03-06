@@ -40,7 +40,7 @@ Use the provided devcontainer to spin up a consistent dev environment plus local
 
 For using an OpenAI token, create a folder named `sensitive` and a file `sensitive/openai.txt` that holds the OpenAI key. Similarly for other LLM providers, we recommend using a `sensitive/{provider}.txt` folder
 
-The file `llm-engine/app/config.json` holds the details for the SQL and Redis connections. The descriptions of the fields are given below
+The file `config.json` holds the details for the SQL and Redis connections. The descriptions of the fields are given below
 
 ```json
 {
@@ -54,7 +54,7 @@ The file `llm-engine/app/config.json` holds the details for the SQL and Redis co
 ```
 
 ## Setting up the Redis instance
-In order to set up the Redis instance, simply connect the port number to the `llm-engine/app/RedisManager.py` and `llm-engine/app/config.json`.
+In order to set up the Redis instance, simply connect the port number to the `llm-engine/app/RedisManager.py` and `config.json`.
 
 ## Running the app
 ## Running the MCP server
@@ -70,20 +70,20 @@ uvicorn app:app --reload --host 127.0.0.1 --port 8000
 ```
 
 ## Setting up the MySQL database connection
-Simply connect the Database URL and password from `llm-engine/app/config.json` or environment variables and update `llm-engine/app/DatabaseManager.py` if needed.
+Simply connect the Database URL and password from `config.json` or environment variables and update `llm-engine/app/DatabaseManager.py` if needed.
 You can also connect to local MySQL Database by passing the relevant URL to ServiceManager.
 
 
 ## Hitting the app with API requests
 First approach is using a CURL command after the app is running.
 ```
-Invoke-RestMethod -Uri "http://127.0.0.1:8000/query" ` 
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/query" `
 
-  -Method Post ` 
+  -Method Post `
 
-  -ContentType "application/json" ` 
+  -ContentType "application/json" `
 
-  -Body '{"question": "Give me the number of employees who are male", "session_id": 12345, "message_type": "human"}' 
+  -Body '{"question": "Give me the number of employees who are male", "session_id": 12345, "message_type": "human"}'
 ```
 Another approach is to run `test_responses.py` script.
 ```
@@ -95,7 +95,7 @@ python test_responses.py --question "For each month, get count of victims killed
 2. Now, run `create_NORP_tables.py` to create local sample tables after filling
 in the correct details for the database username and password.
 3. Run the app using `uvicorn app:app --reload --host 127.0.0.1 --port 8000`
-4. Use `test_responses.py` script to see the results. 
+4. Use `test_responses.py` script to see the results.
 ---
 
 ### Summarizer Threshold Configuration
