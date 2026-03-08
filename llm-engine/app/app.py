@@ -184,7 +184,9 @@ async def run_mcp_chain(question: str, history: List[dict], session_id: str, mem
         # Update the local history variable to use in the prompt
         history = system_messages + new_history
 
+    table_info = db.get_table_info()
     prompt_value = MCP_PROMPT.invoke({
+        "table_info": table_info,
         "question": question,
         "history": history
     })

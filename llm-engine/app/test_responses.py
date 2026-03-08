@@ -19,6 +19,8 @@ def run_query(question, session_id):
         # Parse JSON response
         response_data = response.json()
         
+        print("Response:")
+        print(response_data.get("response", "No response returned"))
         print("SQL query:")
         print(response_data.get("sql_query", "No SQL query returned"))
         print("Table:")

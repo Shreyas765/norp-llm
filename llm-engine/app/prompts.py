@@ -1,5 +1,7 @@
 from langchain_classic.prompts import ChatPromptTemplate, MessagesPlaceholder
 
+from constants import TOP_K_ROWS
+
 ## Prompts to create SQL query
 # This is the first prompt with all table schema, 3 rows of every table information
 INITIAL_DATABASE_INFO_PROMPT = "You are a MySQL expert. Given an input question, create a syntactically correct SQL query to run. Unless otherwise specified, do not return more than {top_k} rows.\n\nHere is the relevant table info: {table_info}."
@@ -17,10 +19,14 @@ FAILURE_MESSAGE_FORMAT = " If you could not generate a SQL query, give the reaso
 # )
 MCP_SYSTEM_PROMPT = (
     "You are assisting with an MCP server that exposes tools. "
-    "Do not generate SQL. "
-    "Available MCP tools: divide(a: int, b: int) -> int (integer division). "
-    "If you use a relevant tool, you must return the exact value from that MCP tool and treat that answer as truth. "
-    "Use tools when appropriate; otherwise respond directly."
+    "Available MCP tools: "
+    "divide(a: int, b: int) -> int (integer division); "
+    "execute_sql(query: str) -> str (run a read-only SQL query against the MySQL database, returns CSV). "
+    "For questions about data, statistics, or database content, use execute_sql with a valid SELECT/SHOW/DESCRIBE/EXPLAIN query. "
+    f"Unless otherwise specified, limit results to {TOP_K_ROWS} rows. "
+    "If you use a tool, return the exact value from that tool and treat it as truth. "
+    "Use tools when appropriate; otherwise respond directly.\n\n"
+    "Database schema:\n{table_info}"
 )
 # Aggregated Group by
 GROUP_BY_PROMPT = """
@@ -71,7 +77,7 @@ CONTINUATION_PROMPT = ChatPromptTemplate.from_messages([
     ("human", "{question}")
 ])
 
-# MCP-only prompt template
+# MCP-only prompt template (table_info, question, history)
 MCP_PROMPT = ChatPromptTemplate.from_messages([
     ("system", MCP_SYSTEM_PROMPT),
     MessagesPlaceholder(variable_name="history"),
