@@ -36,9 +36,10 @@ norp-llm/
 │   ├── test_responses.py       # Manual API test script
 │   ├── local_database_setup/   # create_NORP_tables.py, sample data
 │   └── test/                   # Unit tests (unittest)
-├── mcp-server/                 # MCP server (execute_sql tool)
-│   └── server.py               # Run before main app
-└── test_responses.py           # (if at root) or llm-engine/app/test_responses.py
+├── mcp-server/                 # MCP server (execute_sql, fetch_us_shootings)
+│   ├── server.py               # Run before main app
+│   └── tools/                  # Tool implementations
+│       └── fetch_us_shootings.py
 ```
 
 ---
@@ -146,13 +147,19 @@ With the app running:
 
 ```bash
 cd llm-engine/app
-python test_responses.py --question "For each month, get count of victims killed and average of victims killed in each shooting incident." --session_id 585
+python test_responses.py --question "Show me 5 shootings in Texas" --session_id 585
 ```
 
-Or from repo root (if script is there):
+Or from repo root:
 
 ```bash
-python test_responses.py --question "Give me the number of employees who are male" --session_id 123
+python llm-engine/app/test_responses.py --question "Show me 5 shootings in Texas" --session_id 999
+```
+
+For aggregation questions (uses `execute_sql`):
+
+```bash
+python llm-engine/app/test_responses.py --question "How many shootings were there in Mississippi in January 2014?" --session_id 999
 ```
 
 ### 2. Unit Tests
@@ -168,6 +175,16 @@ python -m unittest discover -s llm-engine/app/test
 ```bash
 python mcp-server/test_mcp_server.py
 ```
+
+---
+
+## MCP Tools (exposed by mcp-server)
+
+| Tool | Purpose |
+|------|---------|
+| `fetch_us_shootings` | Fetch us_shootings rows with optional filters (state, limit, order_by, desc). Use for list/show/get questions about shootings. Returns CSV. |
+| `execute_sql` | Run read-only SQL (SELECT, SHOW, DESCRIBE, EXPLAIN). Use for aggregations, counts, other tables, JOINs. Returns CSV. |
+| `divide` | Integer division (utility). |
 
 ---
 
@@ -205,7 +222,7 @@ python mcp-server/test_mcp_server.py
 2. **Change LLM provider:** Update `llm_config.json` and add `sensitive/{provider}.txt`.
 3. **Adjust summarization threshold:** Set `HISTORY_THRESHOLD` in `llm-engine/app/app.py`.
 4. **Add database tables:** Use or extend `create_NORP_tables.py` and update schema docs.
-5. **Add MCP tools:** Edit `mcp-server/server.py` (e.g., `execute_sql` tool).
+5. **Add MCP tools:** Edit `mcp-server/server.py` (e.g., `execute_sql`, `fetch_us_shootings`). Use `@mcp.tool()` decorator.
 
 ---
 
