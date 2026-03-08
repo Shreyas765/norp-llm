@@ -314,8 +314,10 @@ def execute_sql_query(sql_query:str):
     return query_results
 
 def is_mcp_only() -> bool:
-    value = os.getenv("MCP_ONLY", "").strip().lower()
-    return value in {"1", "true", "yes", "y", "on"}
+    value = os.getenv("MCP_ONLY")
+    if value is None:
+        return True
+    return value.strip() != "0"
 
 # Define the POST request handler for sending the prompt
 # remove chat response

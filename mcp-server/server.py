@@ -7,6 +7,8 @@ from urllib.parse import urlparse
 from mcp.server.fastmcp import FastMCP
 from mysql.connector import Error, connect
 
+from tools.fetch_us_shootings import fetch_shootings as fetch_shootings_tool
+
 mcp = FastMCP("Basic MCP Server")
 
 ALLOWED_READ_ONLY_SQL = ("SELECT", "SHOW", "DESCRIBE", "EXPLAIN")
@@ -108,6 +110,19 @@ def execute_sql(query: str) -> str:
                 columns = [desc[0] for desc in cursor.description]
                 rows = cursor.fetchall()
                 return _rows_to_csv_text(columns, rows)
+    except RuntimeError as exc:
+        return str(exc)
+    except Error as exc:
+        return f"Database error: {exc}"
+
+
+@mcp.tool()
+def fetch_shootings(state: str | None = None, limit: int = 10,
+                    order_by: str = "IncidentDate", desc: bool = True):
+    """Fetch rows from us_shootings with optional filters."""
+    try:
+        mysql_config = get_mysql_connection_config()
+        return fetch_shootings_tool(config=mysql_config, state=state, limit=limit, order_by=order_by, desc=desc)
     except RuntimeError as exc:
         return str(exc)
     except Error as exc:

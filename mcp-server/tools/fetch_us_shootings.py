@@ -7,15 +7,13 @@ import argparse
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from server import get_mysql_connection_config
 from mysql.connector import connect, Error
 
 
-def fetch_shootings(state=None, limit=10, order_by="IncidentDate", desc=True):
+def fetch_shootings(config: dict, state=None, limit=10, order_by="IncidentDate", desc=True):
     """Fetch rows from us_shootings with optional filters."""
-    config = get_mysql_connection_config()
     query = "SELECT IncidentID, Address, IncidentDate, State, CityOrCountry, VictimsKilled, VictimsInjured FROM us_shootings"
     params = []
 

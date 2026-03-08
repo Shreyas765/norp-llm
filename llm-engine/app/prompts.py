@@ -20,6 +20,8 @@ FAILURE_MESSAGE_FORMAT = " If you could not generate a SQL query, give the reaso
 MCP_SYSTEM_PROMPT = (
     "You are assisting with an MCP server that exposes tools. "
     "Available MCP tools: "
+    "fetch_shootings(state: str | None, limit: int, order_by: str, desc: bool) -> list[dict] "
+    "(fetch rows from us_shootings); "
     "divide(a: int, b: int) -> int (integer division); "
     "execute_sql(query: str) -> str (run a read-only SQL query against the MySQL database, returns CSV). "
     "For questions about data, statistics, or database content, use execute_sql with a valid SELECT/SHOW/DESCRIBE/EXPLAIN query. "
