@@ -42,7 +42,9 @@ def main():
     args = parser.parse_args()
 
     try:
-        rows = fetch_shootings(state=args.state, limit=args.limit, order_by=args.order, desc=not args.asc)
+        from server import get_mysql_connection_config
+        config = get_mysql_connection_config()
+        rows = fetch_shootings(config=config, state=args.state, limit=args.limit, order_by=args.order, desc=not args.asc)
     except Error as e:
         print(f"Database error: {e}", file=sys.stderr)
         sys.exit(1)

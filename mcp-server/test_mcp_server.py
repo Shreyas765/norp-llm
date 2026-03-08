@@ -24,11 +24,10 @@ class TestMCPServer(unittest.TestCase):
         self.assertNotIn("Database error:", result)
         self.assertNotIn("Configuration error:", result)
 
-    def test_fetch_shootings(self):
-        result = module.fetch_shootings(limit=1)
-        self.assertIsInstance(result, list)
-        if result:
-            self.assertIn("IncidentID", result[0])
+    def test_fetch_us_shootings(self):
+        result = module.fetch_us_shootings(limit=1)
+        self.assertIsInstance(result, str)
+        self.assertIn("IncidentID", result)
 
     def test_execute_sql_rejects_write_query(self):
         result = module.execute_sql("DELETE FROM fake_table")

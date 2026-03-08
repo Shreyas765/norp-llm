@@ -117,12 +117,33 @@ def execute_sql(query: str) -> str:
 
 
 @mcp.tool()
-def fetch_shootings(state: str | None = None, limit: int = 10,
-                    order_by: str = "IncidentDate", desc: bool = True):
-    """Fetch rows from us_shootings with optional filters."""
+def fetch_us_shootings(
+    state: str | None = None,
+    limit: int = 10,
+    order_by: str = "IncidentDate",
+    desc: bool = True,
+) -> str:
+    """Fetch us_shootings data with optional filters. Use for questions about US shooting incidents.
+    Args:
+        state: Filter by state (e.g. California, Texas). Optional.
+        limit: Max rows to return (default 10).
+        order_by: Column to order by: IncidentDate, VictimsKilled, State, or IncidentID.
+        desc: Sort descending if True, ascending if False.
+    """
     try:
         mysql_config = get_mysql_connection_config()
-        return fetch_shootings_tool(config=mysql_config, state=state, limit=limit, order_by=order_by, desc=desc)
+        rows = fetch_shootings_tool(
+            config=mysql_config,
+            state=state,
+            limit=limit,
+            order_by=order_by,
+            desc=desc,
+        )
+        if not rows:
+            return "No rows found."
+        columns = list(rows[0].keys())
+        row_tuples = [tuple(r[c] for c in columns) for r in rows]
+        return _rows_to_csv_text(columns, row_tuples)
     except RuntimeError as exc:
         return str(exc)
     except Error as exc:
