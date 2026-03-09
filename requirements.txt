@@ -2,6 +2,9 @@ cryptography==46.0.5
 fastapi==0.135.1
 gnupg==2.3.1
 importlib-metadata==8.0.0
+jaraco-context==6.1.0
+jaraco-functools==4.4.0
+jaraco-text==4.2.0
 jaraco.collections==5.1.0
 langchain==1.2.10
 langchain-community==0.4.1
@@ -14,7 +17,6 @@ platformdirs==4.2.2
 prettytable==3.17.0
 redis==7.2.1
 tomli==2.0.1
-typer==0.24.1
 # aiohappyeyeballs==2.6.1 # Installed as dependency for aiohttp
 # aiohttp==3.13.3 # Installed as dependency for langchain-community
 # aiosignal==1.4.0 # Installed as dependency for aiohttp
@@ -23,7 +25,7 @@ typer==0.24.1
 # anyio==4.12.1 # Installed as dependency for httpx, mcp, openai, sse-starlette, starlette
 # attrs==25.4.0 # Installed as dependency for aiohttp, jsonschema, referencing
 # autocommand==2.2.2 # Installed as dependency for jaraco.text
-# backports.tarfile==1.2.0 # Installed as dependency for jaraco.context
+# backports.tarfile==1.2.0 # Installed as dependency for jaraco-context, jaraco.context
 # certifi==2026.2.25 # Installed as dependency for httpcore, httpx, requests
 # cffi==2.0.0 # Installed as dependency for cryptography
 # charset-normalizer==3.4.4 # Installed as dependency for requests
@@ -38,8 +40,8 @@ typer==0.24.1
 # httpx-sse==0.4.3 # Installed as dependency for langchain-community, mcp
 # idna==3.11 # Installed as dependency for anyio, httpx, requests, yarl
 # inflect==7.3.1 # Installed as dependency for jaraco.text
-# jaraco.context==5.3.0 # Installed as dependency for jaraco.text
-# jaraco.functools==4.0.1 # Installed as dependency for jaraco.text
+# jaraco.context==5.3.0 # Installed as dependency for jaraco-text, jaraco.text
+# jaraco.functools==4.0.1 # Installed as dependency for jaraco-text, jaraco.text
 # jaraco.text==3.12.1 # Installed as dependency for jaraco.collections
 # jiter==0.13.0 # Installed as dependency for openai
 # jsonpatch==1.33 # Installed as dependency for langchain-core
@@ -58,7 +60,7 @@ typer==0.24.1
 # marshmallow==3.26.2 # Installed as dependency for dataclasses-json
 # mcp==1.26.0 # Installed as dependency for langchain-mcp-adapters
 # mdurl==0.1.2 # Installed as dependency for markdown-it-py
-# more-itertools==10.3.0 # Installed as dependency for inflect, jaraco.functools, jaraco.text
+# more-itertools==10.8.0 # Installed as dependency for inflect, jaraco-functools, jaraco-text, jaraco.functools, jaraco.text
 # multidict==6.7.1 # Installed as dependency for aiohttp, yarl
 # mypy-extensions==1.1.0 # Installed as dependency for typing-inspect
 # numpy==2.4.2 # Installed as dependency for langchain-community, pandas
@@ -94,6 +96,8 @@ typer==0.24.1
 # tiktoken==0.12.0 # Installed as dependency for langchain-openai
 # tqdm==4.67.3 # Installed as dependency for openai
 # typeguard==4.3.0 # Installed as dependency for inflect
+# typer==0.24.1 # Installed as dependency for typer-slim
+# typer-slim==0.24.0 # Installed as dependency for jaraco-text
 # typing-extensions==4.15.0 # Installed as dependency for aiosignal, anyio, fastapi, langchain-core, langchain-mcp-adapters, mcp, openai, pydantic, pydantic-core, referencing, sqlalchemy, starlette, typeguard, typing-inspect, typing-inspection
 # typing-inspect==0.9.0 # Installed as dependency for dataclasses-json
 # typing-inspection==0.4.2 # Installed as dependency for fastapi, mcp, pydantic, pydantic-settings
@@ -103,5 +107,5 @@ typer==0.24.1
 # wcwidth==0.6.0 # Installed as dependency for prettytable
 # xxhash==3.6.0 # Installed as dependency for langgraph, langsmith
 # yarl==1.23.0 # Installed as dependency for aiohttp
-# zipp==3.19.2 # Installed as dependency for importlib-metadata
+# zipp==3.23.0 # Installed as dependency for importlib-metadata
 # zstandard==0.25.0 # Installed as dependency for langsmith
