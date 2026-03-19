@@ -116,6 +116,25 @@ class TestMCPServer(unittest.TestCase):
         result = module.summarize_ngos(order="sideways")
         self.assertIn("Validation error:", result)
 
+    def test_fetch_faa_aircraft_data_master_sample(self):
+        result = module.fetch_faa_aircraft_data("master", limit=1)
+        self.assert_live_db_result(result)
+        self.assertIn("n_number", result)
+
+    def test_fetch_faa_aircraft_data_master_by_n_number(self):
+        result = module.fetch_faa_aircraft_data("master", limit=5, search_value="N100")
+        self.assert_live_db_result(result)
+        self.assertIn("N100", result)
+
+    def test_fetch_faa_aircraft_data_acftref(self):
+        result = module.fetch_faa_aircraft_data("acftref", limit=2)
+        self.assert_live_db_result(result)
+        self.assertIn("code", result)
+
+    def test_fetch_faa_aircraft_data_rejects_bad_dataset(self):
+        result = module.fetch_faa_aircraft_data("not_a_dataset", limit=1)
+        self.assertIn("Validation error:", result)
+
     def test_execute_sql_rejects_write_query(self):
         result = module.execute_sql("DELETE FROM fake_table")
         self.assertIn("only read-only SQL is allowed", result)
