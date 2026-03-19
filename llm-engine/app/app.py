@@ -206,7 +206,6 @@ async def run_mcp_chain(question: str, history: List[dict], session_id: str, mem
     agent = await llm_manager.build_mcp_agent(llm=llm, tools=tools)
     result = await agent.ainvoke({"messages": formatted_messages})
     result_messages = result.get("messages", [])
-    breakpoint()
     final_message = None
     for msg in reversed(result_messages):
         if isinstance(msg, AIMessage):
