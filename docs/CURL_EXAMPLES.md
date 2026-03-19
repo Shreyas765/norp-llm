@@ -125,6 +125,78 @@ curl -sS --max-time 180 "http://127.0.0.1:8000/query" \
 
 ---
 
+## 5. NGOs — search by county (MCP: `search_ngos`)
+
+**Command:**
+
+```bash
+curl -sS --max-time 180 "http://127.0.0.1:8000/query" \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data '{"question": "Give me NGOs in Albany County.", "session_id": 305, "message_type": "human"}' \
+  | python3 -m json.tool
+```
+
+**Sample output:**
+
+```json
+{
+    "response": "Here are 5 NGOs in Albany County (from the database):\n\n- EIN: 222719837 - 100 South Swan Street Realty Corp - Albany, NY - NTEE: S47 - Category: Community Improvement, Capacity Building\n- EIN: 352433476 - 105Th Military Police Company Alumni Association Troy New York - Latham, NY - NTEE: W30 - Category: Public & Societal Benefit\n- EIN: 100004869 - 195 Fort Edward Inc - Albany, NY - NTEE: S47 - Category: Community Improvement, Capacity Building\n- EIN: 352381188 - 2-1-1 New York Inc - Latham, NY - NTEE: E70 - Category: Health Care\n- EIN: 141760872 - 222 Riverside Plaza Corp - Albany, NY - NTEE: C99 - Category: Environment\n\nWould you like more results, a different limit, or to filter by category (for example, Health Care, Education, Environment)?",
+    "sql_query": null,
+    "query_results": null
+}
+```
+
+---
+
+## 6. NGOs — summarize by state for a category (MCP: `summarize_ngos`)
+
+**Command:**
+
+```bash
+curl -sS --max-time 180 "http://127.0.0.1:8000/query" \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data '{"question": "Which states have the most religion-related NGOs?", "session_id": 306, "message_type": "human"}' \
+  | python3 -m json.tool
+```
+
+**Sample output:**
+
+```json
+{
+    "response": "Here are the states with the most religion-related NGOs (top 10):\n\n- NY: 17,655\n- CA: 12,977\n- OH: 11,201\n- PA: 11,124\n- TX: 7,153\n- IN: 7,148\n- NJ: 6,804\n- FL: 6,081\n- IL: 4,311\n- GA: 3,453\n\nIf you want this as a CSV, a chart, or filtered by per-capita counts (religion NGOs per 100k residents), I can provide that too.",
+    "sql_query": null,
+    "query_results": null
+}
+```
+
+---
+
+## 7. NGOs — fetch one NGO by EIN (MCP: `get_ngo_by_ein`)
+
+**Command:**
+
+```bash
+curl -sS --max-time 180 "http://127.0.0.1:8000/query" \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data '{"question": "Give me the full name and full address of the NGO with EIN 100006500.", "session_id": 307, "message_type": "human"}' \
+  | python3 -m json.tool
+```
+
+**Sample output:**
+
+```json
+{
+    "response": "Here's the NGO you requested:\n\nName: Lebanon Volunteer Fire Department\nFull address: PO BOX 51, LEBANON, CT, 06249-0051\n\nDo you need anything else about this NGO?",
+    "sql_query": null,
+    "query_results": null
+}
+```
+
+---
+
 ## PowerShell (Windows)
 
 ```powershell
