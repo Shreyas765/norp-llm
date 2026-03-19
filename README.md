@@ -75,18 +75,22 @@ You can also connect to local MySQL Database by passing the relevant URL to Serv
 
 
 ## Hitting the app with API requests
-First approach is using a CURL command after the app is running.
-```
+Start Redis, MySQL, the MCP server (`python mcp-server/server.py`), and the app (`uvicorn` as above). In **MCP-only** mode (default), the model picks tools such as unemployment helpers, `fetch_faa_aircraft_data`, or read-only `execute_sql`.
+
+**`curl` examples with sample JSON responses** (unemployment + FAA) live in [docs/CURL_EXAMPLES.md](docs/CURL_EXAMPLES.md).
+
+### PowerShell example
+
+```powershell
 Invoke-RestMethod -Uri "http://127.0.0.1:8000/query" `
-
   -Method Post `
-
   -ContentType "application/json" `
-
   -Body '{"question": "Give me the number of employees who are male", "session_id": 12345, "message_type": "human"}'
 ```
-Another approach is to run `test_responses.py` script.
-```
+
+Another approach is to run `test_responses.py` from `llm-engine/app`:
+
+```bash
 python test_responses.py --question "For each month, get count of victims killed and average of victims killed in each shooting incident." --session_id 585
 ```
 

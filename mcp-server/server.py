@@ -11,6 +11,7 @@ from mysql.connector import Error, connect
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tools.fetch_us_shootings import fetch_shootings as fetch_shootings_tool
+from tools.faa_releasable_aircraft import fetch_faa_aircraft_data as fetch_faa_aircraft_data_tool
 from tools.unemployment_rates_by_state import (
     compare_unemployment_states as compare_unemployment_states_tool,
     get_state_unemployment_summary as get_state_unemployment_summary_tool,
@@ -216,6 +217,44 @@ def list_unemployment_rankings(
             order=order,
             limit=limit,
             include_united_states=include_united_states,
+        )
+        if not rows:
+            return "No rows found."
+        columns = list(rows[0].keys())
+        row_tuples = [tuple(r[c] for c in columns) for r in rows]
+        return _rows_to_csv_text(columns, row_tuples)
+    except ValueError as exc:
+        return str(exc)
+    except RuntimeError as exc:
+        return str(exc)
+    except Error as exc:
+        return f"Database error: {exc}"
+
+
+@mcp.tool()
+def fetch_faa_aircraft_data(
+    dataset: str,
+    limit: int = 10,
+    search_value: str | None = None,
+    state: str | None = None,
+) -> str:
+    """Fetch rows from FAA releasable aircraft tables (master, acftref, engine, dealer, docindex, dereg, reserved).
+
+    Args:
+        dataset: One of master, acftref, engine, dealer, docindex, dereg, reserved (matches FAA_Releasable_Aircraft_*.csv).
+        limit: Max rows (1–500, default 10).
+        search_value: Optional exact lookup — N-number for master/reserved/dereg; code for acftref/engine;
+            certificate number for dealer; doc id / collateral aircraft / serial id for docindex.
+        state: Optional filter on state (master, reserved, dealer) or mail state abbreviation (dereg).
+    """
+    try:
+        mysql_config = get_mysql_connection_config()
+        rows = fetch_faa_aircraft_data_tool(
+            config=mysql_config,
+            dataset=dataset,
+            limit=limit,
+            search_value=search_value,
+            state=state,
         )
         if not rows:
             return "No rows found."

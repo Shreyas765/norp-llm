@@ -199,6 +199,201 @@ CREATE TABLE unemployment_rates_by_state (
 );
 """)
 
+# FAA Releasable Aircraft (seeded from FAA_Releasable_Aircraft_*.csv)
+cursor.execute("""
+CREATE TABLE faa_master (
+    n_number VARCHAR(16) NOT NULL PRIMARY KEY,
+    serial_number TEXT,
+    mfr_mdl_code TEXT,
+    eng_mfr_mdl TEXT,
+    year_mfr TEXT,
+    owner_type TEXT,
+    registrant_name TEXT,
+    street TEXT,
+    street2 TEXT,
+    city TEXT,
+    state TEXT,
+    zip_code TEXT,
+    region TEXT,
+    county TEXT,
+    country TEXT,
+    last_action_date TEXT,
+    cert_issue_date TEXT,
+    certification TEXT,
+    airworthiness_classification TEXT,
+    approved_operations TEXT,
+    type_aircraft TEXT,
+    type_engine TEXT,
+    status_code TEXT,
+    mode_s_code TEXT,
+    fract_owner TEXT,
+    air_worth_date TEXT,
+    other_names1 TEXT,
+    other_names2 TEXT,
+    other_names3 TEXT,
+    other_names4 TEXT,
+    other_names5 TEXT,
+    expiration_date TEXT,
+    unique_id TEXT,
+    kit_mfr TEXT,
+    kit_model TEXT,
+    mode_s_code_hex TEXT
+);
+""")
+cursor.execute("""
+CREATE TABLE faa_acftref (
+    code VARCHAR(32) NOT NULL PRIMARY KEY,
+    mfr_code TEXT,
+    model_code TEXT,
+    series_code TEXT,
+    mfr TEXT,
+    model TEXT,
+    type_acft TEXT,
+    type_eng TEXT,
+    ac_cat TEXT,
+    build_cert_ind TEXT,
+    no_eng TEXT,
+    no_seats TEXT,
+    ac_weight TEXT,
+    speed TEXT,
+    tc_data_sheet TEXT,
+    tc_data_holder TEXT
+);
+""")
+cursor.execute("""
+CREATE TABLE faa_engine (
+    code VARCHAR(16) NOT NULL PRIMARY KEY,
+    mfr TEXT,
+    model TEXT,
+    eng_type TEXT,
+    horsepower TEXT,
+    thrust TEXT
+);
+""")
+cursor.execute("""
+CREATE TABLE faa_dealer (
+    certificate_number VARCHAR(32) NOT NULL PRIMARY KEY,
+    ownership TEXT,
+    certificate_date TEXT,
+    expiration_date TEXT,
+    expired TEXT,
+    certificate_issue_count TEXT,
+    dealer_name TEXT,
+    street TEXT,
+    street2 TEXT,
+    city TEXT,
+    state TEXT,
+    zip_code TEXT,
+    other_names_count TEXT,
+    other_names_1 TEXT,
+    other_names_2 TEXT,
+    other_names_3 TEXT,
+    other_names_4 TEXT,
+    other_names_5 TEXT,
+    other_names_6 TEXT,
+    other_names_7 TEXT,
+    other_names_8 TEXT,
+    other_names_9 TEXT,
+    other_names_10 TEXT,
+    other_names_11 TEXT,
+    other_names_12 TEXT,
+    other_names_13 TEXT,
+    other_names_14 TEXT,
+    other_names_15 TEXT,
+    other_names_16 TEXT,
+    other_names_17 TEXT,
+    other_names_18 TEXT,
+    other_names_19 TEXT,
+    other_names_20 TEXT,
+    other_names_21 TEXT,
+    other_names_22 TEXT,
+    other_names_23 TEXT,
+    other_names_24 TEXT,
+    other_names_25 TEXT
+);
+""")
+cursor.execute("""
+CREATE TABLE faa_docindex (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    type_collateral TEXT,
+    collateral_aircraft TEXT,
+    collateral_engine TEXT,
+    collateral_propeller TEXT,
+    collateral_spare_parts TEXT,
+    collateral_document TEXT,
+    collateral_unidentified TEXT,
+    party TEXT,
+    doc_id TEXT,
+    drdate TEXT,
+    processing_date TEXT,
+    corr_date TEXT,
+    corr_id TEXT,
+    serial_id TEXT,
+    doc_type TEXT
+);
+""")
+cursor.execute("""
+CREATE TABLE faa_dereg (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    n_number TEXT,
+    serial_number TEXT,
+    mfr_mdl_code TEXT,
+    status_code TEXT,
+    registrant_name TEXT,
+    street_mail TEXT,
+    street2_mail TEXT,
+    city_mail TEXT,
+    state_abbrev_mail TEXT,
+    zip_code_mail TEXT,
+    eng_mfr_mdl TEXT,
+    year_mfr TEXT,
+    certification TEXT,
+    airworthiness_classification TEXT,
+    approved_operations TEXT,
+    region TEXT,
+    county_mail TEXT,
+    country_mail TEXT,
+    air_worth_date TEXT,
+    cancel_date TEXT,
+    mode_s_code TEXT,
+    owner_type TEXT,
+    exp_country TEXT,
+    last_act_date TEXT,
+    cert_issue_date TEXT,
+    street_physical TEXT,
+    street2_physical TEXT,
+    city_physical TEXT,
+    state_abbrev_physical TEXT,
+    zip_code_physical TEXT,
+    county_physical TEXT,
+    country_physical TEXT,
+    other_names1 TEXT,
+    other_names2 TEXT,
+    other_names3 TEXT,
+    other_names4 TEXT,
+    other_names5 TEXT,
+    kit_mfr TEXT,
+    kit_model TEXT,
+    mode_s_code_hex TEXT
+);
+""")
+cursor.execute("""
+CREATE TABLE faa_reserved (
+    n_number VARCHAR(16) NOT NULL PRIMARY KEY,
+    registrant TEXT,
+    street TEXT,
+    street2 TEXT,
+    city TEXT,
+    state TEXT,
+    zip_code TEXT,
+    rsv_date TEXT,
+    tr TEXT,
+    exp_date TEXT,
+    n_num_chg TEXT,
+    purge_date TEXT
+);
+""")
+
 # Function to upload data from a text file
 def upload_data_from_file(file_path, insert_query):
     with open(file_path, 'r') as file:
@@ -294,6 +489,90 @@ table_data = {
     }
 }
 
+faa_table_data = {
+    "faa_master": {
+        "file_path": "FAA_Releasable_Aircraft_master.csv",
+        "insert_query": """INSERT INTO faa_master (
+            n_number, serial_number, mfr_mdl_code, eng_mfr_mdl, year_mfr, owner_type, registrant_name,
+            street, street2, city, state, zip_code, region, county, country, last_action_date,
+            cert_issue_date, certification, airworthiness_classification, approved_operations,
+            type_aircraft, type_engine, status_code, mode_s_code, fract_owner, air_worth_date,
+            other_names1, other_names2, other_names3, other_names4, other_names5, expiration_date,
+            unique_id, kit_mfr, kit_model, mode_s_code_hex
+        ) VALUES (
+            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+        );
+        """,
+    },
+    "faa_acftref": {
+        "file_path": "FAA_Releasable_Aircraft_acftref.csv",
+        "insert_query": """INSERT INTO faa_acftref (
+            code, mfr_code, model_code, series_code, mfr, model, type_acft, type_eng, ac_cat,
+            build_cert_ind, no_eng, no_seats, ac_weight, speed, tc_data_sheet, tc_data_holder
+        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """,
+    },
+    "faa_engine": {
+        "file_path": "FAA_Releasable_Aircraft_engine.csv",
+        "insert_query": """INSERT INTO faa_engine (
+            code, mfr, model, eng_type, horsepower, thrust
+        ) VALUES (%s, %s, %s, %s, %s, %s);
+        """,
+    },
+    "faa_dealer": {
+        "file_path": "FAA_Releasable_Aircraft_dealer.csv",
+        "insert_query": """INSERT INTO faa_dealer (
+            certificate_number, ownership, certificate_date, expiration_date, expired,
+            certificate_issue_count, dealer_name, street, street2, city, state, zip_code,
+            other_names_count, other_names_1, other_names_2, other_names_3, other_names_4,
+            other_names_5, other_names_6, other_names_7, other_names_8, other_names_9,
+            other_names_10, other_names_11, other_names_12, other_names_13, other_names_14,
+            other_names_15, other_names_16, other_names_17, other_names_18, other_names_19,
+            other_names_20, other_names_21, other_names_22, other_names_23, other_names_24,
+            other_names_25
+        ) VALUES (
+            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+        );
+        """,
+    },
+    "faa_docindex": {
+        "file_path": "FAA_Releasable_Aircraft_docindex.csv",
+        "insert_query": """INSERT INTO faa_docindex (
+            type_collateral, collateral_aircraft, collateral_engine, collateral_propeller,
+            collateral_spare_parts, collateral_document, collateral_unidentified, party, doc_id,
+            drdate, processing_date, corr_date, corr_id, serial_id, doc_type
+        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """,
+    },
+    "faa_dereg": {
+        "file_path": "FAA_Releasable_Aircraft_dereg.csv",
+        "insert_query": """INSERT INTO faa_dereg (
+            n_number, serial_number, mfr_mdl_code, status_code, registrant_name, street_mail,
+            street2_mail, city_mail, state_abbrev_mail, zip_code_mail, eng_mfr_mdl, year_mfr,
+            certification, airworthiness_classification, approved_operations, region, county_mail,
+            country_mail, air_worth_date, cancel_date, mode_s_code, owner_type, exp_country,
+            last_act_date, cert_issue_date, street_physical, street2_physical, city_physical,
+            state_abbrev_physical, zip_code_physical, county_physical, country_physical,
+            other_names1, other_names2, other_names3, other_names4, other_names5, kit_mfr,
+            kit_model, mode_s_code_hex
+        ) VALUES (
+            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+        );
+        """,
+    },
+    "faa_reserved": {
+        "file_path": "FAA_Releasable_Aircraft_reserved.csv",
+        "insert_query": """INSERT INTO faa_reserved (
+            n_number, registrant, street, street2, city, state, zip_code, rsv_date, tr, exp_date,
+            n_num_chg, purge_date
+        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """,
+    },
+}
+
 for table in table_data:
     if table == "food_access":
         continue
@@ -303,6 +582,13 @@ for table in table_data:
     else:
         upload_data_from_file(table_data[table]["file_path"], table_data[table]["insert_query"])
         print(f"Done for {table}")
+
+for faa_table in faa_table_data:
+    upload_data_from_csv(
+        faa_table_data[faa_table]["file_path"],
+        faa_table_data[faa_table]["insert_query"],
+    )
+    print(f"Done for {faa_table}")
 
 # Close the database connection
 conn.close()

@@ -163,7 +163,11 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
     return (result, memory)
 
 async def run_mcp_chain(question: str, history: List[dict], session_id: str, memory: ConversationBufferMemory):
-    """Run the MCP-only chain with conversation history"""
+    """Run the MCP-only chain with conversation history.
+
+    Tool surface is defined in ``mcp-server/server.py`` (e.g. shootings, unemployment, FAA aircraft)
+    and described for the model in ``prompts.MCP_SYSTEM_PROMPT`` / ``MCP_PROMPT``.
+    """
     messages = []
 
     HISTORY_THRESHOLD = 20
@@ -206,7 +210,6 @@ async def run_mcp_chain(question: str, history: List[dict], session_id: str, mem
     agent = await llm_manager.build_mcp_agent(llm=llm, tools=tools)
     result = await agent.ainvoke({"messages": formatted_messages})
     result_messages = result.get("messages", [])
-    breakpoint()
     final_message = None
     for msg in reversed(result_messages):
         if isinstance(msg, AIMessage):

@@ -147,13 +147,13 @@ With the app running:
 
 ```bash
 cd llm-engine/app
-python test_responses.py --question "Show me 5 shootings in Texas" --session_id 585
+python test_responses.py --question "Show me 5 shootings in Virgina" --session_id 585
 ```
 
 Or from repo root:
 
 ```bash
-python llm-engine/app/test_responses.py --question "Show me 5 shootings in Texas" --session_id 999
+python llm-engine/app/test_responses.py --question "Show me 5 shootings in Virginia" --session_id 999
 ```
 
 For aggregation questions (uses `execute_sql`):
