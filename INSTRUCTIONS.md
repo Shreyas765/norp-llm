@@ -23,6 +23,8 @@ norp-llm/
 ├── config.json                 # DB + Redis connection (repo root)
 ├── requirements.txt            # Python dependencies
 ├── INSTRUCTIONS.md             # This file
+├── docs/
+│   └── TOOLS.md                # Full MCP tool catalog for testing
 ├── README.md                   # User-facing docs
 ├── AGENTS.md                   # Repo guidelines for contributors
 ├── .devcontainer/              # Dev container + Docker Compose
@@ -141,6 +143,8 @@ API base URL: `http://127.0.0.1:8000`
 
 ## Testing
 
+Before choosing a test path or forming tool-based prompts, read `docs/TOOLS.md` for the current MCP tool inventory and example queries. This is the source of truth for which tools are available to test.
+
 ### 1. Manual API Test
 
 With the app running:
@@ -180,11 +184,19 @@ python mcp-server/test_mcp_server.py
 
 ## MCP Tools (exposed by mcp-server)
 
+For the complete tool list used in testing, including newer dataset-specific tools and example prompts, see `docs/TOOLS.md`.
+
 | Tool | Purpose |
 |------|---------|
 | `fetch_us_shootings` | Fetch us_shootings rows with optional filters (state, limit, order_by, desc). Use for list/show/get questions about shootings. Returns CSV. |
 | `execute_sql` | Run read-only SQL (SELECT, SHOW, DESCRIBE, EXPLAIN). Use for aggregations, counts, other tables, JOINs. Returns CSV. |
-| `divide` | Integer division (utility). |
+| `get_state_unemployment_summary` | Fetch unemployment data for one state or the United States aggregate row. |
+| `compare_unemployment_states` | Compare unemployment data for two states, or a state versus the United States. |
+| `list_unemployment_rankings` | List unemployment rows ranked by a selected metric such as `Rate_2023` or `State_Rank`. |
+| `get_ngo_by_ein` | Fetch full NGO details for a single EIN. |
+| `search_ngos` | Search NGO records with optional filters such as state, category, city, county, or partial name. |
+| `summarize_ngos` | Summarize NGO counts by category, state, county, city, or NTEE code, with optional filters. |
+| `fetch_faa_aircraft_data` | Fetch FAA releasable aircraft data from a selected FAA dataset, with optional exact lookup and state filter. |
 
 ---
 
