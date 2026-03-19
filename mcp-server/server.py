@@ -1,13 +1,21 @@
 """Basic MCP server with arithmetic and read-only MySQL tools."""
 
 import json
+import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
 from mcp.server.fastmcp import FastMCP
 from mysql.connector import Error, connect
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 from tools.fetch_us_shootings import fetch_shootings as fetch_shootings_tool
+from tools.unemployment_rates_by_state import (
+    compare_unemployment_states as compare_unemployment_states_tool,
+    get_state_unemployment_summary as get_state_unemployment_summary_tool,
+    list_unemployment_rankings as list_unemployment_rankings_tool,
+)
 
 mcp = FastMCP("Basic MCP Server")
 
@@ -144,6 +152,78 @@ def fetch_us_shootings(
         columns = list(rows[0].keys())
         row_tuples = [tuple(r[c] for c in columns) for r in rows]
         return _rows_to_csv_text(columns, row_tuples)
+    except RuntimeError as exc:
+        return str(exc)
+    except Error as exc:
+        return f"Database error: {exc}"
+
+
+@mcp.tool()
+def get_state_unemployment_summary(state: str) -> str:
+    """Fetch unemployment data for a single state or the United States aggregate row."""
+    try:
+        mysql_config = get_mysql_connection_config()
+        rows = get_state_unemployment_summary_tool(config=mysql_config, state=state)
+        if not rows:
+            return "No rows found."
+        columns = list(rows[0].keys())
+        row_tuples = [tuple(r[c] for c in columns) for r in rows]
+        return _rows_to_csv_text(columns, row_tuples)
+    except ValueError as exc:
+        return str(exc)
+    except RuntimeError as exc:
+        return str(exc)
+    except Error as exc:
+        return f"Database error: {exc}"
+
+
+@mcp.tool()
+def compare_unemployment_states(state_a: str, state_b: str = "United States") -> str:
+    """Compare unemployment data for two states or a state versus the United States."""
+    try:
+        mysql_config = get_mysql_connection_config()
+        rows = compare_unemployment_states_tool(
+            config=mysql_config,
+            state_a=state_a,
+            state_b=state_b,
+        )
+        if not rows:
+            return "No rows found."
+        columns = list(rows[0].keys())
+        row_tuples = [tuple(r[c] for c in columns) for r in rows]
+        return _rows_to_csv_text(columns, row_tuples)
+    except ValueError as exc:
+        return str(exc)
+    except RuntimeError as exc:
+        return str(exc)
+    except Error as exc:
+        return f"Database error: {exc}"
+
+
+@mcp.tool()
+def list_unemployment_rankings(
+    metric: str = "Rate_2023",
+    order: str = "desc",
+    limit: int = 10,
+    include_united_states: bool = False,
+) -> str:
+    """List unemployment rows ranked by a selected metric."""
+    try:
+        mysql_config = get_mysql_connection_config()
+        rows = list_unemployment_rankings_tool(
+            config=mysql_config,
+            metric=metric,
+            order=order,
+            limit=limit,
+            include_united_states=include_united_states,
+        )
+        if not rows:
+            return "No rows found."
+        columns = list(rows[0].keys())
+        row_tuples = [tuple(r[c] for c in columns) for r in rows]
+        return _rows_to_csv_text(columns, row_tuples)
+    except ValueError as exc:
+        return str(exc)
     except RuntimeError as exc:
         return str(exc)
     except Error as exc:

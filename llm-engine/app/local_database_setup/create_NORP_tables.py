@@ -188,10 +188,38 @@ cursor.execute("""CREATE TABLE us_population_county (
 );
 """)
 
+cursor.execute("""
+CREATE TABLE unemployment_rates_by_state (
+    State VARCHAR(255),
+    Rate_2022 DECIMAL(3,1),
+    Rate_2023 DECIMAL(3,1),
+    Rate_Change DECIMAL(3,1),
+    State_Rank INT,
+    PRIMARY KEY (State)
+);
+""")
+
 # Function to upload data from a text file
 def upload_data_from_file(file_path, insert_query):
     with open(file_path, 'r') as file:
         reader = csv.reader(file, delimiter=";")
+
+        # Insert data row by row
+        for row in reader:
+            cleaned_row = [
+                None if field.strip() == "" else
+                1 if field.strip().lower() == "true" else
+                0 if field.strip().lower() == "false" else
+                field.strip()
+                for field in row
+            ]
+            cursor.execute(insert_query, cleaned_row)
+    conn.commit()
+
+def upload_data_from_csv(file_path, insert_query):
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        next(reader, None)
 
         # Insert data row by row
         for row in reader:
@@ -257,11 +285,21 @@ table_data = {
 	);
 	""",
     },
+    "unemployment_rates_by_state": {
+        "file_path":"create_unemployment_rates_by_state.csv",
+        "insert_query": """INSERT INTO unemployment_rates_by_state (
+            State, Rate_2022, Rate_2023, Rate_Change, State_Rank
+        ) VALUES (%s, %s, %s, %s, %s);
+        """
+    }
 }
 
 for table in table_data:
     if table == "food_access":
         continue
+    elif table == "unemployment_rates_by_state":
+        upload_data_from_csv(table_data[table]["file_path"], table_data[table]["insert_query"])
+        print(f"Done for {table}")
     else:
         upload_data_from_file(table_data[table]["file_path"], table_data[table]["insert_query"])
         print(f"Done for {table}")
