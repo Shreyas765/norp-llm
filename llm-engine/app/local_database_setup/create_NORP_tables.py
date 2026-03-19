@@ -199,6 +199,21 @@ CREATE TABLE unemployment_rates_by_state (
 );
 """)
 
+cursor.execute("""
+CREATE TABLE ngos_with_categorization (
+    Ein BIGINT PRIMARY KEY,
+    Name TEXT,
+    Fulladdr TEXT,
+    City VARCHAR(255),
+    State VARCHAR(2),
+    Zip VARCHAR(20),
+    County VARCHAR(255),
+    Ntee_Code VARCHAR(20),
+    Category VARCHAR(255),
+    Is_Category_Llm_Generated BOOLEAN
+);
+""")
+
 # FAA Releasable Aircraft (seeded from FAA_Releasable_Aircraft_*.csv)
 cursor.execute("""
 CREATE TABLE faa_master (
@@ -486,6 +501,13 @@ table_data = {
             State, Rate_2022, Rate_2023, Rate_Change, State_Rank
         ) VALUES (%s, %s, %s, %s, %s);
         """
+    },
+    "ngos_with_categorization": {
+        "file_path":"ngos_with_categorization.csv",
+        "insert_query": """INSERT INTO ngos_with_categorization (
+            Ein, Name, Fulladdr, City, State, Zip, County, Ntee_Code, Category, Is_Category_Llm_Generated
+        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """
     }
 }
 
@@ -576,7 +598,7 @@ faa_table_data = {
 for table in table_data:
     if table == "food_access":
         continue
-    elif table == "unemployment_rates_by_state":
+    elif table in ("unemployment_rates_by_state", "ngos_with_categorization"):
         upload_data_from_csv(table_data[table]["file_path"], table_data[table]["insert_query"])
         print(f"Done for {table}")
     else:

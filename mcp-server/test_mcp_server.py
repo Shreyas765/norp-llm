@@ -76,6 +76,46 @@ class TestMCPServer(unittest.TestCase):
         result = module.list_unemployment_rankings(order="sideways")
         self.assertIn("Validation error:", result)
 
+    def test_get_ngo_by_ein(self):
+        result = module.get_ngo_by_ein(100000023)
+        self.assert_live_db_result(result)
+        self.assertIn("Ein", result)
+        self.assertIn("Name", result)
+
+    def test_search_ngos(self):
+        result = module.search_ngos(limit=1)
+        self.assert_live_db_result(result)
+        self.assertIn("Ein", result)
+        self.assertIn("Category", result)
+
+    def test_search_ngos_with_state_and_category(self):
+        result = module.search_ngos(state="CA", category="Education", limit=3)
+        self.assert_live_db_result(result)
+        self.assertIn("Category", result)
+
+    def test_search_ngos_with_name_query(self):
+        result = module.search_ngos(name_query="Foundation", limit=3)
+        self.assert_live_db_result(result)
+        self.assertIn("Name", result)
+
+    def test_summarize_ngos(self):
+        result = module.summarize_ngos(limit=5)
+        self.assert_live_db_result(result)
+        self.assertIn("ngo_count", result)
+
+    def test_summarize_ngos_by_state_for_category(self):
+        result = module.summarize_ngos(group_by="State", category="Education", limit=5)
+        self.assert_live_db_result(result)
+        self.assertIn("ngo_count", result)
+
+    def test_summarize_ngos_rejects_invalid_group_by(self):
+        result = module.summarize_ngos(group_by="BadField")
+        self.assertIn("Validation error:", result)
+
+    def test_summarize_ngos_rejects_invalid_order(self):
+        result = module.summarize_ngos(order="sideways")
+        self.assertIn("Validation error:", result)
+
     def test_fetch_faa_aircraft_data_master_sample(self):
         result = module.fetch_faa_aircraft_data("master", limit=1)
         self.assert_live_db_result(result)

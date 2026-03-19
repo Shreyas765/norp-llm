@@ -11,6 +11,11 @@ from mysql.connector import Error, connect
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tools.fetch_us_shootings import fetch_shootings as fetch_shootings_tool
+from tools.ngos_with_categorization import (
+    get_ngo_by_ein as get_ngo_by_ein_tool,
+    search_ngos as search_ngos_tool,
+    summarize_ngos as summarize_ngos_tool,
+)
 from tools.faa_releasable_aircraft import fetch_faa_aircraft_data as fetch_faa_aircraft_data_tool
 from tools.unemployment_rates_by_state import (
     compare_unemployment_states as compare_unemployment_states_tool,
@@ -232,6 +237,91 @@ def list_unemployment_rankings(
 
 
 @mcp.tool()
+def get_ngo_by_ein(ein: int) -> str:
+    """Fetch NGO details for a single EIN."""
+    try:
+        mysql_config = get_mysql_connection_config()
+        rows = get_ngo_by_ein_tool(config=mysql_config, ein=ein)
+        if not rows:
+            return "No rows found."
+        columns = list(rows[0].keys())
+        row_tuples = [tuple(r[c] for c in columns) for r in rows]
+        return _rows_to_csv_text(columns, row_tuples)
+    except ValueError as exc:
+        return str(exc)
+    except RuntimeError as exc:
+        return str(exc)
+    except Error as exc:
+        return f"Database error: {exc}"
+
+
+@mcp.tool()
+def search_ngos(
+    state: str | None = None,
+    category: str | None = None,
+    city: str | None = None,
+    county: str | None = None,
+    name_query: str | None = None,
+    limit: int = 10,
+) -> str:
+    """Search NGO rows with optional filters."""
+    try:
+        mysql_config = get_mysql_connection_config()
+        rows = search_ngos_tool(
+            config=mysql_config,
+            state=state,
+            category=category,
+            city=city,
+            county=county,
+            name_query=name_query,
+            limit=limit,
+        )
+        if not rows:
+            return "No rows found."
+        columns = list(rows[0].keys())
+        row_tuples = [tuple(r[c] for c in columns) for r in rows]
+        return _rows_to_csv_text(columns, row_tuples)
+    except ValueError as exc:
+        return str(exc)
+    except RuntimeError as exc:
+        return str(exc)
+    except Error as exc:
+        return f"Database error: {exc}"
+
+
+@mcp.tool()
+def summarize_ngos(
+    group_by: str = "Category",
+    state: str | None = None,
+    category: str | None = None,
+    limit: int = 10,
+    order: str = "desc",
+) -> str:
+    """Summarize NGO counts by a selected dimension."""
+    try:
+        mysql_config = get_mysql_connection_config()
+        rows = summarize_ngos_tool(
+            config=mysql_config,
+            group_by=group_by,
+            state=state,
+            category=category,
+            limit=limit,
+            order=order,
+        )
+        if not rows:
+            return "No rows found."
+        columns = list(rows[0].keys())
+        row_tuples = [tuple(r[c] for c in columns) for r in rows]
+        return _rows_to_csv_text(columns, row_tuples)
+    except ValueError as exc:
+        return str(exc)
+    except RuntimeError as exc:
+        return str(exc)
+    except Error as exc:
+        return f"Database error: {exc}"
+
+
+@mcp.tool()
 def fetch_faa_aircraft_data(
     dataset: str,
     limit: int = 10,
@@ -256,6 +346,7 @@ def fetch_faa_aircraft_data(
             search_value=search_value,
             state=state,
         )
+        print(rows)
         if not rows:
             return "No rows found."
         columns = list(rows[0].keys())
