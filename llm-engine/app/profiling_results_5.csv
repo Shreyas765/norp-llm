@@ -1,0 +1,93 @@
+mode,category,question,session_id,http_status,request_success,total_latency_ms,response_text,sql_query,query_results,failure_type,error_detail
+mcp,shootings,Give me US shootings in Louisiana from the year 2014.,100001,200,True,6303.333,"IncidentID,Address,IncidentDate,State,CityOrCountry,VictimsKilled,VictimsInjured
+95500,""3600 block of Highway 80 W"",2014-01-12,louisiana,Tallulah,0,6",,,none,
+mcp,unemployment,Give me the unemployment rate for Georgia in 2023.,100002,200,True,4961.817,Georgia — Unemployment rate in 2023: 3.3% (change from 2022: +0.1 percentage points).,,,none,
+mcp,unemployment,How does the unemployment rate in Hawaii compare to Indiana in 2023?,100003,200,True,6108.603,"- Hawaii (2023): 2.9% (down 0.4 percentage points from 2022), rank = 6  
+- Indiana (2023): 3.4% (up 0.3 percentage points from 2022), rank = 44
+
+Hawaii’s 2023 unemployment rate was 0.5 percentage points lower than Indiana’s.",,,none,
+mcp,unemployment,What were the five states with the lowest unemployment rates in 2022?,100004,200,True,4980.831,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+South Dakota,1.9,1.8,-0.1,19
+North Dakota,2.1,2.0,-0.1,19
+Nebraska,2.2,2.3,0.1,35
+New Hampshire,2.4,2.3,-0.1,19
+Utah,2.4,2.7,0.3,44",,,none,
+mcp,ngo,Give me the full name and full address of the NGO with EIN 100006500.,100005,200,True,4511.567,"Name: Lebanon Volunteer Fire Department
+Full address: PO BOX 51, LEBANON, CT 06249-0051, Lebanon County, Connecticut",,,none,
+text2sql,shootings,Give me US shootings in Louisiana from the year 2014.,200001,200,True,8583.682,,"SELECT IncidentID,
+       Address,
+       IncidentDate,
+       State,
+       CityOrCountry,
+       VictimsKilled,
+       VictimsInjured,
+       SuspectsInjured,
+       SuspectsKilled,
+       SuspectsArrested
+FROM us_shootings
+WHERE LOWER(TRIM(State)) = 'louisiana'
+  AND IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+  AND YEAR(IncidentDate) = 2014
+ORDER BY IncidentDate;","[(95500, '3600 block of Highway 80 W', datetime.date(2014, 1, 12), 'louisiana', 'Tallulah', 0, 6, 0, 0, 8)]",none,
+text2sql,unemployment,Give me the unemployment rate for Georgia in 2023.,200002,200,True,7963.051,,"SELECT State,
+       Rate_2023 AS UnemploymentRate2023
+FROM unemployment_rates_by_state
+WHERE State = 'Georgia'
+  AND State IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL;","[('Georgia', Decimal('3.3'))]",none,
+text2sql,unemployment,How does the unemployment rate in Hawaii compare to Indiana in 2023?,200003,200,True,15622.946,,"SELECT
+  MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) AS Hawaii_Rate_2023,
+  MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END) AS Indiana_Rate_2023,
+  (MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) - MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END)) AS Rate_Difference,
+  ROUND(
+    (MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) - MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END))
+    / NULLIF(MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END), 0) * 100, 2
+  ) AS Percent_Difference,
+  CASE
+    WHEN MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) > MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END) THEN 'Hawaii higher'
+    WHEN MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) < MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END) THEN 'Indiana higher'
+    ELSE 'Equal'
+  END AS Comparison
+FROM unemployment_rates_by_state
+WHERE State IN ('Hawaii', 'Indiana')
+  AND State IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL;","[(Decimal('2.9'), Decimal('3.4'), Decimal('-0.5'), Decimal('-14.71'), 'Indiana higher')]",none,
+text2sql,unemployment,What were the five states with the lowest unemployment rates in 2022?,200004,200,True,9151.173,,"SELECT State,
+       Rate_2022 AS UnemploymentRate2022
+FROM unemployment_rates_by_state
+WHERE State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+ORDER BY Rate_2022 ASC, State ASC
+LIMIT 5;","[('South Dakota', Decimal('1.9')), ('North Dakota', Decimal('2.1')), ('Nebraska', Decimal('2.2')), ('New Hampshire', Decimal('2.4')), ('Utah', Decimal('2.4'))]",none,
+text2sql,ngo,Give me the full name and full address of the NGO with EIN 100006500.,200005,200,True,6949.677,,"SELECT Name AS FullName, Fulladdr AS FullAddress
+FROM ngos_with_categorization
+WHERE Ein = 100006500
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 1;",,none,

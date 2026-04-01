@@ -1,0 +1,12 @@
+Benchmark CSV: /workspace/llm-engine/app/benchmark_questions.csv
+Output CSV: /workspace/llm-engine/app/profiling_results_smoke.csv
+Log directory: /workspace/llm-engine/app/profiling_logs
+Running benchmark mode: mcp
+[mcp] Prompt 1/1: Give me US shootings in Louisiana from the year 2014.
+Running benchmark mode: text2sql
+[text2sql] Prompt 1/1: Give me US shootings in Louisiana from the year 2014.
+Wrote 2 profiling rows to /workspace/llm-engine/app/profiling_results_smoke.csv
+Successful rows: 2
+Failed rows: 0
+Benchmark CSV: /workspace/llm-engine/app/benchmark_questions.csv
+Log directory: /workspace/llm-engine/app/profiling_logs

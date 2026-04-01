@@ -23,23 +23,40 @@ To run the MCP vs Text2SQL profiler in `llm-engine/app/profiling.py`, use these 
    MySQL using the values in `config.json`.
 3. Ensure LLM credentials are present in `llm-engine/app/sensitive/*.txt` and referenced by `llm-engine/app/llm_config.json`.
 4. Confirm the benchmark prompt set exists in `llm-engine/app/benchmark_questions.csv`.
-5. Run the profiler from the repo root or any working directory with:
-   `python /workspace/llm-engine/app/profiling.py --output-csv /workspace/llm-engine/app/profiling_results.csv`
-6. For faster smoke runs, limit the benchmark size with:
-   `python /workspace/llm-engine/app/profiling.py --question-limit 5 --output-csv /workspace/llm-engine/app/profiling_results.csv`
-7. Use `--port` if `8000` is already occupied, for example:
-   `python /workspace/llm-engine/app/profiling.py --port 8014 --question-limit 5 --output-csv /workspace/llm-engine/app/profiling_results.csv`
-8. The profiler automatically starts the MCP server when running the MCP benchmark mode and starts the FastAPI app separately for MCP and Text2SQL mode.
-9. Read the machine-readable benchmark rows from `llm-engine/app/profiling_results.csv`.
-10. Read progress and run summary output from the companion text file, by default `llm-engine/app/profiling_results.txt`.
-11. Inspect process logs in `llm-engine/app/profiling_logs/`:
-   `mcp_app.log`, `text2sql_app.log`, and `mcp_server.log`.
-12. Useful optional flags:
+   This file must contain `question_id`, `category`, and `question`.
+5. Confirm the validation rules exist in `llm-engine/app/benchmark_validations.json`.
+   Validation rules are keyed by `question_id`; keep expected outcomes in this JSON, not in the benchmark CSV.
+6. Run a fast smoke benchmark with:
+   `python /workspace/llm-engine/app/profiling.py --port 8018 --question-limit 5 --request-timeout 120 --output-csv /workspace/llm-engine/app/profiling_results.csv`
+7. For a fuller benchmark, remove `--question-limit` or increase it:
+   `python /workspace/llm-engine/app/profiling.py --port 8018 --request-timeout 180 --output-csv /workspace/llm-engine/app/profiling_results.csv`
+8. Use a fresh port with `--port` if another app run is already bound to the default port.
+9. The profiler automatically:
+   starts the MCP server for the MCP run,
+   starts the FastAPI app separately for MCP and Text2SQL mode,
+   loads validation rules by `question_id`,
+   writes versioned timestamped output files for each run.
+10. Read the machine-readable results from the generated timestamped CSV, for example:
+   `llm-engine/app/profiling_results_YYYYMMDD_HHMMSS.csv`
+11. Read progress and aggregate benchmark stats from the matching timestamped summary text file:
+   `llm-engine/app/profiling_results_YYYYMMDD_HHMMSS.txt`
+12. Inspect run-specific logs in the timestamped log directory:
+   `llm-engine/app/profiling_logs/YYYYMMDD_HHMMSS/`
+   Files include `mcp_app.log`, `text2sql_app.log`, and `mcp_server.log`.
+13. The profiler records:
+   per-row validation outcomes,
+   client and server latency separately,
+   app and MCP startup latency,
+   SQL execution outcome fields for Text2SQL,
+   token usage when available.
+14. Estimated cost fields remain blank unless both `PROFILER_INPUT_COST_PER_1M_TOKENS` and `PROFILER_OUTPUT_COST_PER_1M_TOKENS` are set in the environment before the run.
+15. Useful optional flags:
    `--benchmark-csv` to choose a different question file.
-   `--summary-txt` to choose a different text summary file.
+   `--validation-json` to choose a different validation rules file.
+   `--summary-txt` to choose a different base summary file name.
    `--request-timeout` to increase per-question timeout for slower prompts.
    `--startup-timeout` to give the app more time to boot.
-   `--log-dir` to choose a different log directory.
+   `--log-dir` to choose a different base log directory.
 
 ## Coding Style & Naming Conventions
 - Use 4-space indentation and standard Python import ordering.

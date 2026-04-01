@@ -1,0 +1,112 @@
+{
+  "q001": {
+    "assertion_type": "contains_all",
+    "expected_substrings": ["95500", "louisiana"]
+  },
+  "q002": {
+    "assertion_type": "contains_all",
+    "expected_substrings": ["georgia", "3.3"]
+  },
+  "q003": {
+    "shared": {
+      "assertion_type": "contains_all",
+      "expected_substrings": ["hawaii", "indiana"]
+    },
+    "text2sql": {
+      "assertion_type": "contains_any",
+      "expected_substrings": ["indiana higher", "hawaii higher", "same"]
+    }
+  },
+  "q004": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["south dakota", "north dakota", "nebraska"]
+  },
+  "q005": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["lebanon volunteer fire department", "100006500"]
+  },
+  "q006": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["albany", "albany county"]
+  },
+  "q007": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["ny", "new york", "ca", "california"]
+  },
+  "q008": {
+    "assertion_type": "contains_all",
+    "expected_substrings": ["n100"]
+  },
+  "q009": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["texas", "tx"]
+  },
+  "q010": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["nevada", "district of columbia"]
+  },
+  "q011": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["nevada", "california", "illinois"]
+  },
+  "q012": {
+    "assertion_type": "contains_all",
+    "expected_substrings": ["california", "united states"]
+  },
+  "q013": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["health care", "ca", "california"]
+  },
+  "q014": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["king", "king county"]
+  },
+  "q015": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["texas", "category"]
+  },
+  "q016": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["141760872"]
+  },
+  "q017": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["ok", "oklahoma"]
+  },
+  "q018": {
+    "assertion_type": "contains_all",
+    "expected_substrings": ["7100510"]
+  },
+  "q019": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["tx", "texas"]
+  },
+  "q020": {
+    "assertion_type": "contains_all",
+    "expected_substrings": ["n10000"]
+  },
+  "q021": {
+    "assertion_type": "regex",
+    "regex_pattern": "\\d+"
+  },
+  "q022": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["texas", "california", "illinois", "florida"]
+  },
+  "q023": {
+    "assertion_type": "regex",
+    "regex_pattern": "\\d+(\\.\\d+)?"
+  },
+  "q024": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["religion", "health care", "education"]
+  },
+  "q025": {
+    "assertion_type": "regex",
+    "regex_pattern": "\\d+"
+  },
+  "q026": {
+    "assertion_type": "contains_any",
+    "expected_substrings": ["ny", "new york", "ca", "california", "tx", "texas"]
+  }
+}

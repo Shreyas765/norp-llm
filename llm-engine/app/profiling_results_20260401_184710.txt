@@ -1,0 +1,60 @@
+Run ID: 20260401_184710
+Benchmark CSV: /workspace/llm-engine/app/benchmark_questions.csv
+Validation JSON: /workspace/llm-engine/app/benchmark_validations.json
+Output CSV: /workspace/llm-engine/app/profiling_results_20260401_184710.csv
+Log directory: /workspace/llm-engine/app/profiling_logs/20260401_184710
+Running benchmark mode: mcp
+[mcp] Prompt 1/5: q001 - Give me US shootings in Louisiana from the year 2014.
+[mcp] Prompt 2/5: q002 - Give me the unemployment rate for Georgia in 2023.
+[mcp] Prompt 3/5: q003 - How does the unemployment rate in Hawaii compare to Indiana in 2023?
+[mcp] Prompt 4/5: q004 - What were the five states with the lowest unemployment rates in 2022?
+[mcp] Prompt 5/5: q005 - Give me the full name and full address of the NGO with EIN 100006500.
+Running benchmark mode: text2sql
+[text2sql] Prompt 1/5: q001 - Give me US shootings in Louisiana from the year 2014.
+[text2sql] Prompt 2/5: q002 - Give me the unemployment rate for Georgia in 2023.
+[text2sql] Prompt 3/5: q003 - How does the unemployment rate in Hawaii compare to Indiana in 2023?
+[text2sql] Prompt 4/5: q004 - What were the five states with the lowest unemployment rates in 2022?
+[text2sql] Prompt 5/5: q005 - Give me the full name and full address of the NGO with EIN 100006500.
+
+Run ID: 20260401_184710
+Benchmark CSV: /workspace/llm-engine/app/benchmark_questions.csv
+Validation JSON: /workspace/llm-engine/app/benchmark_validations.json
+Output CSV: /workspace/llm-engine/app/profiling_results_20260401_184710.csv
+Log directory: /workspace/llm-engine/app/profiling_logs/20260401_184710
+Total rows: 10
+
+[Mode: mcp]
+Rows: 5
+Validated success count: 5
+Validated success rate: 100.0%
+Transport/system failure count: 0
+Transport/system failure rate: 0.0%
+Client latency avg/median/p95: 7417.737 / 6767.319 / 10390.159 ms
+Server latency avg/median/p95: 7387.465 / 6741.441 / 10367.68 ms
+Total tokens: 86426
+Average tokens/request: 17285.2
+Total estimated cost (USD): unavailable
+Average estimated cost/request (USD): unavailable
+Per-category breakdown:
+- ngo: rows=1, validated_success_rate=100.0%, failure_rate=0.0%, avg_client_latency_ms=8252.034, p95_client_latency_ms=8252.034
+- shootings: rows=1, validated_success_rate=100.0%, failure_rate=0.0%, avg_client_latency_ms=10390.159, p95_client_latency_ms=10390.159
+- unemployment: rows=3, validated_success_rate=100.0%, failure_rate=0.0%, avg_client_latency_ms=6148.83, p95_client_latency_ms=6767.319
+
+[Mode: text2sql]
+Rows: 5
+Validated success count: 4
+Validated success rate: 80.0%
+Transport/system failure count: 0
+Transport/system failure rate: 0.0%
+Client latency avg/median/p95: 8257.452 / 7016.87 / 11218.823 ms
+Server latency avg/median/p95: 8230.966 / 6981.869 / 11191.124 ms
+Total tokens: 17757
+Average tokens/request: 3551.4
+Total estimated cost (USD): unavailable
+Average estimated cost/request (USD): unavailable
+Per-category breakdown:
+- ngo: rows=1, validated_success_rate=0.0%, failure_rate=100.0%, avg_client_latency_ms=6385.69, p95_client_latency_ms=6385.69
+- shootings: rows=1, validated_success_rate=100.0%, failure_rate=0.0%, avg_client_latency_ms=9791.21, p95_client_latency_ms=9791.21
+- unemployment: rows=3, validated_success_rate=100.0%, failure_rate=0.0%, avg_client_latency_ms=8370.119, p95_client_latency_ms=11218.823
+
+Estimated cost was unavailable because PROFILER_INPUT_COST_PER_1M_TOKENS and PROFILER_OUTPUT_COST_PER_1M_TOKENS were not both set.

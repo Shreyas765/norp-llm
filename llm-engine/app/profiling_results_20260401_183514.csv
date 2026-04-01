@@ -1,0 +1,95 @@
+run_id,question_id,mode,category,question,session_id,http_status,request_success,validated_success,validation_status,assertion_type,assertion_detail,failure_type,error_detail,client_request_latency_ms,server_handler_latency_ms,app_startup_latency_ms,mcp_server_startup_latency_ms,sql_execution_latency_ms,response_text,sql_query,query_results,sql_execution_success,sql_execution_error,model_name,prompt_tokens,completion_tokens,total_tokens,estimated_cost_usd
+20260401_183514,q001,mcp,shootings,Give me US shootings in Louisiana from the year 2014.,100001,200,True,True,validated,contains_all,"Matched all expected substrings: 95500, louisiana",none,"{""response"":""IncidentID,Address,IncidentDate,State,CityOrCountry,VictimsKilled,VictimsInjured\n95500,3600 block of Highway 80 W,2014-01-12,louisiana,Tallulah,0,6"",""sql_query"":null,""query_results"":null,""sql_execution_success"":null,""sql_execution_error"":null,""profiling"":{""mode"":""mcp"",""model_name"":""gpt-5-mini"",""server_handler_latency_ms"":10316.892,""sql_execution_latency_ms"":null,""prompt_tokens"":17443,""completion_tokens"":416,""total_tokens"":17859}}",10355.098,10316.892,6069.078,1002.71,,"IncidentID,Address,IncidentDate,State,CityOrCountry,VictimsKilled,VictimsInjured
+95500,3600 block of Highway 80 W,2014-01-12,louisiana,Tallulah,0,6",,,,,gpt-5-mini,17443,416,17859,
+20260401_183514,q002,mcp,unemployment,Give me the unemployment rate for Georgia in 2023.,100002,200,True,True,validated,contains_all,"Matched all expected substrings: georgia, 3.3",none,"{""response"":""Georgia — Unemployment rate in 2023: 3.3% (change from 2022: +0.1 percentage points)."",""sql_query"":null,""query_results"":null,""sql_execution_success"":null,""sql_execution_error"":null,""profiling"":{""mode"":""mcp"",""model_name"":""gpt-5-mini"",""server_handler_latency_ms"":6414.564,""sql_execution_latency_ms"":null,""prompt_tokens"":16279,""completion_tokens"":58,""total_tokens"":16337}}",6426.65,6414.564,6069.078,1002.71,,Georgia — Unemployment rate in 2023: 3.3% (change from 2022: +0.1 percentage points).,,,,,gpt-5-mini,16279,58,16337,
+20260401_183514,q003,mcp,unemployment,How does the unemployment rate in Hawaii compare to Indiana in 2023?,100003,200,True,True,validated,contains_all,"Matched all expected substrings: hawaii, indiana",none,"{""response"":""- Hawaii (2023): 2.9% (down 0.4 percentage points from 3.3% in 2022), rank = 6  \n- Indiana (2023): 3.4% (up 0.3 percentage points from 3.1% in 2022), rank = 44\n\nHawaii’s 2023 unemployment rate was 0.5 percentage points lower than Indiana’s."",""sql_query"":null,""query_results"":null,""sql_execution_success"":null,""sql_execution_error"":null,""profiling"":{""mode"":""mcp"",""model_name"":""gpt-5-mini"",""server_handler_latency_ms"":7323.032,""sql_execution_latency_ms"":null,""prompt_tokens"":17005,""completion_tokens"":189,""total_tokens"":17194}}",7337.916,7323.032,6069.078,1002.71,,"- Hawaii (2023): 2.9% (down 0.4 percentage points from 3.3% in 2022), rank = 6  
+- Indiana (2023): 3.4% (up 0.3 percentage points from 3.1% in 2022), rank = 44
+
+Hawaii’s 2023 unemployment rate was 0.5 percentage points lower than Indiana’s.",,,,,gpt-5-mini,17005,189,17194,
+20260401_183514,q004,mcp,unemployment,What were the five states with the lowest unemployment rates in 2022?,100004,200,True,True,validated,contains_any,Matched expected substring: south dakota,none,"{""response"":""State,Rate_2022,Rate_2023,Rate_Change,State_Rank\nSouth Dakota,1.9,1.8,-0.1,19\nNorth Dakota,2.1,2.0,-0.1,19\nNebraska,2.2,2.3,0.1,35\nNew Hampshire,2.4,2.3,-0.1,19\nUtah,2.4,2.7,0.3,44"",""sql_query"":null,""query_results"":null,""sql_execution_success"":null,""sql_execution_error"":null,""profiling"":{""mode"":""mcp"",""model_name"":""gpt-5-mini"",""server_handler_latency_ms"":5245.386,""sql_execution_latency_ms"":null,""prompt_tokens"":17150,""completion_tokens"":215,""total_tokens"":17365}}",5257.827,5245.386,6069.078,1002.71,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+South Dakota,1.9,1.8,-0.1,19
+North Dakota,2.1,2.0,-0.1,19
+Nebraska,2.2,2.3,0.1,35
+New Hampshire,2.4,2.3,-0.1,19
+Utah,2.4,2.7,0.3,44",,,,,gpt-5-mini,17150,215,17365,
+20260401_183514,q005,mcp,ngo,Give me the full name and full address of the NGO with EIN 100006500.,100005,200,True,True,validated,contains_any,Matched expected substring: lebanon volunteer fire department,none,"{""response"":""Name: Lebanon Volunteer Fire Department\nFull address: PO BOX 51, LEBANON, CT 06249-0051, Lebanon County, Connecticut"",""sql_query"":null,""query_results"":null,""sql_execution_success"":null,""sql_execution_error"":null,""profiling"":{""mode"":""mcp"",""model_name"":""gpt-5-mini"",""server_handler_latency_ms"":4266.505,""sql_execution_latency_ms"":null,""prompt_tokens"":16543,""completion_tokens"":64,""total_tokens"":16607}}",4278.154,4266.505,6069.078,1002.71,,"Name: Lebanon Volunteer Fire Department
+Full address: PO BOX 51, LEBANON, CT 06249-0051, Lebanon County, Connecticut",,,,,gpt-5-mini,16543,64,16607,
+20260401_183514,q001,text2sql,shootings,Give me US shootings in Louisiana from the year 2014.,200001,200,True,True,validated,contains_all,"Matched all expected substrings: 95500, louisiana",none,"{""sql_query"":""SELECT IncidentID,\n       Address,\n       IncidentDate,\n       State,\n       CityOrCountry,\n       VictimsKilled,\n       VictimsInjured,\n       SuspectsInjured,\n       SuspectsKilled,\n       SuspectsArrested\nFROM us_shootings\nWHERE IncidentID IS NOT NULL\n  AND Address IS NOT NULL\n  AND IncidentDate IS NOT NULL\n  AND State IS NOT NULL\n  AND CityOrCountry IS NOT NULL\n  AND VictimsKilled IS NOT NULL\n  AND VictimsInjured IS NOT NULL\n  AND SuspectsInjured IS NOT NULL\n  AND SuspectsKilled IS NOT NULL\n  AND SuspectsArrested IS NOT NULL\n  AND LOWER(TRIM(State)) = 'louisiana'\n  AND YEAR(IncidentDate) = 2014\nORDER BY IncidentDate;"",""query_results"":""[(95500, '3600 block of Highway 80 W', datetime.date(2014, 1, 12), 'louisiana', 'Tallulah', 0, 6, 0, 0, 8)]"",""sql_execution_success"":true,""sql_execution_error"":null,""profiling"":{""mode"":""text2sql"",""model_name"":""gpt-5-mini"",""server_handler_latency_ms"":8628.937,""sql_execution_latency_ms"":26.976,""prompt_tokens"":8553,""completion_tokens"":760,""total_tokens"":9313}}",8672.997,8628.937,2021.349,,26.976,,"SELECT IncidentID,
+       Address,
+       IncidentDate,
+       State,
+       CityOrCountry,
+       VictimsKilled,
+       VictimsInjured,
+       SuspectsInjured,
+       SuspectsKilled,
+       SuspectsArrested
+FROM us_shootings
+WHERE IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+  AND LOWER(TRIM(State)) = 'louisiana'
+  AND YEAR(IncidentDate) = 2014
+ORDER BY IncidentDate;","[(95500, '3600 block of Highway 80 W', datetime.date(2014, 1, 12), 'louisiana', 'Tallulah', 0, 6, 0, 0, 8)]",True,,gpt-5-mini,8553,760,9313,
+20260401_183514,q002,text2sql,unemployment,Give me the unemployment rate for Georgia in 2023.,200002,200,True,True,validated,contains_all,"Matched all expected substrings: georgia, 3.3",none,"{""sql_query"":""SELECT State,\n       Rate_2023 AS UnemploymentRate2023\nFROM unemployment_rates_by_state\nWHERE State = 'Georgia'\n  AND State IS NOT NULL\n  AND Rate_2022 IS NOT NULL\n  AND Rate_2023 IS NOT NULL\n  AND Rate_Change IS NOT NULL\n  AND State_Rank IS NOT NULL\nLIMIT 5;"",""query_results"":""[('Georgia', Decimal('3.3'))]"",""sql_execution_success"":true,""sql_execution_error"":null,""profiling"":{""mode"":""text2sql"",""model_name"":""gpt-5-mini"",""server_handler_latency_ms"":4494.544,""sql_execution_latency_ms"":2.949,""prompt_tokens"":6837,""completion_tokens"":341,""total_tokens"":7178}}",4503.627,4494.544,2021.349,,2.949,,"SELECT State,
+       Rate_2023 AS UnemploymentRate2023
+FROM unemployment_rates_by_state
+WHERE State = 'Georgia'
+  AND State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+LIMIT 5;","[('Georgia', Decimal('3.3'))]",True,,gpt-5-mini,6837,341,7178,
+20260401_183514,q003,text2sql,unemployment,How does the unemployment rate in Hawaii compare to Indiana in 2023?,200003,200,True,False,assertion_failed,contains_all,Missing expected substrings: hawaii,validation_failed,"{""sql_query"":""SELECT\n  MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) AS Hawaii_Rate_2023,\n  MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END) AS Indiana_Rate_2023,\n  (MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) - MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END)) AS Rate_Difference,\n  ROUND(\n    (MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) - MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END))\n    / NULLIF(MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END), 0) * 100, 2\n  ) AS Percent_Difference,\n  CASE\n    WHEN MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) > MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END) THEN 'Hawaii higher'\n    WHEN MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) < MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END) THEN 'Indiana higher'\n    ELSE 'Equal'\n  END AS Comparison\nFROM unemployment_rates_by_state\nWHERE State IN ('Hawaii', 'Indiana')\n  AND State IS NOT NULL\n  AND Rate_2022 IS NOT NULL\n  AND Rate_2023 IS NOT NULL\n  AND Rate_Change IS NOT NULL\n  AND State_Rank IS NOT NULL\nLIMIT 5;"",""query_results"":""[(Decimal('2.9'), Decimal('3.4'), Decimal('-0.5'), Decimal('-14.71'), 'Indiana higher')]"",""sql_execution_success"":true,""sql_execution_error"":null,""profiling"":{""mode"":""text2sql"",""model_name"":""gpt-5-mini"",""server_handler_latency_ms"":12113.101,""sql_execution_latency_ms"":27.994,""prompt_tokens"":7749,""completion_tokens"":1172,""total_tokens"":8921}}",12131.197,12113.101,2021.349,,27.994,,"SELECT
+  MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) AS Hawaii_Rate_2023,
+  MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END) AS Indiana_Rate_2023,
+  (MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) - MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END)) AS Rate_Difference,
+  ROUND(
+    (MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) - MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END))
+    / NULLIF(MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END), 0) * 100, 2
+  ) AS Percent_Difference,
+  CASE
+    WHEN MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) > MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END) THEN 'Hawaii higher'
+    WHEN MAX(CASE WHEN State = 'Hawaii' THEN Rate_2023 END) < MAX(CASE WHEN State = 'Indiana' THEN Rate_2023 END) THEN 'Indiana higher'
+    ELSE 'Equal'
+  END AS Comparison
+FROM unemployment_rates_by_state
+WHERE State IN ('Hawaii', 'Indiana')
+  AND State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+LIMIT 5;","[(Decimal('2.9'), Decimal('3.4'), Decimal('-0.5'), Decimal('-14.71'), 'Indiana higher')]",True,,gpt-5-mini,7749,1172,8921,
+20260401_183514,q004,text2sql,unemployment,What were the five states with the lowest unemployment rates in 2022?,200004,200,True,True,validated,contains_any,Matched expected substring: south dakota,none,"{""sql_query"":""SELECT State,\n       Rate_2022 AS UnemploymentRate2022\nFROM unemployment_rates_by_state\nWHERE State IS NOT NULL\n  AND Rate_2022 IS NOT NULL\n  AND Rate_2023 IS NOT NULL\n  AND Rate_Change IS NOT NULL\n  AND State_Rank IS NOT NULL\nORDER BY Rate_2022 ASC, State ASC\nLIMIT 5;"",""query_results"":""[('South Dakota', Decimal('1.9')), ('North Dakota', Decimal('2.1')), ('Nebraska', Decimal('2.2')), ('New Hampshire', Decimal('2.4')), ('Utah', Decimal('2.4'))]"",""sql_execution_success"":true,""sql_execution_error"":null,""profiling"":{""mode"":""text2sql"",""model_name"":""gpt-5-mini"",""server_handler_latency_ms"":5437.47,""sql_execution_latency_ms"":24.435,""prompt_tokens"":6896,""completion_tokens"":409,""total_tokens"":7305}}",5469.029,5437.47,2021.349,,24.435,,"SELECT State,
+       Rate_2022 AS UnemploymentRate2022
+FROM unemployment_rates_by_state
+WHERE State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+ORDER BY Rate_2022 ASC, State ASC
+LIMIT 5;","[('South Dakota', Decimal('1.9')), ('North Dakota', Decimal('2.1')), ('Nebraska', Decimal('2.2')), ('New Hampshire', Decimal('2.4')), ('Utah', Decimal('2.4'))]",True,,gpt-5-mini,6896,409,7305,
+20260401_183514,q005,text2sql,ngo,Give me the full name and full address of the NGO with EIN 100006500.,200005,200,True,False,missing_validated_text,contains_any,Expected validated text was empty.,validation_failed,"{""sql_query"":""SELECT Name AS FullName, Fulladdr AS FullAddress\nFROM ngos_with_categorization\nWHERE Ein = 100006500\n  AND Ein IS NOT NULL\n  AND Name IS NOT NULL\n  AND Fulladdr IS NOT NULL\n  AND City IS NOT NULL\n  AND State IS NOT NULL\n  AND Zip IS NOT NULL\n  AND County IS NOT NULL\n  AND Ntee_Code IS NOT NULL\n  AND Category IS NOT NULL\n  AND Is_Category_Llm_Generated IS NOT NULL\nLIMIT 1;"",""query_results"":"""",""sql_execution_success"":true,""sql_execution_error"":null,""profiling"":{""mode"":""text2sql"",""model_name"":""gpt-5-mini"",""server_handler_latency_ms"":7135.175,""sql_execution_latency_ms"":12.819,""prompt_tokens"":7065,""completion_tokens"":566,""total_tokens"":7631}}",7160.926,7135.175,2021.349,,12.819,,"SELECT Name AS FullName, Fulladdr AS FullAddress
+FROM ngos_with_categorization
+WHERE Ein = 100006500
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 1;",,True,,gpt-5-mini,7065,566,7631,
