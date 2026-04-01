@@ -1,0 +1,17 @@
+mode,category,question,session_id,http_status,request_success,total_latency_ms,response_text,sql_query,query_results,failure_type,error_detail
+mcp,shootings,Give me US shootings in Louisiana from the year 2014.,100001,200,True,11412.649,"Here are the shootings in Louisiana from 2014:
+
+IncidentID: 95500
+Date: 2014-01-12
+Address: 3600 block of Highway 80 W
+City: Tallulah
+State: louisiana
+Victims Killed: 0
+Victims Injured: 6
+Suspects Injured: 0
+Suspects Killed: 0
+Suspects Arrested: 8
+
+Would you like this exported as CSV or anything else?",,,none,
+text2sql,shootings,Give me US shootings in Louisiana from the year 2014.,200001,200,True,21743.802,"IncidentID,Address,IncidentDate,State,CityOrCountry,VictimsKilled,VictimsInjured,SuspectsInjured,SuspectsKilled,SuspectsArrested
+95500,3600 block of Highway 80 W,2014-01-12,louisiana,Tallulah,0,6,0,0,8",,,none,

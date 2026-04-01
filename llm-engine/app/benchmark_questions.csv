@@ -1,0 +1,27 @@
+category,question
+shootings,Give me US shootings in Louisiana from the year 2014.
+unemployment,Give me the unemployment rate for Georgia in 2023.
+unemployment,How does the unemployment rate in Hawaii compare to Indiana in 2023?
+unemployment,What were the five states with the lowest unemployment rates in 2022?
+ngo,Give me the full name and full address of the NGO with EIN 100006500.
+ngo,Give me NGOs in Albany County.
+ngo,Which states have the most religion-related NGOs?
+faa,Look up FAA registration N100 in the master registry.
+shootings,Show 5 shooting incidents in Texas ordered by most recent date.
+unemployment,Which state had the highest unemployment rate in 2023?
+unemployment,List the top 10 states by unemployment rate in 2023.
+unemployment,Compare the unemployment rate in California and the United States in 2023.
+ngo,Find NGOs in California in the Health Care category.
+ngo,List 10 NGOs in King County.
+ngo,Summarize NGO counts by category in Texas.
+ngo,Give me the NGO with EIN 141760872.
+faa,Show 3 aircraft registered in Oklahoma from the FAA master registry.
+faa,What is FAA aircraft reference acftref code 7100510?
+faa,Find FAA dealer records for Texas.
+faa,Show FAA deregistration records for N10000.
+sql,Count the number of rows in the us_shootings table.
+sql,For each state, count the number of shooting incidents and return the top 10 states.
+sql,What is the average unemployment rate in 2023 across all states?
+sql,List the top 10 NGO categories by number of organizations.
+sql,How many FAA master records are there for Oklahoma?
+sql,For each state, count the number of NGOs and return the top 10 states.

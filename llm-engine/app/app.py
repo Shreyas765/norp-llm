@@ -12,6 +12,7 @@ from typing import List, Optional, Dict, Any
 import json
 import os
 import argparse
+import time
 from pathlib import Path
 from langchain_classic.memory import ConversationBufferMemory
 from langchain_classic.schema import HumanMessage, AIMessage, SystemMessage, BaseMessage
@@ -323,6 +324,13 @@ def is_mcp_only() -> bool:
         return True
     return value.strip() != "0"
 
+
+def build_profiling_payload(mode: str, start_time: float) -> dict:
+    return {
+        "mode": mode,
+        "total_latency_ms": round((time.perf_counter() - start_time) * 1000, 3),
+    }
+
 # Define the POST request handler for sending the prompt
 # remove chat response
 # @app.post("/query", response_model=ChatResponse)
@@ -339,7 +347,10 @@ async def handle_query(request: Request):
     sql_query = None
     query_results = None
     memory = get_message_history(chat_request.session_id)
-    if is_mcp_only():
+    mcp_only = is_mcp_only()
+    mode = "mcp" if mcp_only else "text2sql"
+    start_time = time.perf_counter()
+    if mcp_only:
         try:
             result, memory = await run_mcp_chain(
                 chat_request.message,
@@ -349,8 +360,19 @@ async def handle_query(request: Request):
             )
         except Exception as e:
             print(e)
-            raise HTTPException(status_code=500, detail=str(e))
-        return {"response": result.content, "sql_query": None, "query_results": None}
+            raise HTTPException(
+                status_code=500,
+                detail={
+                    "error": str(e),
+                    "profiling": build_profiling_payload(mode, start_time),
+                },
+            )
+        return {
+            "response": result.content,
+            "sql_query": None,
+            "query_results": None,
+            "profiling": build_profiling_payload(mode, start_time),
+        }
     else:
         # Invoke the SQL chain with the question
         try:
@@ -362,7 +384,13 @@ async def handle_query(request: Request):
             )
         except Exception as e:
             print(e)
-            raise HTTPException(status_code=500, detail=str(e))
+            raise HTTPException(
+                status_code=500,
+                detail={
+                    "error": str(e),
+                    "profiling": build_profiling_payload(mode, start_time),
+                },
+            )
         content = sql_query.content
         if content.startswith('```sql') and content.endswith('```'):
             sql_query = content[6:-3].strip()  # Remove the markdown ```sql and ```
@@ -373,7 +401,11 @@ async def handle_query(request: Request):
             sql_query
         )
 
-        return {"sql_query": sql_query, "query_results": query_results}
+        return {
+            "sql_query": sql_query,
+            "query_results": query_results,
+            "profiling": build_profiling_payload(mode, start_time),
+        }
 
 if __name__ == "__main__":
     import uvicorn

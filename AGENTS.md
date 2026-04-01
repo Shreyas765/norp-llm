@@ -14,6 +14,33 @@
 - `python test_responses.py --question "..." --session_id 123` sends a sample request to a running server.
 - `python -m unittest discover -s llm-engine/app/test` runs the test suite.
 
+## Running The Profiler
+To run the MCP vs Text2SQL profiler in `llm-engine/app/profiling.py`, use these steps:
+
+1. Ensure Python dependencies are installed with `pip install -r requirements.txt`.
+2. Ensure the required backing services are available:
+   Redis using the values in `config.json`.
+   MySQL using the values in `config.json`.
+3. Ensure LLM credentials are present in `llm-engine/app/sensitive/*.txt` and referenced by `llm-engine/app/llm_config.json`.
+4. Confirm the benchmark prompt set exists in `llm-engine/app/benchmark_questions.csv`.
+5. Run the profiler from the repo root or any working directory with:
+   `python /workspace/llm-engine/app/profiling.py --output-csv /workspace/llm-engine/app/profiling_results.csv`
+6. For faster smoke runs, limit the benchmark size with:
+   `python /workspace/llm-engine/app/profiling.py --question-limit 5 --output-csv /workspace/llm-engine/app/profiling_results.csv`
+7. Use `--port` if `8000` is already occupied, for example:
+   `python /workspace/llm-engine/app/profiling.py --port 8014 --question-limit 5 --output-csv /workspace/llm-engine/app/profiling_results.csv`
+8. The profiler automatically starts the MCP server when running the MCP benchmark mode and starts the FastAPI app separately for MCP and Text2SQL mode.
+9. Read the machine-readable benchmark rows from `llm-engine/app/profiling_results.csv`.
+10. Read progress and run summary output from the companion text file, by default `llm-engine/app/profiling_results.txt`.
+11. Inspect process logs in `llm-engine/app/profiling_logs/`:
+   `mcp_app.log`, `text2sql_app.log`, and `mcp_server.log`.
+12. Useful optional flags:
+   `--benchmark-csv` to choose a different question file.
+   `--summary-txt` to choose a different text summary file.
+   `--request-timeout` to increase per-question timeout for slower prompts.
+   `--startup-timeout` to give the app more time to boot.
+   `--log-dir` to choose a different log directory.
+
 ## Coding Style & Naming Conventions
 - Use 4-space indentation and standard Python import ordering.
 - File naming follows mixed patterns: manager classes use `CamelCase.py` (for example, `LLMManager.py`), utilities use `snake_case.py` (for example, `test_responses.py`). Match existing conventions in the touched area.
