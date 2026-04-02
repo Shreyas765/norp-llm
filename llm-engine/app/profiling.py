@@ -19,7 +19,6 @@ from test_responses import send_query
 
 APP_DIR = Path(__file__).resolve().parent
 REPO_ROOT = APP_DIR.parent.parent
-MCP_SERVER_PATH = REPO_ROOT / "mcp-server" / "server.py"
 DEFAULT_BENCHMARK_CSV = APP_DIR / "benchmark_questions.csv"
 DEFAULT_VALIDATION_JSON = APP_DIR / "benchmark_validations.json"
 DEFAULT_OUTPUT_CSV = APP_DIR / "profiling_results.csv"
@@ -46,7 +45,6 @@ RESULT_FIELDNAMES = [
     "client_request_latency_ms",
     "server_handler_latency_ms",
     "app_startup_latency_ms",
-    "mcp_server_startup_latency_ms",
     "sql_execution_latency_ms",
     "final_llm_response",
     "response_text",
@@ -136,6 +134,11 @@ def build_versioned_path(base_path: Path, run_id: str) -> Path:
     return base_path.with_name(f"{base_path.stem}_{run_id}{base_path.suffix}")
 
 
+def build_run_artifact_path(base_path: Path, run_id: str, run_dir: Path) -> Path:
+    versioned_name = f"{base_path.stem}_{run_id}{base_path.suffix}"
+    return run_dir / versioned_name
+
+
 def load_benchmark_rows(csv_path: Path):
     with csv_path.open("r", encoding="utf-8", newline="") as handle:
         reader = csv.DictReader(handle)
@@ -203,6 +206,14 @@ def log_status(handle, message: str):
     handle.flush()
 
 
+def current_timestamp():
+    return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+
+
+def print_status(message: str):
+    print(message, flush=True)
+
+
 def start_app_process(host: str, port: int, mcp_only: str, log_dir: Path):
     env = os.environ.copy()
     env["MCP_ONLY"] = mcp_only
@@ -227,27 +238,6 @@ def start_app_process(host: str, port: int, mcp_only: str, log_dir: Path):
         stderr=app_log,
     )
     return process, app_log, start_time
-
-
-def start_mcp_server_process(log_dir: Path):
-    command = [sys.executable, str(MCP_SERVER_PATH)]
-    mcp_log = open_log_file(log_dir / "mcp_server.log")
-    start_time = time.perf_counter()
-    process = subprocess.Popen(
-        command,
-        cwd=str(REPO_ROOT),
-        env=os.environ.copy(),
-        stdout=mcp_log,
-        stderr=mcp_log,
-    )
-    return process, mcp_log, start_time
-
-
-def wait_for_mcp_server_ready(process: subprocess.Popen, start_time: float):
-    time.sleep(1)
-    if process.poll() is not None:
-        raise RuntimeError(f"MCP server exited early with code {process.returncode}")
-    return round((time.perf_counter() - start_time) * 1000, 3)
 
 
 def wait_for_app_ready(base_url: str, timeout_seconds: float, process: subprocess.Popen, start_time: float):
@@ -450,7 +440,6 @@ def build_result_row(
     response_result: dict,
     client_latency_ms: float,
     app_startup_latency_ms: float,
-    mcp_server_startup_latency_ms,
 ):
     response_json = response_result.get("json") if isinstance(response_result.get("json"), dict) else {}
     profiling_payload = response_json.get("profiling", {}) if isinstance(response_json, dict) else {}
@@ -486,7 +475,6 @@ def build_result_row(
         "client_request_latency_ms": round(client_latency_ms, 3),
         "server_handler_latency_ms": server_handler_latency_ms,
         "app_startup_latency_ms": app_startup_latency_ms,
-        "mcp_server_startup_latency_ms": mcp_server_startup_latency_ms,
         "sql_execution_latency_ms": sql_execution_latency_ms,
         "final_llm_response": normalize_text(response_json.get("final_llm_response")),
         "response_text": normalize_text(response_json.get("response")),
@@ -528,13 +516,6 @@ def run_mode(
     log_status(summary_handle, f"Running benchmark mode: {mode_config['mode']}")
     processes = []
     log_files = []
-    mcp_server_startup_latency_ms = None
-
-    if mode_config["mcp_only"] == "1":
-        mcp_process, mcp_log, mcp_start_time = start_mcp_server_process(log_dir)
-        processes.append(mcp_process)
-        log_files.append(mcp_log)
-        mcp_server_startup_latency_ms = wait_for_mcp_server_ready(mcp_process, mcp_start_time)
 
     process, app_log, app_start_time = start_app_process(host, port, mode_config["mcp_only"], log_dir)
     processes.append(process)
@@ -546,10 +527,13 @@ def run_mode(
         query_url = f"{base_url}/query"
         for index, benchmark_row in enumerate(benchmark_rows, start=1):
             session_id = mode_config["session_offset"] + index
-            log_status(
-                summary_handle,
-                f"[{mode_config['mode']}] Prompt {index}/{len(benchmark_rows)}: {benchmark_row['question_id']} - {benchmark_row['question']}",
+            start_message = (
+                f"[{current_timestamp()}] START mode={mode_config['mode']} "
+                f"question_id={benchmark_row['question_id']} "
+                f"prompt={index}/{len(benchmark_rows)}"
             )
+            log_status(summary_handle, start_message)
+            print_status(start_message)
             client_start = time.perf_counter()
             try:
                 response_result = send_query(
@@ -572,19 +556,25 @@ def run_mode(
                 validation_rules,
                 mode_config["mode"],
             )
-            results.append(
-                build_result_row(
-                    run_id=run_id,
-                    mode=mode_config["mode"],
-                    benchmark_row=benchmark_row,
-                    validation_rule=validation_rule,
-                    session_id=session_id,
-                    response_result=response_result,
-                    client_latency_ms=client_latency_ms,
-                    app_startup_latency_ms=app_startup_latency_ms,
-                    mcp_server_startup_latency_ms=mcp_server_startup_latency_ms,
-                )
+            row = build_result_row(
+                run_id=run_id,
+                mode=mode_config["mode"],
+                benchmark_row=benchmark_row,
+                validation_rule=validation_rule,
+                session_id=session_id,
+                response_result=response_result,
+                client_latency_ms=client_latency_ms,
+                app_startup_latency_ms=app_startup_latency_ms,
             )
+            results.append(row)
+            finish_message = (
+                f"[{current_timestamp()}] FINISH mode={mode_config['mode']} "
+                f"question_id={benchmark_row['question_id']} "
+                f"status={row['failure_type']} "
+                f"client_latency_ms={row['client_request_latency_ms']}"
+            )
+            log_status(summary_handle, finish_message)
+            print_status(finish_message)
     finally:
         stop_processes(processes)
         close_log_files(log_files)
@@ -677,16 +667,15 @@ def main():
     benchmark_csv = Path(args.benchmark_csv).resolve()
     validation_json = Path(args.validation_json).resolve()
     output_csv_base = Path(args.output_csv).resolve()
-    output_csv = build_versioned_path(output_csv_base, run_id)
+    log_dir_base = Path(args.log_dir).resolve()
+    log_dir = log_dir_base / run_id
+    output_csv = build_run_artifact_path(output_csv_base, run_id, log_dir)
 
     if args.summary_txt:
         summary_txt_base = Path(args.summary_txt).resolve()
     else:
         summary_txt_base = output_csv_base.with_suffix(".txt")
-    summary_txt = build_versioned_path(summary_txt_base, run_id)
-
-    log_dir_base = Path(args.log_dir).resolve()
-    log_dir = log_dir_base / run_id
+    summary_txt = build_run_artifact_path(summary_txt_base, run_id, log_dir)
     base_url = f"http://{args.host}:{args.port}"
 
     benchmark_rows = load_benchmark_rows(benchmark_csv)
