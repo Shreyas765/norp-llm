@@ -69,8 +69,8 @@ def parse_args():
     )
     parser.add_argument(
         "--validation-json",
-        default=str(DEFAULT_VALIDATION_JSON),
-        help="JSON file containing validation rules keyed by question_id.",
+        default=None,
+        help="Optional JSON file containing validation rules keyed by question_id. Validation only runs when this flag is provided.",
     )
     parser.add_argument(
         "--output-csv",
@@ -360,7 +360,7 @@ def validate_text_against_rule(target_text: str, rule: dict):
     return False, assertion_type, f"Unsupported assertion_type: {assertion_type}"
 
 
-def validate_result(mode: str, response_result: dict, validation_rule: dict):
+def validate_result(mode: str, response_result: dict, validation_rule: dict, validation_enabled: bool):
     response_json = response_result.get("json")
 
     if response_result.get("status_code") is None:
@@ -370,6 +370,9 @@ def validate_result(mode: str, response_result: dict, validation_rule: dict):
 
     if response_result.get("status_code", 0) >= 400:
         return False, "http_failure", "http_failure", extract_error_detail(response_json, response_result.get("text", ""))
+
+    if not validation_enabled:
+        return None, "validation_disabled", "", "Validation was disabled for this profiling run."
 
     if validation_rule is None:
         return False, "missing_validation_rule", "missing_validation_rule", "No validation rule found for question_id."
@@ -436,6 +439,7 @@ def build_result_row(
     mode: str,
     benchmark_row: dict,
     validation_rule: dict,
+    validation_enabled: bool,
     session_id: int,
     response_result: dict,
     client_latency_ms: float,
@@ -455,6 +459,7 @@ def build_result_row(
         mode,
         response_result,
         validation_rule,
+        validation_enabled,
     )
 
     row = {
@@ -507,6 +512,7 @@ def run_mode(
     port: int,
     benchmark_rows,
     validation_rules: dict,
+    validation_enabled: bool,
     mode_config: dict,
     startup_timeout: float,
     request_timeout: float,
@@ -561,6 +567,7 @@ def run_mode(
                 mode=mode_config["mode"],
                 benchmark_row=benchmark_row,
                 validation_rule=validation_rule,
+                validation_enabled=validation_enabled,
                 session_id=session_id,
                 response_result=response_result,
                 client_latency_ms=client_latency_ms,
@@ -589,7 +596,16 @@ def write_results_csv(output_path: Path, rows):
         writer.writerows(rows)
 
 
-def summarize_rows(rows, summary_path: Path, run_id: str, benchmark_csv: Path, validation_json: Path, log_dir: Path, output_csv: Path):
+def summarize_rows(
+    rows,
+    summary_path: Path,
+    run_id: str,
+    benchmark_csv: Path,
+    validation_json: Path | None,
+    validation_enabled: bool,
+    log_dir: Path,
+    output_csv: Path,
+):
     by_mode = {}
     for row in rows:
         by_mode.setdefault(row["mode"], []).append(row)
@@ -598,7 +614,8 @@ def summarize_rows(rows, summary_path: Path, run_id: str, benchmark_csv: Path, v
         handle.write("\n")
         handle.write(f"Run ID: {run_id}\n")
         handle.write(f"Benchmark CSV: {benchmark_csv}\n")
-        handle.write(f"Validation JSON: {validation_json}\n")
+        handle.write(f"Validation enabled: {'yes' if validation_enabled else 'no'}\n")
+        handle.write(f"Validation JSON: {validation_json if validation_json else 'disabled'}\n")
         handle.write(f"Output CSV: {output_csv}\n")
         handle.write(f"Log directory: {log_dir}\n")
         handle.write(f"Total rows: {len(rows)}\n\n")
@@ -609,8 +626,12 @@ def summarize_rows(rows, summary_path: Path, run_id: str, benchmark_csv: Path, v
             transport_failure_count = sum(1 for row in mode_rows if row["failure_type"] in {"exception", "http_error", "tool_error", "db_error", "sql_error"})
             handle.write(f"[Mode: {mode}]\n")
             handle.write(f"Rows: {len(mode_rows)}\n")
-            handle.write(f"Validated success count: {validated_success_count}\n")
-            handle.write(f"Validated success rate: {round((validated_success_count / len(mode_rows)) * 100, 2) if mode_rows else 0}%\n")
+            if validation_enabled:
+                handle.write(f"Validated success count: {validated_success_count}\n")
+                handle.write(f"Validated success rate: {round((validated_success_count / len(mode_rows)) * 100, 2) if mode_rows else 0}%\n")
+            else:
+                handle.write("Validated success count: disabled\n")
+                handle.write("Validated success rate: disabled\n")
             handle.write(f"Transport/system failure count: {transport_failure_count}\n")
             handle.write(f"Transport/system failure rate: {round((transport_failure_count / len(mode_rows)) * 100, 2) if mode_rows else 0}%\n")
 
@@ -652,8 +673,13 @@ def summarize_rows(rows, summary_path: Path, run_id: str, benchmark_csv: Path, v
                 client_values = [value for value in client_values if value is not None]
                 avg_client = round(statistics.mean(client_values), 3) if client_values else "unavailable"
                 p95_client = round(percentile(client_values, 95), 3) if client_values else "unavailable"
+                validated_rate = (
+                    f"{round((validated_category_count / len(category_rows)) * 100, 2) if category_rows else 0}%"
+                    if validation_enabled
+                    else "disabled"
+                )
                 handle.write(
-                    f"- {category}: rows={len(category_rows)}, validated_success_rate={round((validated_category_count / len(category_rows)) * 100, 2) if category_rows else 0}%, failure_rate={round((failure_category_count / len(category_rows)) * 100, 2) if category_rows else 0}%, avg_client_latency_ms={avg_client}, p95_client_latency_ms={p95_client}\n"
+                    f"- {category}: rows={len(category_rows)}, validated_success_rate={validated_rate}, failure_rate={round((failure_category_count / len(category_rows)) * 100, 2) if category_rows else 0}%, avg_client_latency_ms={avg_client}, p95_client_latency_ms={p95_client}\n"
                 )
             handle.write("\n")
 
@@ -665,7 +691,8 @@ def main():
     args = parse_args()
     run_id = create_run_id()
     benchmark_csv = Path(args.benchmark_csv).resolve()
-    validation_json = Path(args.validation_json).resolve()
+    validation_enabled = args.validation_json is not None
+    validation_json = Path(args.validation_json).resolve() if validation_enabled else None
     output_csv_base = Path(args.output_csv).resolve()
     log_dir_base = Path(args.log_dir).resolve()
     log_dir = log_dir_base / run_id
@@ -681,13 +708,14 @@ def main():
     benchmark_rows = load_benchmark_rows(benchmark_csv)
     if args.limit is not None:
         benchmark_rows = benchmark_rows[:args.limit]
-    validation_rules = load_validation_rules(validation_json)
+    validation_rules = load_validation_rules(validation_json) if validation_enabled else {}
 
     summary_txt.parent.mkdir(parents=True, exist_ok=True)
     with summary_txt.open("w", encoding="utf-8") as summary_handle:
         log_status(summary_handle, f"Run ID: {run_id}")
         log_status(summary_handle, f"Benchmark CSV: {benchmark_csv}")
-        log_status(summary_handle, f"Validation JSON: {validation_json}")
+        log_status(summary_handle, f"Validation enabled: {'yes' if validation_enabled else 'no'}")
+        log_status(summary_handle, f"Validation JSON: {validation_json if validation_json else 'disabled'}")
         log_status(summary_handle, f"Output CSV: {output_csv}")
         log_status(summary_handle, f"Log directory: {log_dir}")
         all_results = []
@@ -699,6 +727,7 @@ def main():
                 port=args.port,
                 benchmark_rows=benchmark_rows,
                 validation_rules=validation_rules,
+                validation_enabled=validation_enabled,
                 mode_config=mode_config,
                 startup_timeout=args.startup_timeout,
                 request_timeout=args.request_timeout,
@@ -708,7 +737,16 @@ def main():
             all_results.extend(mode_results)
 
     write_results_csv(output_csv, all_results)
-    summarize_rows(all_results, summary_txt, run_id, benchmark_csv, validation_json, log_dir, output_csv)
+    summarize_rows(
+        all_results,
+        summary_txt,
+        run_id,
+        benchmark_csv,
+        validation_json,
+        validation_enabled,
+        log_dir,
+        output_csv,
+    )
 
 
 if __name__ == "__main__":

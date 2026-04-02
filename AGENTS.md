@@ -24,8 +24,8 @@ To run the MCP vs Text2SQL profiler in `llm-engine/app/profiling.py`, use these 
 3. Ensure LLM credentials are present in `llm-engine/app/sensitive/*.txt` and referenced by `llm-engine/app/llm_config.json`.
 4. Confirm the benchmark prompt set exists in `llm-engine/app/benchmark_questions.csv`.
    This file must contain `question_id`, `category`, and `question`.
-5. Confirm the validation rules exist in `llm-engine/app/benchmark_validations.json`.
-   Validation rules are keyed by `question_id`; keep expected outcomes in this JSON, not in the benchmark CSV.
+5. If you want validation enabled for a run, confirm the validation rules exist in `llm-engine/app/benchmark_validations.json`.
+   Validation is disabled by default and only runs when `--validation-json` is provided. Validation rules are keyed by `question_id`; keep expected outcomes in this JSON, not in the benchmark CSV.
 6. Run a fast smoke benchmark with:
    `python /workspace/llm-engine/app/profiling.py --port 8018 --question-limit 5 --request-timeout 120 --output-csv /workspace/llm-engine/app/profiling_results.csv`
 7. For a fuller benchmark, remove `--question-limit` or increase it:
@@ -34,7 +34,7 @@ To run the MCP vs Text2SQL profiler in `llm-engine/app/profiling.py`, use these 
 9. The profiler automatically:
    starts the MCP server for the MCP run,
    starts the FastAPI app separately for MCP and Text2SQL mode,
-   loads validation rules by `question_id`,
+   loads validation rules by `question_id` only when `--validation-json` is provided,
    writes versioned timestamped output files for each run.
 10. Read the machine-readable results from the generated timestamped CSV, for example:
    `llm-engine/app/profiling_results_YYYYMMDD_HHMMSS.csv`
@@ -44,7 +44,7 @@ To run the MCP vs Text2SQL profiler in `llm-engine/app/profiling.py`, use these 
    `llm-engine/app/profiling_logs/YYYYMMDD_HHMMSS/`
    Files include `mcp_app.log`, `text2sql_app.log`, and `mcp_server.log`.
 13. The profiler records:
-   per-row validation outcomes,
+   per-row validation outcomes when validation is enabled, otherwise rows are marked with validation disabled,
    client and server latency separately,
    app and MCP startup latency,
    SQL execution outcome fields for Text2SQL,
@@ -52,7 +52,7 @@ To run the MCP vs Text2SQL profiler in `llm-engine/app/profiling.py`, use these 
 14. Estimated cost fields remain blank unless both `PROFILER_INPUT_COST_PER_1M_TOKENS` and `PROFILER_OUTPUT_COST_PER_1M_TOKENS` are set in the environment before the run.
 15. Useful optional flags:
    `--benchmark-csv` to choose a different question file.
-   `--validation-json` to choose a different validation rules file.
+   `--validation-json` to enable validation and choose the validation rules file.
    `--summary-txt` to choose a different base summary file name.
    `--request-timeout` to increase per-question timeout for slower prompts.
    `--startup-timeout` to give the app more time to boot.
