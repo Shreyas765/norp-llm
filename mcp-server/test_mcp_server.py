@@ -135,6 +135,15 @@ class TestMCPServer(unittest.TestCase):
         result = module.fetch_faa_aircraft_data("not_a_dataset", limit=1)
         self.assertIn("Validation error:", result)
 
+    def test_fetch_georgia_crime_incidents(self):
+        result = module.fetch_georgia_crime_incidents(year=2023, limit=1)
+        self.assert_live_db_result(result)
+        self.assertIn("incident_id", result)
+
+    def test_fetch_georgia_crime_incidents_rejects_bad_year(self):
+        result = module.fetch_georgia_crime_incidents(year=1999, limit=1)
+        self.assertIn("Validation error:", result)
+
     def test_execute_sql_rejects_write_query(self):
         result = module.execute_sql("DELETE FROM fake_table")
         self.assertIn("only read-only SQL is allowed", result)

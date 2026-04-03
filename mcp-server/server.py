@@ -17,6 +17,7 @@ from tools.ngos_with_categorization import (
     summarize_ngos as summarize_ngos_tool,
 )
 from tools.faa_releasable_aircraft import fetch_faa_aircraft_data as fetch_faa_aircraft_data_tool
+from tools.georgia_crime_incidents import fetch_georgia_crime_incidents as fetch_georgia_crime_incidents_tool
 from tools.unemployment_rates_by_state import (
     compare_unemployment_states as compare_unemployment_states_tool,
     get_state_unemployment_summary as get_state_unemployment_summary_tool,
@@ -346,7 +347,42 @@ def fetch_faa_aircraft_data(
             search_value=search_value,
             state=state,
         )
-        print(rows)
+        if not rows:
+            return "No rows found."
+        columns = list(rows[0].keys())
+        row_tuples = [tuple(r[c] for c in columns) for r in rows]
+        return _rows_to_csv_text(columns, row_tuples)
+    except ValueError as exc:
+        return str(exc)
+    except RuntimeError as exc:
+        return str(exc)
+    except Error as exc:
+        return f"Database error: {exc}"
+
+
+@mcp.tool()
+def fetch_georgia_crime_incidents(
+    year: int,
+    limit: int = 10,
+    order_by: str = "incident_date",
+    desc: bool = True,
+    offense_category: str | None = None,
+    offense_name_contains: str | None = None,
+    is_hate_crime: bool | None = None,
+) -> str:
+    """Fetch Georgia crime incident/offense rows for one calendar year (2022, 2023, or 2024). Returns CSV."""
+    try:
+        mysql_config = get_mysql_connection_config()
+        rows = fetch_georgia_crime_incidents_tool(
+            config=mysql_config,
+            year=year,
+            limit=limit,
+            order_by=order_by,
+            desc=desc,
+            offense_category=offense_category,
+            offense_name_contains=offense_name_contains,
+            is_hate_crime=is_hate_crime,
+        )
         if not rows:
             return "No rows found."
         columns = list(rows[0].keys())
