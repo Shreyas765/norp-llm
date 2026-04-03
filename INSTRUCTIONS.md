@@ -6,13 +6,15 @@ This document provides everything an LLM (Claude, GPT, Gemini, etc.) needs to bu
 
 ## Project Overview
 
-**norp-llm** is a SQL chatbot application that:
-- Accepts natural language questions from users
-- Generates SQL queries via an LLM (LangChain)
-- Executes queries against a MySQL/MariaDB database
-- Returns formatted results and maintains conversational context via Redis
+**norp-llm** is a FastAPI-based data assistant for benchmarking and serving natural-language data queries.
+It supports two primary execution paths:
 
-**Tech stack:** Python 3.9+, FastAPI, LangChain, Redis, MySQL/MariaDB, MCP (Model Context Protocol).
+- **MCP mode:** the app answers questions by calling tools exposed by the MCP server
+- **Text2SQL mode:** the app generates SQL directly, executes it against MySQL/MariaDB, and formats the result
+
+The repository also includes a benchmark profiler that runs both modes against the same prompt set and writes timestamped CSV, summary, and log artifacts for comparison.
+
+**Tech stack:** Python 3.9+, FastAPI, Redis, MySQL/MariaDB, LangChain-based LLM integrations, and MCP (Model Context Protocol).
 
 ---
 
@@ -20,28 +22,39 @@ This document provides everything an LLM (Claude, GPT, Gemini, etc.) needs to bu
 
 ```
 norp-llm/
-├── config.json                 # DB + Redis connection (repo root)
-├── requirements.txt            # Python dependencies
-├── INSTRUCTIONS.md             # This file
+├── config.json                         # Root DB + Redis configuration
+├── requirements.txt                    # Python dependencies
+├── README.md                           # User-facing setup and usage notes
+├── INSTRUCTIONS.md                     # AI workflow guide for this repo
+├── AGENTS.md                           # Contributor/repo-specific guidance
 ├── docs/
-│   └── TOOLS.md                # Full MCP tool catalog for testing
-├── README.md                   # User-facing docs
-├── AGENTS.md                   # Repo guidelines for contributors
-├── .devcontainer/              # Dev container + Docker Compose
-│   ├── devcontainer.json
-│   └── docker-compose.yml      # MariaDB, Redis, phpMyAdmin
-├── llm-engine/app/             # Main FastAPI service
-│   ├── app.py                  # FastAPI app entry
-│   ├── config.json             # (optional override; repo root used)
-│   ├── llm_config.json         # LLM provider + model + API key path
-│   ├── sensitive/              # API keys (gitignored): openai.txt, etc.
-│   ├── test_responses.py       # Manual API test script
-│   ├── local_database_setup/   # create_NORP_tables.py, sample data
-│   └── test/                   # Unit tests (unittest)
-├── mcp-server/                 # MCP server (execute_sql, fetch_us_shootings)
-│   ├── server.py               # Run before main app
-│   └── tools/                  # Tool implementations
-│       └── fetch_us_shootings.py
+│   ├── TOOLS.md                        # MCP tool catalog and testing notes
+│   └── CURL_EXAMPLES.md                # Example HTTP requests
+├── llm-engine/
+│   ├── setup.py                        # Package metadata
+│   └── app/
+│       ├── app.py                      # Main FastAPI application
+│       ├── server.py                   # Supporting app entry logic
+│       ├── profiling.py                # MCP vs Text2SQL benchmark runner
+│       ├── prompts.py                  # Prompt text and prompt helpers
+│       ├── LLMManager.py               # LLM provider/model orchestration
+│       ├── DatabaseManager.py          # Database access layer
+│       ├── RedisManager.py             # Redis/session state management
+│       ├── ServiceManager.py           # Shared service wiring
+│       ├── summarizer.py               # Conversation summarization support
+│       ├── constants.py                # Shared constants
+│       ├── util.py                     # Utility helpers
+│       ├── llm_config.json             # LLM config and secret file references
+│       ├── benchmark_questions.csv     # Profiler benchmark prompt set
+│       ├── benchmark_validations.json  # Optional profiler validation rules
+│       ├── test_responses.py           # Manual API query script
+│       ├── local_database_setup/       # Schema/data bootstrap scripts and sample data
+│       └── test/                       # Python unittest suite
+└── mcp-server/
+    ├── server.py                       # MCP server entrypoint
+    ├── test_mcp_server.py              # MCP server tests
+    ├── query_db.py                     # DB query helper
+    └── tools/                          # MCP tool implementations
 ```
 
 ---
@@ -138,6 +151,63 @@ uvicorn app:app --reload --host 127.0.0.1 --port 8000
 ```
 
 API base URL: `http://127.0.0.1:8000`
+
+---
+
+## Running the Profiler
+
+Use `llm-engine/app/profiling.py` to compare MCP mode and Text2SQL mode with the same benchmark questions.
+
+### Quick Steps
+
+1. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Make sure the required services and config are ready:
+- Redis is reachable using values from `config.json`
+- MySQL/MariaDB is reachable using values from `config.json`
+- `llm-engine/app/llm_config.json` points to a valid API key file in `llm-engine/app/sensitive/`
+- `llm-engine/app/benchmark_questions.csv` exists and contains `question_id`, `category`, and `question`
+
+3. Run the profiler from the repo root:
+
+```bash
+python /workspace/llm-engine/app/profiling.py --port 8018 --request-timeout 180 --output-csv /workspace/llm-engine/app/profiling_results.csv
+```
+
+This default command writes timestamped profiler artifacts and lets the script start the MCP server and both app modes automatically.
+
+4. For a quick smoke run, limit the number of questions:
+
+```bash
+python /workspace/llm-engine/app/profiling.py --port 8018 --question-limit 5 --request-timeout 120 --output-csv /workspace/llm-engine/app/profiling_results.csv
+```
+
+### Common Optional Flags
+
+- `--benchmark-csv` to use a different benchmark CSV
+- `--validation-json` to enable question validation using rules keyed by `question_id`
+- `--output-csv` to choose the base CSV output path
+- `--summary-txt` to choose the base summary text path
+- `--host` to change the app host used by the profiler
+- `--port` to use a different app port
+- `--startup-timeout` to wait longer for the app to boot
+- `--request-timeout` to allow slower prompts to complete
+- `--log-dir` to choose a different base directory for run logs
+- `--limit` or `--question-limit` to run only the first N benchmark questions
+
+### Generated Artifacts
+
+Each run creates timestamped outputs, including:
+
+- A results CSV such as `llm-engine/app/profiling_results_YYYYMMDD_HHMMSS.csv`
+- A summary text file with progress and aggregate stats
+- A log directory such as `llm-engine/app/profiling_logs/YYYYMMDD_HHMMSS/`
+
+When validation is enabled with `--validation-json`, the profiler records per-question validation outcomes in the output CSV.
 
 ---
 
