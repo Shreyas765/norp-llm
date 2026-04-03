@@ -1,111 +1,592 @@
-cryptography==46.0.5
-fastapi==0.135.1
+PyJWT==2.12.1
+Send2Trash==2.1.0
+bleach==6.3.0
 gnupg==2.3.1
-importlib-metadata==8.0.0
-jaraco-context==6.1.0
-jaraco-functools==4.4.0
-jaraco-text==4.2.0
+ipython_pygments_lexers==1.1.1
 jaraco.collections==5.1.0
+jupyter==1.1.1
+jupyter_client==8.8.0
+jupyter_core==5.9.1
+jupyter_server_terminals==0.5.4
+jupyterlab_pygments==0.3.0
+jupyterlab_server==2.28.0
+jupyterlab_widgets==3.0.16
 langchain==1.2.10
-langchain-community==0.4.1
 langchain-mcp-adapters==0.2.1
-langchain-openai==1.1.10
 langserve==0.3.3
-mysql-connector-python==9.6.0
-pandas==3.0.1
-platformdirs==4.2.2
+mdurl==0.1.2
+more-itertools==10.8.0
+mypy_extensions==1.1.0
+notebook_shim==0.2.4
 prettytable==3.17.0
+prometheus_client==0.24.1
+pure_eval==0.2.3
+pydantic_core==2.41.5
 redis==7.2.1
-tomli==2.0.1
+seaborn==0.13.2
+stack-data==0.6.3
+uuid_utils==0.14.1
+widgetsnbextension==4.0.15
+# Babel==None # Installed as dependency for Jinja2
+# Brotli==None # Installed as dependency for aiohttp
+# Django==None # Installed as dependency for jedi
+# Jinja2==3.1.6 # Installed as dependency for jedi
+# MarkupSafe==3.0.3 # Installed as dependency for Jinja2, jedi
+# Pillow==None # Installed as dependency for contourpy
+# PyQt5==None # Installed as dependency for pandas
+# PySocks==None # Installed as dependency for requests
+# PyYAML==6.0.3 # Installed as dependency for langchain-community
+# Pygments==2.19.2 # Installed as dependency for jedi
+# SQLAlchemy==2.0.48 # Installed as dependency for langchain-community, pandas
+# Sphinx==None # Installed as dependency for gnupg, greenlet, websocket-client
+# abi3audit==None # Installed as dependency for psutil
+# adbc-driver-postgresql==None # Installed as dependency for pandas
+# adbc-driver-sqlite==None # Installed as dependency for pandas
+# aiodns==None # Installed as dependency for aiohttp
 # aiohappyeyeballs==2.6.1 # Installed as dependency for aiohttp
-# aiohttp==3.13.3 # Installed as dependency for langchain-community
+# aiohttp==3.13.3 # Installed as dependency for langchain-community, openai, prometheus_client
+# aiomysql==None # Installed as dependency for SQLAlchemy
+# aioodbc==None # Installed as dependency for SQLAlchemy
 # aiosignal==1.4.0 # Installed as dependency for aiohttp
+# aiosqlite==None # Installed as dependency for SQLAlchemy, sse-starlette
+# alabaster==None # Installed as dependency for jedi
+# altair==None # Installed as dependency for jupyterlab
 # annotated-doc==0.0.4 # Installed as dependency for fastapi, typer
 # annotated-types==0.7.0 # Installed as dependency for pydantic
-# anyio==4.12.1 # Installed as dependency for httpx, mcp, openai, sse-starlette, starlette
-# attrs==25.4.0 # Installed as dependency for aiohttp, jsonschema, referencing
-# autocommand==2.2.2 # Installed as dependency for jaraco.text
-# backports.tarfile==1.2.0 # Installed as dependency for jaraco-context, jaraco.context
-# certifi==2026.2.25 # Installed as dependency for httpcore, httpx, requests
-# cffi==2.0.0 # Installed as dependency for cryptography
-# charset-normalizer==3.4.4 # Installed as dependency for requests
-# click==8.3.1 # Installed as dependency for typer, uvicorn
+# anyio==4.12.1 # Installed as dependency for httpcore, httpx, jupyter_client, jupyter_server, mcp, openai, sse-starlette, starlette
+# appdirs==None # Installed as dependency for platformdirs
+# appnope==None # Installed as dependency for ipykernel
+# argcomplete==None # Installed as dependency for ipython, traitlets
+# argon2-cffi==25.1.0 # Installed as dependency for jupyter_server
+# argon2-cffi-bindings==25.1.0 # Installed as dependency for argon2-cffi
+# arro3-compute==None # Installed as dependency for pillow
+# arro3-core==None # Installed as dependency for pillow
+# arrow==1.4.0 # Installed as dependency for isoduration
+# astroid==None # Installed as dependency for asttokens
+# asttokens==3.0.1 # Installed as dependency for executing, stack-data
+# async-lru==2.3.0 # Installed as dependency for jupyterlab
+# async-timeout==None # Installed as dependency for aiohttp, langchain-classic, redis
+# asyncmy==None # Installed as dependency for SQLAlchemy
+# asyncpg==None # Installed as dependency for SQLAlchemy
+# atomicwrites==None # Installed as dependency for lark
+# attrs==26.1.0 # Installed as dependency for aiohttp, jedi, jsonschema, referencing
+# autodoc-traits==None # Installed as dependency for jupyterlab_server, nbclient
+# autodocsumm==None # Installed as dependency for marshmallow
+# azure-identity==None # Installed as dependency for pydantic-settings
+# azure-keyvault-secrets==None # Installed as dependency for pydantic-settings
+# babel==2.18.0 # Installed as dependency for jedi, jupyterlab_server
+# backports-zstd==None # Installed as dependency for urllib3
+# backports.tarfile==1.2.0 # Installed as dependency for jaraco.context
+# backports.zoneinfo==None # Installed as dependency for arrow, babel
+# backports.zstd==None # Installed as dependency for aiohttp
+# bcrypt==None # Installed as dependency for cryptography
+# beautifulsoup4==4.14.3 # Installed as dependency for nbconvert, pandas
+# big-O==None # Installed as dependency for zipp
+# black==None # Installed as dependency for ipython, psutil, python-json-logger
+# bleach[css]==None # Installed as dependency for nbconvert
+# blobfile==None # Installed as dependency for tiktoken
+# bokeh==None # Installed as dependency for contourpy
+# boto3==None # Installed as dependency for pydantic-settings
+# boto3-stubs[secretsmanager]==None # Installed as dependency for pydantic-settings
+# bottleneck==None # Installed as dependency for pandas
+# brotli==None # Installed as dependency for fonttools, httpx, urllib3
+# brotlicffi==None # Installed as dependency for aiohttp, fonttools, httpx, urllib3
+# build==None # Installed as dependency for cryptography, jupyterlab, python-json-logger
+# bump2version==None # Installed as dependency for jupyterlab
+# cached-property==None # Installed as dependency for fqdn
+# cchardet==None # Installed as dependency for beautifulsoup4
+# certifi==2026.2.25 # Installed as dependency for cryptography, httpcore, httpx, requests
+# cffi==2.0.0 # Installed as dependency for argon2-cffi-bindings, cryptography, pyzmq, zstandard
+# cffi~==None # Installed as dependency for zstandard
+# chardet==None # Installed as dependency for beautifulsoup4, jedi, requests
+# charset-normalizer==3.4.6 # Installed as dependency for beautifulsoup4
+# charset_normalizer==None # Installed as dependency for requests
+# check-manifest==None # Installed as dependency for pillow, psutil
+# check-sdist==None # Installed as dependency for cryptography
+# claude-agent-sdk==None # Installed as dependency for langsmith
+# click==8.3.1 # Installed as dependency for cryptography, httpx, jupyter-events, python-dotenv, typer, uvicorn
+# colorama==None # Installed as dependency for Pygments, click, fastjsonschema, ipython, jedi, psutil, tqdm, uvicorn
+# comm==0.2.3 # Installed as dependency for ipykernel, ipywidgets
+# commonmark==None # Installed as dependency for jedi
+# commonmark~==None # Installed as dependency for markdown-it-py
+# contourpy==1.3.3 # Installed as dependency for matplotlib
+# contourpy[bokeh,docs]==None # Installed as dependency for contourpy
+# contourpy[test-no-images]==None # Installed as dependency for contourpy
+# copier==None # Installed as dependency for jupyterlab
+# covdefaults==None # Installed as dependency for platformdirs
+# coverage==None # Installed as dependency for executing, jupyter_client, jupyterlab, markdown-it-py, pillow, psutil
+# coverage-enable-subprocess==None # Installed as dependency for executing
+# coverage[toml]==None # Installed as dependency for PyJWT, ipykernel
+# cryptography==46.0.5 # Installed as dependency for PyJWT, redis
+# cryptography-vectors==None # Installed as dependency for cryptography
+# curio==None # Installed as dependency for ipython
+# cx_oracle==None # Installed as dependency for SQLAlchemy
+# cycler==0.12.1 # Installed as dependency for matplotlib
+# cython==None # Installed as dependency for stack-data
+# daphne==None # Installed as dependency for sse-starlette
 # dataclasses-json==0.6.7 # Installed as dependency for langchain-community
+# dateparser==None # Installed as dependency for arrow
+# debugpy==1.8.20 # Installed as dependency for ipykernel
+# decorator==5.2.1 # Installed as dependency for ipython
+# defusedxml==0.7.1 # Installed as dependency for nbconvert, pillow
 # distro==1.9.0 # Installed as dependency for openai
+# django==None # Installed as dependency for prometheus_client
+# dnspython==None # Installed as dependency for mysql-connector-python
+# doc8==None # Installed as dependency for arrow
+# docopt==None # Installed as dependency for jedi, parso
+# docrepr==None # Installed as dependency for ipython
+# docutils==None # Installed as dependency for jedi
+# docutils-stubs==None # Installed as dependency for contourpy
+# email-validator==None # Installed as dependency for fastapi, pydantic
+# exceptiongroup==None # Installed as dependency for anyio, ipython
+# executing==2.2.1 # Installed as dependency for stack-data
+# fastapi==0.135.1 # Installed as dependency for langserve, sse-starlette
+# fastapi-cli[standard-no-fastapi-cloud-cli]==None # Installed as dependency for fastapi
+# fastapi-cli[standard]==None # Installed as dependency for fastapi
+# fastjsonschema==2.21.2 # Installed as dependency for nbformat
+# fastparquet==None # Installed as dependency for pandas
+# fido2==None # Installed as dependency for mysql-connector-python
+# flake8==None # Installed as dependency for idna, jedi, matplotlib-inline, parso, seaborn, uri-template
+# flake8-annotations==None # Installed as dependency for uri-template
+# flake8-bandit==None # Installed as dependency for uri-template
+# flake8-bugbear==None # Installed as dependency for uri-template
+# flake8-commas==None # Installed as dependency for uri-template
+# flake8-comprehensions==None # Installed as dependency for uri-template
+# flake8-continuation==None # Installed as dependency for uri-template
+# flake8-datetimez==None # Installed as dependency for uri-template
+# flake8-docstrings==None # Installed as dependency for uri-template
+# flake8-import-order==None # Installed as dependency for uri-template
+# flake8-literal==None # Installed as dependency for uri-template
+# flake8-modern-annotations==None # Installed as dependency for uri-template
+# flake8-noqa==None # Installed as dependency for uri-template
+# flake8-pyproject==None # Installed as dependency for uri-template
+# flake8-requirements==None # Installed as dependency for uri-template
+# flake8-typechecking-import==None # Installed as dependency for uri-template
+# flake8-use-fstring==None # Installed as dependency for uri-template
+# flaky==None # Installed as dependency for ipykernel, jupyter-console, jupyter_server, nbclient, nbconvert
+# flit==None # Installed as dependency for seaborn
+# flufl.flake8==None # Installed as dependency for importlib_metadata
+# fonttools==4.62.1 # Installed as dependency for matplotlib
+# fqdn==1.5.1 # Installed as dependency for jsonschema
+# freezegun==None # Installed as dependency for python-json-logger
+# freezegun~==None # Installed as dependency for babel
 # frozenlist==1.8.0 # Installed as dependency for aiohttp, aiosignal
-# greenlet==3.3.2 # Installed as dependency for sqlalchemy
+# fsspec==None # Installed as dependency for pandas
+# furo==None # Installed as dependency for backports.tarfile, contourpy, greenlet, importlib_metadata, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, marshmallow, pillow, platformdirs, zipp
+# future==None # Installed as dependency for jedi
+# gcsfs==None # Installed as dependency for pandas
+# google-adk==None # Installed as dependency for langsmith
+# google-cloud-secret-manager==None # Installed as dependency for pydantic-settings
+# gprof2dot==None # Installed as dependency for markdown-it-py
+# granian==None # Installed as dependency for sse-starlette
+# greenlet==3.3.2 # Installed as dependency for SQLAlchemy
+# gssapi==None # Installed as dependency for mysql-connector-python
 # h11==0.16.0 # Installed as dependency for httpcore, uvicorn
+# h2==None # Installed as dependency for httpcore, httpx, urllib3
+# hatch==None # Installed as dependency for jupyterlab, jupyterlab_server, notebook
+# hiredis==None # Installed as dependency for redis
+# html5lib==None # Installed as dependency for beautifulsoup4, pandas
 # httpcore==1.0.9 # Installed as dependency for httpx
-# httpx==0.28.1 # Installed as dependency for langgraph-sdk, langserve, langsmith, mcp, openai
+# httptools==None # Installed as dependency for uvicorn
+# httpx==0.28.1 # Installed as dependency for fastapi, jupyterlab, langgraph-sdk, langserve, langsmith, mcp, openai, starlette
+# httpx-aiohttp==None # Installed as dependency for openai
 # httpx-sse==0.4.3 # Installed as dependency for langchain-community, mcp
-# idna==3.11 # Installed as dependency for anyio, httpx, requests, yarl
-# inflect==7.3.1 # Installed as dependency for jaraco.text
-# jaraco.context==5.3.0 # Installed as dependency for jaraco-text, jaraco.text
-# jaraco.functools==4.0.1 # Installed as dependency for jaraco-text, jaraco.text
-# jaraco.text==3.12.1 # Installed as dependency for jaraco.collections
+# hypothesis==None # Installed as dependency for pandas
+# idna==3.11 # Installed as dependency for anyio, httpx, jedi, jsonschema, requests, yarl
+# imagesize==None # Installed as dependency for jedi
+# importlib-metadata==None # Installed as dependency for SQLAlchemy, jupyterlab, jupyterlab_server, nbconvert
+# importlib-resources==None # Installed as dependency for importlib_metadata, notebook
+# importlib_metadata==8.0.0 # Installed as dependency for jupyter-lsp, tqdm
+# inflect==None # Installed as dependency for jaraco.text
+# interegular==None # Installed as dependency for lark
+# intersphinx-registry==None # Installed as dependency for ipykernel, jupyter_core, nbconvert
+# intersphinx_registry==None # Installed as dependency for ipython
+# ipykernel==7.2.0 # Installed as dependency for ipython, ipywidgets, jupyter, jupyter-console, jupyter_client, jupyter_core, jupyter_server, jupyterlab, jupyterlab_server, markdown-it-py, nbclient, nbconvert, notebook, seaborn
+# ipyparallel==None # Installed as dependency for ipykernel
+# ipython==9.10.1 # Installed as dependency for cycler, executing, importlib_metadata, ipykernel, ipywidgets, jupyter-console, jupyterlab, nbclient, nbconvert
+# ipython-pygments-lexers==None # Installed as dependency for ipython
+# ipython[doc,matplotlib,terminal,test,test_extra]==None # Installed as dependency for ipython
+# ipython[matplotlib,test]==None # Installed as dependency for ipython
+# ipython[matplotlib]==None # Installed as dependency for ipython
+# ipython[test]==None # Installed as dependency for ipython
+# ipywidgets==8.1.8 # Installed as dependency for jupyter, jupyterlab, nbclient, nbconvert, rich, tqdm
+# isoduration==20.11.0 # Installed as dependency for jsonschema
+# itsdangerous==None # Installed as dependency for fastapi, starlette
+# jaraco.classes==None # Installed as dependency for jaraco.functools
+# jaraco.context==6.1.0 # Installed as dependency for jaraco.text
+# jaraco.functools==4.4.0 # Installed as dependency for jaraco.text, zipp
+# jaraco.itertools==None # Installed as dependency for zipp
+# jaraco.packaging==None # Installed as dependency for backports.tarfile, importlib_metadata, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, zipp
+# jaraco.test==None # Installed as dependency for backports.tarfile, importlib_metadata, jaraco.context, zipp
+# jaraco.text==4.2.0 # Installed as dependency for jaraco.collections
+# jaraco.tidelift==None # Installed as dependency for importlib_metadata, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, zipp
+# jedi==0.19.2 # Installed as dependency for ipython
+# jinja2==None # Installed as dependency for babel, fastapi, jupyter_server, jupyter_server_terminals, jupyterlab, jupyterlab_server, nbconvert, pandas, pyparsing, starlette
+# jinja2-time==None # Installed as dependency for jupyterlab
 # jiter==0.13.0 # Installed as dependency for openai
+# js2py==None # Installed as dependency for lark
+# json-spec==None # Installed as dependency for fastjsonschema
+# json5==0.14.0 # Installed as dependency for jupyterlab_server
 # jsonpatch==1.33 # Installed as dependency for langchain-core
-# jsonpointer==3.0.0 # Installed as dependency for jsonpatch
-# jsonschema==4.26.0 # Installed as dependency for mcp
+# jsonpointer==3.0.0 # Installed as dependency for jsonpatch, jsonschema
+# jsonschema==4.26.0 # Installed as dependency for fastjsonschema, ipywidgets, jupyterlab_server, mcp, nbformat
 # jsonschema-specifications==2025.9.1 # Installed as dependency for jsonschema
-# langchain-classic==1.0.1 # Installed as dependency for langchain-community
-# langchain-core==1.2.16 # Installed as dependency for langchain, langchain-classic, langchain-community, langchain-mcp-adapters, langchain-openai, langchain-text-splitters, langgraph, langgraph-checkpoint, langgraph-prebuilt, langserve
+# jsonschema[format-nongpl]==None # Installed as dependency for jupyter-events
+# jsx-lexer==None # Installed as dependency for jupyterlab
+# jupyter-client==None # Installed as dependency for ipykernel, jupyter-console, jupyter_server, nbclient
+# jupyter-console==6.6.3 # Installed as dependency for jupyter
+# jupyter-core==None # Installed as dependency for ipykernel, jupyter-console, jupyter_client, jupyter_server, jupyterlab, nbclient, nbconvert, nbformat
+# jupyter-events==0.12.0 # Installed as dependency for jupyter_server
+# jupyter-lsp==2.3.1 # Installed as dependency for jupyterlab
+# jupyter-server==None # Installed as dependency for jupyter_server_terminals, jupyterlab, jupyterlab_server, notebook, notebook_shim
+# jupyter-server-terminals==None # Installed as dependency for jupyter_server
+# jupyter-server[test]==None # Installed as dependency for notebook
+# jupyter_ai==None # Installed as dependency for ipython
+# jupyter_server==2.17.0 # Installed as dependency for jupyter-lsp
+# jupyter_sphinx==None # Installed as dependency for markdown-it-py
+# jupyterlab==4.5.6 # Installed as dependency for jupyter, notebook
+# jupyterlab-geojson==None # Installed as dependency for jupyterlab
+# jupyterlab-language-pack-zh-cn==None # Installed as dependency for jupyterlab
+# jupyterlab-pygments==None # Installed as dependency for nbconvert
+# jupyterlab-server==None # Installed as dependency for jupyterlab, notebook
+# jupyterlab-server[test]==None # Installed as dependency for notebook
+# jupyterlab_widgets~==None # Installed as dependency for ipywidgets
+# jupyterlite-sphinx==None # Installed as dependency for jupyter-events
+# kiwisolver==1.5.0 # Installed as dependency for matplotlib
+# langchain-anthropic==None # Installed as dependency for langchain, langchain-classic
+# langchain-aws==None # Installed as dependency for langchain, langchain-classic
+# langchain-azure-ai==None # Installed as dependency for langchain
+# langchain-classic==1.0.3 # Installed as dependency for langchain-community
+# langchain-community==0.4.1 # Installed as dependency for langchain
+# langchain-core==1.2.20 # Installed as dependency for langchain, langchain-classic, langchain-community, langchain-mcp-adapters, langchain-openai, langchain-text-splitters, langgraph, langgraph-checkpoint, langgraph-prebuilt, langserve
+# langchain-deepseek==None # Installed as dependency for langchain, langchain-classic
+# langchain-fireworks==None # Installed as dependency for langchain, langchain-classic
+# langchain-google-genai==None # Installed as dependency for langchain, langchain-classic
+# langchain-google-vertexai==None # Installed as dependency for langchain, langchain-classic
+# langchain-groq==None # Installed as dependency for langchain, langchain-classic
+# langchain-huggingface==None # Installed as dependency for langchain, langchain-classic
+# langchain-mistralai==None # Installed as dependency for langchain, langchain-classic
+# langchain-ollama==None # Installed as dependency for langchain, langchain-classic
+# langchain-openai==1.1.10 # Installed as dependency for langchain, langchain-classic
+# langchain-perplexity==None # Installed as dependency for langchain, langchain-classic
 # langchain-text-splitters==1.1.1 # Installed as dependency for langchain-classic
+# langchain-together==None # Installed as dependency for langchain, langchain-classic
+# langchain-xai==None # Installed as dependency for langchain, langchain-classic
 # langgraph==1.0.10 # Installed as dependency for langchain
 # langgraph-checkpoint==4.0.1 # Installed as dependency for langgraph, langgraph-prebuilt
 # langgraph-prebuilt==1.0.8 # Installed as dependency for langgraph
-# langgraph-sdk==0.3.9 # Installed as dependency for langgraph
-# langsmith==0.7.9 # Installed as dependency for langchain-classic, langchain-community, langchain-core
+# langgraph-sdk==0.3.12 # Installed as dependency for langgraph
+# langsmith==0.7.20 # Installed as dependency for langchain-classic, langchain-community, langchain-core
+# langsmith-pyo3==None # Installed as dependency for langsmith
+# lark==1.3.1 # Installed as dependency for rfc3987-syntax
+# linkify-it-py==None # Installed as dependency for markdown-it-py
+# littleutils==None # Installed as dependency for executing, stack-data
+# lxml==None # Installed as dependency for beautifulsoup4, fonttools, pandas
+# lz4==None # Installed as dependency for fonttools
+# mariadb==None # Installed as dependency for SQLAlchemy
 # markdown-it-py==4.0.0 # Installed as dependency for rich
+# markdown-it-pyrs==None # Installed as dependency for markdown-it-py
+# markdown2==None # Installed as dependency for pillow
+# markdown~==None # Installed as dependency for markdown-it-py
+# markupsafe==None # Installed as dependency for nbconvert
 # marshmallow==3.26.2 # Installed as dependency for dataclasses-json
+# marshmallow[tests]==None # Installed as dependency for marshmallow
+# matplotlib==3.10.8 # Installed as dependency for contourpy, cycler, fonttools, ipykernel, ipython, jupyterlab, pandas, seaborn
+# matplotlib-inline==0.2.1 # Installed as dependency for ipykernel, ipython
 # mcp==1.26.0 # Installed as dependency for langchain-mcp-adapters
-# mdurl==0.1.2 # Installed as dependency for markdown-it-py
-# more-itertools==10.8.0 # Installed as dependency for inflect, jaraco-functools, jaraco-text, jaraco.functools, jaraco.text
+# mdit-py-plugins==None # Installed as dependency for markdown-it-py
+# mdurl~==None # Installed as dependency for markdown-it-py
+# mdx_truly_sane_lists==None # Installed as dependency for python-json-logger
+# meson-python==None # Installed as dependency for matplotlib
+# mike==None # Installed as dependency for python-json-logger
+# mistletoe~==None # Installed as dependency for markdown-it-py
+# mistune==3.2.0 # Installed as dependency for jupyter_server_terminals, jupyterlab_server, nbconvert
+# mistune~==None # Installed as dependency for markdown-it-py
+# mkdocs==None # Installed as dependency for python-json-logger
+# mkdocs-awesome-pages-plugin==None # Installed as dependency for python-json-logger
+# mkdocs-gen-files==None # Installed as dependency for python-json-logger
+# mkdocs-literate-nav==None # Installed as dependency for python-json-logger
+# mkdocs-material==None # Installed as dependency for python-json-logger
+# mkdocstrings[python]==None # Installed as dependency for python-json-logger
+# mock==None # Installed as dependency for jedi, nbclient
+# more_itertools==None # Installed as dependency for jaraco.functools, jaraco.text, zipp
+# moto==None # Installed as dependency for nbclient
+# msgpack==None # Installed as dependency for jupyter_client
+# msgspec==None # Installed as dependency for python-json-logger
 # multidict==6.7.1 # Installed as dependency for aiohttp, yarl
-# mypy-extensions==1.1.0 # Installed as dependency for typing-inspect
-# numpy==2.4.2 # Installed as dependency for langchain-community, pandas
-# openai==2.24.0 # Installed as dependency for langchain-openai
-# orjson==3.11.7 # Installed as dependency for langgraph-sdk, langserve, langsmith
+# munkres==None # Installed as dependency for fonttools
+# mypy==None # Installed as dependency for SQLAlchemy, contourpy, cryptography, idna, jaraco.context, jaraco.functools, jaraco.text, jedi, jupyter_client, platformdirs, python-json-logger, seaborn, traitlets, uri-template
+# mypy-extensions==None # Installed as dependency for typing-inspect
+# mypy~==None # Installed as dependency for terminado
+# mysql-connector-python==9.6.0 # Installed as dependency for SQLAlchemy
+# mysqlclient==None # Installed as dependency for SQLAlchemy
+# myst-parser==None # Installed as dependency for ipykernel, jupyter-events, jupyter_client, jupyter_core, jupyter_server, jupyter_server_terminals, jupyterlab, jupyterlab_server, markdown-it-py, nbclient, nbconvert, nbformat, notebook, terminado, traitlets, websocket-client
+# nanoarrow==None # Installed as dependency for pillow
+# nbclient==0.10.4 # Installed as dependency for ipython, nbconvert
+# nbconvert==7.17.0 # Installed as dependency for jupyter, jupyter_server, jupyterlab, nbclient, seaborn
+# nbdime==None # Installed as dependency for matplotlib-inline
+# nbformat==5.10.4 # Installed as dependency for ipython, jupyter_server, jupyter_server_terminals, nbclient, nbconvert
+# nbsphinx==None # Installed as dependency for nbconvert, notebook
+# nbval==None # Installed as dependency for matplotlib-inline, notebook, tqdm
+# nest-asyncio==1.6.0 # Installed as dependency for ipykernel
+# notebook==7.5.5 # Installed as dependency for jupyter, matplotlib-inline
+# notebook-shim==None # Installed as dependency for jupyterlab, notebook
+# nox[uv]==None # Installed as dependency for cryptography
+# numba==None # Installed as dependency for pandas
+# numexpr==None # Installed as dependency for pandas
+# numpy==2.4.3 # Installed as dependency for contourpy, ipython, langchain-community, matplotlib, openai, pandas, seaborn
+# numpydoc==None # Installed as dependency for cycler, seaborn
+# objgraph==None # Installed as dependency for greenlet
+# odfpy==None # Installed as dependency for pandas
+# olefile==None # Installed as dependency for pillow
+# openai==2.29.0 # Installed as dependency for langchain-openai
+# openai-agents==None # Installed as dependency for langsmith
+# openapi-core~==None # Installed as dependency for jupyterlab_server
+# openapi-spec-validator==None # Installed as dependency for jupyterlab_server
+# openpyxl==None # Installed as dependency for pandas
+# opentelemetry-api==None # Installed as dependency for langsmith, mysql-connector-python, redis
+# opentelemetry-exporter-otlp-proto-http==None # Installed as dependency for langsmith, mysql-connector-python, redis
+# opentelemetry-sdk==None # Installed as dependency for langsmith, mysql-connector-python, redis
+# oracledb==None # Installed as dependency for SQLAlchemy
+# orjson==3.11.7 # Installed as dependency for jupyter_client, langgraph-sdk, langserve, langsmith, python-json-logger
 # ormsgpack==1.12.2 # Installed as dependency for langgraph-checkpoint
-# packaging==26.0 # Installed as dependency for langchain-core, langsmith, marshmallow
+# overrides==7.7.0 # Installed as dependency for jupyter_server
+# packaging==26.0 # Installed as dependency for importlib_metadata, ipykernel, ipython, jedi, jupyter-events, jupyter_server, jupyter_server_terminals, jupyterlab, jupyterlab_server, langchain-core, langsmith, marshmallow, matplotlib, nbconvert, pillow, psutil
+# pandas==3.0.1 # Installed as dependency for ipython, jupyterlab, openai, seaborn
+# pandas-stubs==None # Installed as dependency for openai, seaborn
+# pandocfilters==1.5.1 # Installed as dependency for nbconvert
+# panflute~==None # Installed as dependency for markdown-it-py
+# paramiko==None # Installed as dependency for jupyter_client
+# parso==0.8.6 # Installed as dependency for jedi
+# pathlib2==None # Installed as dependency for jaraco.text
+# pep440==None # Installed as dependency for nbformat
+# pep8-naming==None # Installed as dependency for uri-template
+# pexpect==4.9.0 # Installed as dependency for ipython, jupyter-console
+# pg8000==None # Installed as dependency for SQLAlchemy
+# pillow==12.2.0 # Installed as dependency for matplotlib
+# platformdirs==4.2.2 # Installed as dependency for jupyter_core
+# playwright==None # Installed as dependency for nbconvert
+# portend==None # Installed as dependency for jaraco.context
+# pre-commit==None # Installed as dependency for PyJWT, arrow, ipykernel, jupyter-events, jupyter_client, jupyter_core, jupyter_server, jupyterlab, marshmallow, nbclient, nbformat, notebook, seaborn, terminado, traitlets
+# pretend==None # Installed as dependency for cryptography
+# prometheus-client==None # Installed as dependency for jupyter_server
+# prompt-toolkit==None # Installed as dependency for jupyter-console
+# prompt_toolkit==3.0.52 # Installed as dependency for ipython
 # propcache==0.4.1 # Installed as dependency for aiohttp, yarl
-# psutil==7.2.2 # Installed as dependency for gnupg
+# proselint==None # Installed as dependency for platformdirs
+# psleak==None # Installed as dependency for psutil
+# psutil==7.2.2 # Installed as dependency for gnupg, greenlet, ipykernel, markdown-it-py
+# psycopg==None # Installed as dependency for SQLAlchemy
+# psycopg2==None # Installed as dependency for SQLAlchemy, pandas
+# psycopg2-binary==None # Installed as dependency for SQLAlchemy
+# psycopg2cffi==None # Installed as dependency for SQLAlchemy
+# psycopg[binary]==None # Installed as dependency for SQLAlchemy
+# ptyprocess==0.7.0 # Installed as dependency for pexpect, terminado
+# pure-eval==None # Installed as dependency for stack-data
+# pyarrow==None # Installed as dependency for pandas, pillow
+# pybind11==None # Installed as dependency for matplotlib
+# pybreaker==None # Installed as dependency for redis
+# pycairo==None # Installed as dependency for fonttools
 # pycparser==3.0 # Installed as dependency for cffi
-# pydantic==2.12.5 # Installed as dependency for fastapi, langchain, langchain-classic, langchain-core, langgraph, langserve, langsmith, mcp, openai, pydantic-settings
-# pydantic-core==2.41.5 # Installed as dependency for pydantic
-# pydantic-settings==2.13.1 # Installed as dependency for langchain-community, mcp
-# pygments==2.19.2 # Installed as dependency for rich
-# pyjwt==2.11.0 # Installed as dependency for mcp
-# python-dateutil==2.9.0.post0 # Installed as dependency for pandas
-# python-dotenv==1.2.2 # Installed as dependency for pydantic-settings
-# python-multipart==0.0.22 # Installed as dependency for mcp
-# pyyaml==6.0.3 # Installed as dependency for langchain-classic, langchain-community, langchain-core
-# referencing==0.37.0 # Installed as dependency for jsonschema, jsonschema-specifications
-# regex==2026.2.28 # Installed as dependency for tiktoken
-# requests==2.32.5 # Installed as dependency for langchain-classic, langchain-community, langsmith, requests-toolbelt, tiktoken
+# pydantic==2.12.5 # Installed as dependency for fastapi, jupyterlab, langchain, langchain-classic, langchain-core, langgraph, langserve, langsmith, mcp, openai, pydantic-settings
+# pydantic-core==None # Installed as dependency for pydantic
+# pydantic-extra-types==None # Installed as dependency for fastapi
+# pydantic-settings==2.13.1 # Installed as dependency for fastapi, langchain-community, mcp
+# pydata-sphinx-theme==None # Installed as dependency for ipykernel, jupyter-events, jupyter_client, jupyter_core, jupyter_server, jupyter_server_terminals, jupyterlab, jupyterlab_server, nbconvert, nbformat, notebook, terminado, traitlets
+# pydata_sphinx_theme==None # Installed as dependency for seaborn
+# pyenchant==None # Installed as dependency for cryptography
+# pyfakefs==None # Installed as dependency for importlib_metadata
+# pygments==None # Installed as dependency for httpx, ipython, ipython_pygments_lexers, jupyter-console, nbconvert, rich, stack-data
+# pyiceberg==None # Installed as dependency for pandas
+# pyjwt==None # Installed as dependency for redis
+# pyjwt[crypto]==None # Installed as dependency for mcp
+# pylint==None # Installed as dependency for fastjsonschema, psutil, python-json-logger
+# pymssql==None # Installed as dependency for SQLAlchemy
+# pymysql==None # Installed as dependency for SQLAlchemy, pandas
+# pyobjc==None # Installed as dependency for Send2Trash
+# pyodbc==None # Installed as dependency for SQLAlchemy
+# pyopenssl==None # Installed as dependency for redis
+# pyparsing==3.3.2 # Installed as dependency for jedi, matplotlib
+# pyperf==None # Installed as dependency for psutil
+# pypinfo==None # Installed as dependency for psutil
+# pyqt5==None # Installed as dependency for ipykernel
+# pyqtwebengine==None # Installed as dependency for nbconvert
+# pyreadline3==None # Installed as dependency for psutil
+# pyreadstat==None # Installed as dependency for pandas
+# pyroma==None # Installed as dependency for pillow
+# pyside6==None # Installed as dependency for ipykernel
+# pysocks==None # Installed as dependency for urllib3
+# pytest==None # Installed as dependency for PyJWT, Send2Trash, arrow, asttokens, babel, backports.tarfile, comm, contourpy, cryptography, cycler, executing, fastjsonschema, idna, importlib_metadata, ipykernel, ipython, ipywidgets, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, jedi, jupyter-console, jupyter-events, jupyter_client, jupyter_core, jupyter_server, jupyter_server_terminals, jupyterlab, jupyterlab_server, langsmith, markdown-it-py, marshmallow, matplotlib-inline, nbclient, nbconvert, nbformat, notebook, notebook_shim, pandas, parso, pillow, platformdirs, prettytable, psutil, pure_eval, python-json-logger, rfc3987-syntax, seaborn, stack-data, tenacity, terminado, tinycss2, tqdm, traitlets, websocket-client, zipp
+# pytest-asyncio==None # Installed as dependency for ipykernel, ipython, jupyter-events, nbclient, tqdm
+# pytest-benchmark==None # Installed as dependency for cryptography, fastjsonschema, markdown-it-py
+# pytest-cache==None # Installed as dependency for fastjsonschema
+# pytest-check-links==None # Installed as dependency for jupyterlab
+# pytest-checkdocs==None # Installed as dependency for backports.tarfile, importlib_metadata, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, zipp
+# pytest-console-scripts==None # Installed as dependency for jupyter-events, jupyter_server, jupyterlab, jupyterlab_server, notebook, notebook_shim
+# pytest-cov==None # Installed as dependency for arrow, asttokens, babel, backports.tarfile, contourpy, cryptography, cycler, importlib_metadata, ipykernel, ipywidgets, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, jupyter_client, jupyter_core, jupyterlab, jupyterlab_server, markdown-it-py, nbclient, pillow, platformdirs, prettytable, psutil, seaborn, tqdm, zipp
+# pytest-enabler==None # Installed as dependency for backports.tarfile, importlib_metadata, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, zipp
+# pytest-ignore-flaky==None # Installed as dependency for zipp
+# pytest-instafail==None # Installed as dependency for psutil
+# pytest-jupyter==None # Installed as dependency for jupyterlab, notebook_shim
+# pytest-jupyter[client]==None # Installed as dependency for jupyter_client
+# pytest-jupyter[server]==None # Installed as dependency for jupyter_server, jupyter_server_terminals, jupyterlab_server
+# pytest-lazy-fixtures==None # Installed as dependency for prettytable
+# pytest-mock==None # Installed as dependency for arrow, platformdirs, traitlets
+# pytest-mypy==None # Installed as dependency for importlib_metadata, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, zipp
+# pytest-mypy-testing==None # Installed as dependency for traitlets
+# pytest-perf==None # Installed as dependency for importlib_metadata
+# pytest-randomly==None # Installed as dependency for cryptography
+# pytest-regressions==None # Installed as dependency for markdown-it-py
+# pytest-rerunfailures==None # Installed as dependency for contourpy
+# pytest-ruff==None # Installed as dependency for importlib_metadata, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, zipp
+# pytest-timeout==None # Installed as dependency for ipykernel, jupyter_client, jupyter_core, jupyter_server, jupyter_server_terminals, jupyterlab, jupyterlab_server, notebook, pillow, terminado, tqdm
+# pytest-tornasync==None # Installed as dependency for jupyterlab, notebook, notebook_shim
+# pytest-xdist==None # Installed as dependency for asttokens, contourpy, cryptography, cycler, pandas, pillow, psutil, seaborn
+# python-calamine==None # Installed as dependency for pandas
+# python-dateutil==2.9.0.post0 # Installed as dependency for arrow, jupyter_client, matplotlib, pandas
+# python-dotenv==1.2.2 # Installed as dependency for mcp, pydantic-settings, uvicorn
+# python-json-logger==4.1.0 # Installed as dependency for jupyter-events
+# python-multipart==0.0.22 # Installed as dependency for fastapi, mcp, starlette
+# python-socks==None # Installed as dependency for websocket-client
+# pytz==None # Installed as dependency for arrow, babel, ipywidgets, jedi, pandas
+# pywin32==None # Installed as dependency for Send2Trash, mcp, psutil
+# pywinpty==None # Installed as dependency for jupyter_server, jupyter_server_terminals, terminado
+# pyxlsb==None # Installed as dependency for pandas
+# pyyaml==None # Installed as dependency for fastapi, jupyter-events, langchain-classic, langchain-core, markdown-it-py, pydantic-settings, seaborn, starlette, uvicorn
+# pyyaml-include==None # Installed as dependency for jupyterlab
+# pyzmq==27.1.0 # Installed as dependency for ipykernel, jupyter-console, jupyter_client, jupyter_server
+# qtpy==None # Installed as dependency for pandas
+# railroad-diagrams==None # Installed as dependency for pyparsing
+# readme-renderer==None # Installed as dependency for cryptography
+# readthedocs-sphinx-ext==None # Installed as dependency for jedi
+# recommonmark==None # Installed as dependency for jedi
+# referencing==0.37.0 # Installed as dependency for jsonschema, jsonschema-specifications, jupyter-events
+# regex==2026.2.28 # Installed as dependency for lark, tiktoken
+# reno==None # Installed as dependency for tenacity
+# requests==2.32.5 # Installed as dependency for jedi, jupyter_server, jupyterlab, jupyterlab_server, langchain-classic, langchain-community, langsmith, markdown-it-py, notebook, psutil, redis, requests-toolbelt, tiktoken, tqdm
+# requests-cache==None # Installed as dependency for jupyterlab
+# requests-mock==None # Installed as dependency for jupyterlab_server
 # requests-toolbelt==1.0.0 # Installed as dependency for langsmith
-# rich==14.3.3 # Installed as dependency for typer
+# rfc3339-validator==0.1.4 # Installed as dependency for jsonschema, jupyter-events
+# rfc3986-validator==0.1.1 # Installed as dependency for jsonschema, jupyter-events
+# rfc3987==None # Installed as dependency for jsonschema
+# rfc3987-syntax==1.1.0 # Installed as dependency for jsonschema
+# rich==14.3.3 # Installed as dependency for executing, httpx, jupyter-events, langsmith, mcp, typer
 # rpds-py==0.30.0 # Installed as dependency for jsonschema, referencing
+# rst.linker==None # Installed as dependency for backports.tarfile, importlib_metadata, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, zipp
+# rstcheck==None # Installed as dependency for psutil
+# ruamel-yaml==None # Installed as dependency for jupyterlab_server
+# ruff==None # Installed as dependency for cryptography, idna, jupyterlab, psutil, tinycss2
+# s3fs==None # Installed as dependency for pandas
+# scipy==None # Installed as dependency for fonttools, jupyterlab, pandas, seaborn
+# selenium==None # Installed as dependency for contourpy
+# send2trash==None # Installed as dependency for jupyter_server
+# setuptools_scm==None # Installed as dependency for matplotlib
 # shellingham==1.5.4 # Installed as dependency for typer
-# six==1.17.0 # Installed as dependency for python-dateutil
+# simplejson==None # Installed as dependency for arrow, marshmallow
+# six==1.17.0 # Installed as dependency for jedi, python-dateutil, rfc3339-validator
+# skia-pathops==None # Installed as dependency for fonttools
+# slack-sdk==None # Installed as dependency for tqdm
 # sniffio==1.3.1 # Installed as dependency for openai
-# sqlalchemy==2.0.48 # Installed as dependency for langchain-classic, langchain-community
-# sse-starlette==3.3.2 # Installed as dependency for mcp
+# snowballstemmer==None # Installed as dependency for jedi
+# socksio==None # Installed as dependency for httpcore, httpx
+# sounddevice==None # Installed as dependency for openai
+# soupsieve==2.8.3 # Installed as dependency for beautifulsoup4
+# sphinx==None # Installed as dependency for PyJWT, arrow, backports.tarfile, contourpy, cryptography, cycler, importlib_metadata, ipykernel, ipython, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, jedi, jupyter-events, jupyter_client, jupyterlab, jupyterlab_server, markdown-it-py, marshmallow, nbclient, nbconvert, nbformat, notebook, pillow, platformdirs, psutil, seaborn, tenacity, terminado, tinycss2, traitlets, zipp
+# sphinx-autobuild==None # Installed as dependency for arrow, pillow
+# sphinx-autodoc-typehints==None # Installed as dependency for arrow, ipykernel, jupyter_client, jupyter_core, jupyter_server, platformdirs
+# sphinx-book-theme==None # Installed as dependency for nbclient
+# sphinx-book-theme~==None # Installed as dependency for markdown-it-py
+# sphinx-copybutton==None # Installed as dependency for contourpy, jupyterlab, jupyterlab_server, markdown-it-py, marshmallow, pillow, seaborn
+# sphinx-design==None # Installed as dependency for markdown-it-py, seaborn
+# sphinx-inline-tabs==None # Installed as dependency for cryptography, pillow
+# sphinx-issues==None # Installed as dependency for marshmallow, seaborn
+# sphinx-lint==None # Installed as dependency for backports.tarfile, importlib_metadata, jaraco.collections, jaraco.context, jaraco.functools, jaraco.text, zipp
+# sphinx-rtd-theme==None # Installed as dependency for PyJWT, cryptography, ipython, jedi, psutil
+# sphinx_rtd_theme==None # Installed as dependency for arrow, tinycss2, websocket-client
+# sphinx_toml==None # Installed as dependency for ipython
+# sphinxcontrib-fulltoc==None # Installed as dependency for gnupg
+# sphinxcontrib-github-alt==None # Installed as dependency for ipykernel, jupyter_client, jupyter_server, jupyter_server_terminals, nbformat, notebook
+# sphinxcontrib-openapi==None # Installed as dependency for jupyter_server, jupyter_server_terminals, jupyterlab_server
+# sphinxcontrib-serializinghtml==None # Installed as dependency for jedi
+# sphinxcontrib-spelling==None # Installed as dependency for cryptography, ipykernel, jupyter-events, jupyter_client, jupyter_core, jupyter_server, jupyter_server_terminals, jupyterlab_server, nbclient, nbconvert, nbformat, notebook
+# sphinxcontrib-websupport==None # Installed as dependency for jedi
+# sphinxemoji==None # Installed as dependency for jupyter_server, jupyter_server_terminals
+# sphinxext-opengraph==None # Installed as dependency for marshmallow, pillow
+# sqlalchemy==None # Installed as dependency for langchain-classic
+# sqlalchemy[asyncio]==None # Installed as dependency for sse-starlette
+# sqlcipher3_binary==None # Installed as dependency for SQLAlchemy
+# sse-starlette==3.3.3 # Installed as dependency for langserve, mcp
+# stack_data==None # Installed as dependency for ipython
 # starlette==0.52.1 # Installed as dependency for fastapi, mcp, sse-starlette
+# statsmodels==None # Installed as dependency for seaborn
+# strict-rfc3339==None # Installed as dependency for jupyterlab_server
+# sympy==None # Installed as dependency for fonttools
+# tables==None # Installed as dependency for pandas
+# tabulate==None # Installed as dependency for pandas
 # tenacity==9.1.4 # Installed as dependency for langchain-community, langchain-core
+# terminado==0.18.1 # Installed as dependency for jupyter_server, jupyter_server_terminals
+# testpath==None # Installed as dependency for ipython, nbclient, nbformat
 # tiktoken==0.12.0 # Installed as dependency for langchain-openai
+# tinycss2==1.4.0 # Installed as dependency for bleach
+# toml-sort==None # Installed as dependency for psutil
+# tomli==2.0.1 # Installed as dependency for jupyterlab, pydantic-settings
+# tomli-w==None # Installed as dependency for jupyterlab
+# tornado==6.5.5 # Installed as dependency for ipykernel, jupyter_client, jupyter_server, jupyter_server_terminals, jupyterlab, nbconvert, notebook, tenacity, terminado
+# tox==None # Installed as dependency for marshmallow
 # tqdm==4.67.3 # Installed as dependency for openai
-# typeguard==4.3.0 # Installed as dependency for inflect
-# typer==0.24.1 # Installed as dependency for typer-slim
-# typer-slim==0.24.0 # Installed as dependency for jaraco-text
-# typing-extensions==4.15.0 # Installed as dependency for aiosignal, anyio, fastapi, langchain-core, langchain-mcp-adapters, mcp, openai, pydantic, pydantic-core, referencing, sqlalchemy, starlette, typeguard, typing-inspect, typing-inspection
+# traitlets==5.14.3 # Installed as dependency for ipykernel, ipython, ipywidgets, jupyter-console, jupyter-events, jupyter_client, jupyter_core, jupyter_server, jupyterlab, matplotlib-inline, nbclient, nbconvert, nbformat, terminado
+# trio==None # Installed as dependency for anyio, httpcore, ipykernel, ipython
+# trove-classifiers==None # Installed as dependency for pillow
+# twine==None # Installed as dependency for psutil
+# twisted==None # Installed as dependency for prometheus_client
+# typeguard==None # Installed as dependency for stack-data, tenacity
+# typer==0.24.1 # Installed as dependency for mcp, typer-slim
+# typer-slim==0.24.0 # Installed as dependency for jaraco.text
+# types-Pillow==None # Installed as dependency for contourpy
+# types-PyYAML==None # Installed as dependency for uri-template
+# types-setuptools==None # Installed as dependency for jedi, parso
+# typing==None # Installed as dependency for overrides, typing-inspect
+# typing-extensions==None # Installed as dependency for SQLAlchemy, aiosignal, annotated-types, beautifulsoup4, cryptography, fastapi, importlib_metadata, jupyter_server, langchain-core, langchain-mcp-adapters, mcp, mistune, multidict, openai, pydantic, pydantic_core, referencing, starlette, typing-inspect, typing-inspection, uvicorn
 # typing-inspect==0.9.0 # Installed as dependency for dataclasses-json
 # typing-inspection==0.4.2 # Installed as dependency for fastapi, mcp, pydantic, pydantic-settings
-# urllib3==2.6.3 # Installed as dependency for requests
-# uuid-utils==0.14.1 # Installed as dependency for langchain-core, langsmith
-# uvicorn==0.41.0 # Installed as dependency for mcp
-# wcwidth==0.6.0 # Installed as dependency for prettytable
+# typing_extensions==4.15.0 # Installed as dependency for PyJWT, SQLAlchemy, anyio, async-lru, ipython
+# tzdata==2026.1 # Installed as dependency for arrow, babel, pandas, pydantic, python-json-logger
+# uharfbuzz==None # Installed as dependency for fonttools
+# unicodedata2==None # Installed as dependency for fonttools
+# uri-template==1.3.0 # Installed as dependency for jsonschema
+# urllib3==2.6.3 # Installed as dependency for jedi, requests
+# uuid-utils==None # Installed as dependency for langchain-core, langsmith
+# uvicorn==0.42.0 # Installed as dependency for mcp, sse-starlette
+# uvicorn[standard]==None # Installed as dependency for fastapi
+# uvloop==None # Installed as dependency for uvicorn
+# validate-pyproject[all]==None # Installed as dependency for psutil, python-json-logger
+# validictory==None # Installed as dependency for fastjsonschema
+# vcrpy==None # Installed as dependency for langsmith
+# virtualenv==None # Installed as dependency for jupyterlab, psutil
+# vulture==None # Installed as dependency for psutil
+# watchfiles==None # Installed as dependency for uvicorn
+# wcwidth==0.6.0 # Installed as dependency for prettytable, prompt_toolkit
+# webcolors==25.10.0 # Installed as dependency for jsonschema
+# webencodings==0.5.1 # Installed as dependency for bleach, tinycss2
+# websocket-client==1.9.0 # Installed as dependency for jupyter_server
+# websockets==None # Installed as dependency for langsmith, mcp, openai, uvicorn, websocket-client
+# werkzeug==None # Installed as dependency for jupyterlab_server
+# widgetsnbextension~==None # Installed as dependency for ipywidgets
+# wmi==None # Installed as dependency for psutil
+# wrapt==None # Installed as dependency for langsmith
+# wsaccel==None # Installed as dependency for websocket-client
+# wurlitzer==None # Installed as dependency for contourpy
+# xarray==None # Installed as dependency for pandas
+# xattr==None # Installed as dependency for fonttools
+# xlrd==None # Installed as dependency for pandas
+# xlsxwriter==None # Installed as dependency for pandas
+# xmltodict==None # Installed as dependency for nbclient
 # xxhash==3.6.0 # Installed as dependency for langgraph, langsmith
+# xxhash~==None # Installed as dependency for redis
 # yarl==1.23.0 # Installed as dependency for aiohttp
-# zipp==3.23.0 # Installed as dependency for importlib-metadata
-# zstandard==0.25.0 # Installed as dependency for langsmith
+# zipp==3.23.0 # Installed as dependency for importlib_metadata
+# zope.interface==None # Installed as dependency for PyJWT
+# zopfli==None # Installed as dependency for fonttools
+# zstandard==0.25.0 # Installed as dependency for httpx, langsmith, pandas
+# zuban==None # Installed as dependency for parso

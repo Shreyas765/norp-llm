@@ -1,0 +1,160 @@
+Run ID: 20260403_152951
+Benchmark CSV: /workspace/llm-engine/app/benchmark_questions.csv
+Validation enabled: no
+Validation JSON: disabled
+Output CSV: /workspace/llm-engine/app/profiling_logs/20260403_152951/profiling_results_20260403_152951.csv
+Log directory: /workspace/llm-engine/app/profiling_logs/20260403_152951
+Running benchmark mode: mcp
+[2026-04-03 15:29:53] START mode=mcp question_id=q001 prompt=1/26
+[2026-04-03 15:30:05] FINISH mode=mcp question_id=q001 status=none client_latency_ms=11925.36
+[2026-04-03 15:30:05] START mode=mcp question_id=q002 prompt=2/26
+[2026-04-03 15:30:10] FINISH mode=mcp question_id=q002 status=none client_latency_ms=5155.585
+[2026-04-03 15:30:10] START mode=mcp question_id=q003 prompt=3/26
+[2026-04-03 15:30:16] FINISH mode=mcp question_id=q003 status=none client_latency_ms=6229.305
+[2026-04-03 15:30:16] START mode=mcp question_id=q004 prompt=4/26
+[2026-04-03 15:30:26] FINISH mode=mcp question_id=q004 status=none client_latency_ms=9379.256
+[2026-04-03 15:30:26] START mode=mcp question_id=q005 prompt=5/26
+[2026-04-03 15:30:30] FINISH mode=mcp question_id=q005 status=none client_latency_ms=4451.04
+[2026-04-03 15:30:30] START mode=mcp question_id=q006 prompt=6/26
+[2026-04-03 15:30:45] FINISH mode=mcp question_id=q006 status=none client_latency_ms=15343.888
+[2026-04-03 15:30:45] START mode=mcp question_id=q007 prompt=7/26
+[2026-04-03 15:31:06] FINISH mode=mcp question_id=q007 status=none client_latency_ms=20365.432
+[2026-04-03 15:31:06] START mode=mcp question_id=q008 prompt=8/26
+[2026-04-03 15:31:21] FINISH mode=mcp question_id=q008 status=none client_latency_ms=14989.155
+[2026-04-03 15:31:21] START mode=mcp question_id=q009 prompt=9/26
+[2026-04-03 15:31:36] FINISH mode=mcp question_id=q009 status=none client_latency_ms=14976.328
+[2026-04-03 15:31:36] START mode=mcp question_id=q010 prompt=10/26
+[2026-04-03 15:31:45] FINISH mode=mcp question_id=q010 status=none client_latency_ms=9126.732
+[2026-04-03 15:31:45] START mode=mcp question_id=q011 prompt=11/26
+[2026-04-03 15:31:57] FINISH mode=mcp question_id=q011 status=none client_latency_ms=12277.904
+[2026-04-03 15:31:57] START mode=mcp question_id=q012 prompt=12/26
+[2026-04-03 15:32:05] FINISH mode=mcp question_id=q012 status=none client_latency_ms=7743.543
+[2026-04-03 15:32:05] START mode=mcp question_id=q013 prompt=13/26
+[2026-04-03 15:32:21] FINISH mode=mcp question_id=q013 status=none client_latency_ms=16179.748
+[2026-04-03 15:32:21] START mode=mcp question_id=q014 prompt=14/26
+[2026-04-03 15:32:34] FINISH mode=mcp question_id=q014 status=none client_latency_ms=13338.517
+[2026-04-03 15:32:34] START mode=mcp question_id=q015 prompt=15/26
+[2026-04-03 15:32:46] FINISH mode=mcp question_id=q015 status=none client_latency_ms=11621.986
+[2026-04-03 15:32:46] START mode=mcp question_id=q016 prompt=16/26
+[2026-04-03 15:32:52] FINISH mode=mcp question_id=q016 status=none client_latency_ms=5443.439
+[2026-04-03 15:32:52] START mode=mcp question_id=q017 prompt=17/26
+[2026-04-03 15:33:07] FINISH mode=mcp question_id=q017 status=none client_latency_ms=15898.591
+[2026-04-03 15:33:07] START mode=mcp question_id=q018 prompt=18/26
+[2026-04-03 15:33:14] FINISH mode=mcp question_id=q018 status=none client_latency_ms=6321.749
+[2026-04-03 15:33:14] START mode=mcp question_id=q019 prompt=19/26
+[2026-04-03 15:33:31] FINISH mode=mcp question_id=q019 status=none client_latency_ms=17126.856
+[2026-04-03 15:33:31] START mode=mcp question_id=q020 prompt=20/26
+[2026-04-03 15:33:43] FINISH mode=mcp question_id=q020 status=none client_latency_ms=12002.855
+[2026-04-03 15:33:43] START mode=mcp question_id=q021 prompt=21/26
+[2026-04-03 15:33:49] FINISH mode=mcp question_id=q021 status=none client_latency_ms=5961.281
+[2026-04-03 15:33:49] START mode=mcp question_id=q022 prompt=22/26
+[2026-04-03 15:33:59] FINISH mode=mcp question_id=q022 status=none client_latency_ms=10234.595
+[2026-04-03 15:33:59] START mode=mcp question_id=q023 prompt=23/26
+[2026-04-03 15:34:12] FINISH mode=mcp question_id=q023 status=none client_latency_ms=12683.633
+[2026-04-03 15:34:12] START mode=mcp question_id=q024 prompt=24/26
+[2026-04-03 15:34:20] FINISH mode=mcp question_id=q024 status=none client_latency_ms=7823.89
+[2026-04-03 15:34:20] START mode=mcp question_id=q025 prompt=25/26
+[2026-04-03 15:34:30] FINISH mode=mcp question_id=q025 status=none client_latency_ms=10750.288
+[2026-04-03 15:34:30] START mode=mcp question_id=q026 prompt=26/26
+[2026-04-03 15:34:38] FINISH mode=mcp question_id=q026 status=none client_latency_ms=7357.672
+Running benchmark mode: text2sql
+[2026-04-03 15:34:40] START mode=text2sql question_id=q001 prompt=1/26
+[2026-04-03 15:34:55] FINISH mode=text2sql question_id=q001 status=none client_latency_ms=15117.079
+[2026-04-03 15:34:55] START mode=text2sql question_id=q002 prompt=2/26
+[2026-04-03 15:35:06] FINISH mode=text2sql question_id=q002 status=none client_latency_ms=11153.94
+[2026-04-03 15:35:06] START mode=text2sql question_id=q003 prompt=3/26
+[2026-04-03 15:35:34] FINISH mode=text2sql question_id=q003 status=none client_latency_ms=27353.84
+[2026-04-03 15:35:34] START mode=text2sql question_id=q004 prompt=4/26
+[2026-04-03 15:35:42] FINISH mode=text2sql question_id=q004 status=none client_latency_ms=8234.49
+[2026-04-03 15:35:42] START mode=text2sql question_id=q005 prompt=5/26
+[2026-04-03 15:35:50] FINISH mode=text2sql question_id=q005 status=none client_latency_ms=8490.928
+[2026-04-03 15:35:50] START mode=text2sql question_id=q006 prompt=6/26
+[2026-04-03 15:36:06] FINISH mode=text2sql question_id=q006 status=none client_latency_ms=15429.21
+[2026-04-03 15:36:06] START mode=text2sql question_id=q007 prompt=7/26
+[2026-04-03 15:36:22] FINISH mode=text2sql question_id=q007 status=none client_latency_ms=16065.432
+[2026-04-03 15:36:22] START mode=text2sql question_id=q008 prompt=8/26
+[2026-04-03 15:36:46] FINISH mode=text2sql question_id=q008 status=none client_latency_ms=24239.197
+[2026-04-03 15:36:46] START mode=text2sql question_id=q009 prompt=9/26
+[2026-04-03 15:36:59] FINISH mode=text2sql question_id=q009 status=none client_latency_ms=13256.035
+[2026-04-03 15:36:59] START mode=text2sql question_id=q010 prompt=10/26
+[2026-04-03 15:37:12] FINISH mode=text2sql question_id=q010 status=none client_latency_ms=12678.078
+[2026-04-03 15:37:12] START mode=text2sql question_id=q011 prompt=11/26
+[2026-04-03 15:37:24] FINISH mode=text2sql question_id=q011 status=none client_latency_ms=11994.153
+[2026-04-03 15:37:24] START mode=text2sql question_id=q012 prompt=12/26
+[2026-04-03 15:37:48] FINISH mode=text2sql question_id=q012 status=none client_latency_ms=23798.536
+[2026-04-03 15:37:48] START mode=text2sql question_id=q013 prompt=13/26
+[2026-04-03 15:38:03] FINISH mode=text2sql question_id=q013 status=none client_latency_ms=15141.097
+[2026-04-03 15:38:03] START mode=text2sql question_id=q014 prompt=14/26
+[2026-04-03 15:38:23] FINISH mode=text2sql question_id=q014 status=none client_latency_ms=20019.747
+[2026-04-03 15:38:23] START mode=text2sql question_id=q015 prompt=15/26
+[2026-04-03 15:38:41] FINISH mode=text2sql question_id=q015 status=none client_latency_ms=17596.071
+[2026-04-03 15:38:41] START mode=text2sql question_id=q016 prompt=16/26
+[2026-04-03 15:38:52] FINISH mode=text2sql question_id=q016 status=none client_latency_ms=11169.26
+[2026-04-03 15:38:52] START mode=text2sql question_id=q017 prompt=17/26
+[2026-04-03 15:39:22] FINISH mode=text2sql question_id=q017 status=none client_latency_ms=29910.172
+[2026-04-03 15:39:22] START mode=text2sql question_id=q018 prompt=18/26
+[2026-04-03 15:39:37] FINISH mode=text2sql question_id=q018 status=none client_latency_ms=15595.867
+[2026-04-03 15:39:37] START mode=text2sql question_id=q019 prompt=19/26
+[2026-04-03 15:40:01] FINISH mode=text2sql question_id=q019 status=none client_latency_ms=23422.138
+[2026-04-03 15:40:01] START mode=text2sql question_id=q020 prompt=20/26
+[2026-04-03 15:40:26] FINISH mode=text2sql question_id=q020 status=none client_latency_ms=25191.715
+[2026-04-03 15:40:26] START mode=text2sql question_id=q021 prompt=21/26
+[2026-04-03 15:40:36] FINISH mode=text2sql question_id=q021 status=none client_latency_ms=9738.471
+[2026-04-03 15:40:36] START mode=text2sql question_id=q022 prompt=22/26
+[2026-04-03 15:40:46] FINISH mode=text2sql question_id=q022 status=none client_latency_ms=10763.518
+[2026-04-03 15:40:46] START mode=text2sql question_id=q023 prompt=23/26
+[2026-04-03 15:40:54] FINISH mode=text2sql question_id=q023 status=none client_latency_ms=7954.482
+[2026-04-03 15:40:54] START mode=text2sql question_id=q024 prompt=24/26
+[2026-04-03 15:41:12] FINISH mode=text2sql question_id=q024 status=none client_latency_ms=17284.621
+[2026-04-03 15:41:12] START mode=text2sql question_id=q025 prompt=25/26
+[2026-04-03 15:41:38] FINISH mode=text2sql question_id=q025 status=none client_latency_ms=25978.305
+[2026-04-03 15:41:38] START mode=text2sql question_id=q026 prompt=26/26
+[2026-04-03 15:41:56] FINISH mode=text2sql question_id=q026 status=none client_latency_ms=18197.188
+
+Run ID: 20260403_152951
+Benchmark CSV: /workspace/llm-engine/app/benchmark_questions.csv
+Validation enabled: no
+Validation JSON: disabled
+Output CSV: /workspace/llm-engine/app/profiling_logs/20260403_152951/profiling_results_20260403_152951.csv
+Log directory: /workspace/llm-engine/app/profiling_logs/20260403_152951
+Total rows: 52
+
+[Mode: mcp]
+Rows: 26
+Validated success count: disabled
+Validated success rate: disabled
+Transport/system failure count: 0
+Transport/system failure rate: 0.0%
+Client latency avg/median/p95: 10950.332 / 11186.137 / 17126.856 ms
+Server latency avg/median/p95: 10931.11 / 11161.912 / 17108.261 ms
+Total tokens: 441427
+Average tokens/request: 16977.962
+Total estimated cost (USD): unavailable
+Average estimated cost/request (USD): unavailable
+Per-category breakdown:
+- faa: rows=5, validated_success_rate=disabled, failure_rate=0.0%, avg_client_latency_ms=13267.841, p95_client_latency_ms=17126.856
+- ngo: rows=7, validated_success_rate=disabled, failure_rate=0.0%, avg_client_latency_ms=12392.007, p95_client_latency_ms=20365.432
+- shootings: rows=2, validated_success_rate=disabled, failure_rate=0.0%, avg_client_latency_ms=13450.844, p95_client_latency_ms=14976.328
+- sql: rows=6, validated_success_rate=disabled, failure_rate=0.0%, avg_client_latency_ms=9135.227, p95_client_latency_ms=12683.633
+- unemployment: rows=6, validated_success_rate=disabled, failure_rate=0.0%, avg_client_latency_ms=8318.721, p95_client_latency_ms=12277.904
+
+[Mode: text2sql]
+Rows: 26
+Validated success count: disabled
+Validated success rate: disabled
+Transport/system failure count: 0
+Transport/system failure rate: 0.0%
+Client latency avg/median/p95: 16760.522 / 15512.538 / 27353.84 ms
+Server latency avg/median/p95: 16740.156 / 15496.642 / 27321.14 ms
+Total tokens: 161697
+Average tokens/request: 6219.115
+Total estimated cost (USD): unavailable
+Average estimated cost/request (USD): unavailable
+Per-category breakdown:
+- faa: rows=5, validated_success_rate=disabled, failure_rate=0.0%, avg_client_latency_ms=23671.818, p95_client_latency_ms=29910.172
+- ngo: rows=7, validated_success_rate=disabled, failure_rate=0.0%, avg_client_latency_ms=14844.535, p95_client_latency_ms=20019.747
+- shootings: rows=2, validated_success_rate=disabled, failure_rate=0.0%, avg_client_latency_ms=14186.557, p95_client_latency_ms=15117.079
+- sql: rows=6, validated_success_rate=disabled, failure_rate=0.0%, avg_client_latency_ms=14986.097, p95_client_latency_ms=25978.305
+- unemployment: rows=6, validated_success_rate=disabled, failure_rate=0.0%, avg_client_latency_ms=15868.84, p95_client_latency_ms=27353.84
+
+Estimated cost was unavailable because PROFILER_INPUT_COST_PER_1M_TOKENS and PROFILER_OUTPUT_COST_PER_1M_TOKENS were not both set.
