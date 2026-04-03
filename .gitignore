@@ -170,3 +170,5 @@ llm-engine/pyproject.toml
 
 .devcontainer/redis
 .devcontainer/store
+
+llm-engine/app/profiling_logs

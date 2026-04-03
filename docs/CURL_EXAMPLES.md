@@ -2,7 +2,7 @@
 
 These examples call `POST http://127.0.0.1:8000/query` with JSON: `question`, `session_id`, and `message_type` (`human` for user turns).
 
-**Prerequisites:** Redis, MySQL (with NORP/FAA tables as loaded by your setup), MCP server (`python mcp-server/server.py`), and the app (`uvicorn app:app --host 127.0.0.1 --port 8000` from `llm-engine/app`).
+**Prerequisites:** Redis, MySQL (with NORP/FAA tables as loaded by your setup), optional Georgia crime tables if you use those prompts (`python llm-engine/app/local_database_setup/load_georgia_crime_incidents.py`), MCP server (`python mcp-server/server.py`), and the app (`uvicorn app:app --host 127.0.0.1 --port 8000` from `llm-engine/app`). For MCP-only mode, start the app with `--mcp-only` or set `MCP_ONLY=1`.
 
 **Note:** Wording in `response` can differ per LLM run. The samples below were captured in one environment (MCP-only mode, local sample data). `sql_query` and `query_results` are usually `null` in MCP-only mode.
 
@@ -193,6 +193,42 @@ curl -sS --max-time 180 "http://127.0.0.1:8000/query" \
     "sql_query": null,
     "query_results": null
 }
+```
+
+---
+
+## 8. Georgia crime incidents (MCP: `fetch_georgia_crime_incidents`)
+
+Use after loading `georgia_crime_incidents_2022` / `_2023` / `_2024` (see `llm-engine/app/local_database_setup/load_georgia_crime_incidents.py`). Ask for a specific **year** so the model maps to the right table.
+
+**Command:**
+
+```bash
+curl -sS --max-time 180 "http://127.0.0.1:8000/query" \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data '{"question": "List 3 drug-related offenses in Georgia in 2023 with incident dates.", "session_id": 308, "message_type": "human"}' \
+  | python3 -m json.tool
+```
+
+**Sample output** (`response` may be raw CSV from the tool or a short summary, depending on the model):
+
+```json
+{
+    "response": "incident_id,submission_date,incident_date,incident_hour,incident_status,offense_incident_id,offense_code,offense_name,crime_against,is_counter_terrorism,is_hate_crime,offense_category_name,location_code,location_name,victim_id,ethnicity_name,offender_id,ethnicity_name_offender,victim_type_name\n166616620,2023-02-14,2023-01-03,10,ACCEPTED,198881307,35A,Drug/Narcotic Violations,Society,0,1,Drug/Narcotic Offenses,13,Highway/Road/Alley/Street/Sidewalk,184526430,Not Specified,189157289,Not Hispanic or Latino,Society/Public",
+    "sql_query": null,
+    "query_results": null
+}
+```
+
+**Stricter tool routing** (explicit year and filters):
+
+```bash
+curl -sS --max-time 180 "http://127.0.0.1:8000/query" \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data '{"question": "Using Georgia crime data for 2024 only, show 2 hate crime offenses and include offense name and incident date.", "session_id": 309, "message_type": "human"}' \
+  | python3 -m json.tool
 ```
 
 ---

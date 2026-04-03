@@ -12,6 +12,7 @@ from typing import List, Optional, Dict, Any
 import json
 import os
 import argparse
+import time
 from pathlib import Path
 from langchain_classic.memory import ConversationBufferMemory
 from langchain_classic.schema import HumanMessage, AIMessage, SystemMessage, BaseMessage
@@ -224,7 +225,7 @@ async def run_mcp_chain(question: str, history: List[dict], session_id: str, mem
 
     update_chat_memory_and_redis_history(session_id, question, "human", memory)
     memory = update_chat_memory_and_redis_history(session_id, final_message.content, "ai", memory)
-    return (final_message, memory)
+    return (final_message, memory, result_messages)
 
 # Define the request body model using Pydantic
 class ChatRequest(BaseModel):
@@ -306,22 +307,109 @@ def update_chat_memory_and_redis_history(session_id: str, message_content: str, 
         memory.chat_memory.add_message(SystemMessage(content=message_content))
     return memory
 
+def extract_token_usage_from_message(message) -> Dict[str, Optional[int]]:
+    usage = getattr(message, "usage_metadata", None) or {}
+    response_metadata = getattr(message, "response_metadata", None) or {}
+    token_usage = response_metadata.get("token_usage", {}) if isinstance(response_metadata, dict) else {}
+
+    prompt_tokens = usage.get("input_tokens")
+    completion_tokens = usage.get("output_tokens")
+    total_tokens = usage.get("total_tokens")
+
+    if prompt_tokens is None:
+        prompt_tokens = token_usage.get("prompt_tokens") or token_usage.get("input_tokens")
+    if completion_tokens is None:
+        completion_tokens = token_usage.get("completion_tokens") or token_usage.get("output_tokens")
+    if total_tokens is None:
+        total_tokens = token_usage.get("total_tokens")
+
+    return {
+        "prompt_tokens": prompt_tokens,
+        "completion_tokens": completion_tokens,
+        "total_tokens": total_tokens,
+    }
+
+
+def aggregate_token_usage(messages: List[BaseMessage]) -> Dict[str, Optional[int]]:
+    prompt_tokens = 0
+    completion_tokens = 0
+    total_tokens = 0
+    found_usage = False
+
+    for message in messages:
+        if not isinstance(message, AIMessage):
+            continue
+        usage = extract_token_usage_from_message(message)
+        if usage["prompt_tokens"] is not None:
+            prompt_tokens += usage["prompt_tokens"]
+            found_usage = True
+        if usage["completion_tokens"] is not None:
+            completion_tokens += usage["completion_tokens"]
+            found_usage = True
+        if usage["total_tokens"] is not None:
+            total_tokens += usage["total_tokens"]
+            found_usage = True
+
+    if not found_usage:
+        return {
+            "prompt_tokens": None,
+            "completion_tokens": None,
+            "total_tokens": None,
+        }
+
+    if total_tokens == 0 and prompt_tokens and completion_tokens:
+        total_tokens = prompt_tokens + completion_tokens
+
+    return {
+        "prompt_tokens": prompt_tokens if prompt_tokens or prompt_tokens == 0 else None,
+        "completion_tokens": completion_tokens if completion_tokens or completion_tokens == 0 else None,
+        "total_tokens": total_tokens if total_tokens or total_tokens == 0 else None,
+    }
+
+
 def execute_sql_query(sql_query:str):
     execute_query = QuerySQLDataBaseTool(db=db)
-    query_results=None
+    query_results = None
+    error_message = None
+    start_time = time.perf_counter()
     try:
         query_results = execute_query.invoke({"query": sql_query})
     except Exception as e:
-        # TODO: Add feedback loop here when memory issue is sorted
         error_message = str(e)
         print(error_message)
-    return query_results
+
+    return {
+        "query_results": query_results,
+        "sql_execution_success": error_message is None and query_results is not None,
+        "sql_execution_error": error_message,
+        "sql_execution_latency_ms": round((time.perf_counter() - start_time) * 1000, 3),
+    }
 
 def is_mcp_only() -> bool:
     value = os.getenv("MCP_ONLY")
     if value is None:
         return True
     return value.strip() != "0"
+
+
+def build_profiling_payload(
+    mode: str,
+    start_time: float,
+    sql_execution_latency_ms: Optional[float] = None,
+    token_usage: Optional[Dict[str, Optional[int]]] = None,
+) -> dict:
+    payload = {
+        "mode": mode,
+        "model_name": llm_config["llm"].get("model"),
+        "server_handler_latency_ms": round((time.perf_counter() - start_time) * 1000, 3),
+        "sql_execution_latency_ms": sql_execution_latency_ms,
+    }
+
+    token_usage = token_usage or {}
+    payload["prompt_tokens"] = token_usage.get("prompt_tokens")
+    payload["completion_tokens"] = token_usage.get("completion_tokens")
+    payload["total_tokens"] = token_usage.get("total_tokens")
+    return payload
 
 # Define the POST request handler for sending the prompt
 # remove chat response
@@ -339,9 +427,12 @@ async def handle_query(request: Request):
     sql_query = None
     query_results = None
     memory = get_message_history(chat_request.session_id)
-    if is_mcp_only():
+    mcp_only = is_mcp_only()
+    mode = "mcp" if mcp_only else "text2sql"
+    start_time = time.perf_counter()
+    if mcp_only:
         try:
-            result, memory = await run_mcp_chain(
+            result, memory, result_messages = await run_mcp_chain(
                 chat_request.message,
                 memory.load_memory_variables({})["history"],
                 chat_request.session_id,
@@ -349,12 +440,27 @@ async def handle_query(request: Request):
             )
         except Exception as e:
             print(e)
-            raise HTTPException(status_code=500, detail=str(e))
-        return {"response": result.content, "sql_query": None, "query_results": None}
+            raise HTTPException(
+                status_code=500,
+                detail={
+                    "error": str(e),
+                    "profiling": build_profiling_payload(mode, start_time),
+                },
+            )
+        token_usage = aggregate_token_usage(result_messages)
+        return {
+            "response": result.content,
+            "final_llm_response": result.content,
+            "sql_query": None,
+            "query_results": None,
+            "sql_execution_success": None,
+            "sql_execution_error": None,
+            "profiling": build_profiling_payload(mode, start_time, token_usage=token_usage),
+        }
     else:
         # Invoke the SQL chain with the question
         try:
-            sql_query, memory = run_sql_chain(
+            sql_result, memory = run_sql_chain(
                 chat_request.message,
                 memory.load_memory_variables({})["history"],
                 chat_request.session_id,
@@ -362,8 +468,15 @@ async def handle_query(request: Request):
             )
         except Exception as e:
             print(e)
-            raise HTTPException(status_code=500, detail=str(e))
-        content = sql_query.content
+            raise HTTPException(
+                status_code=500,
+                detail={
+                    "error": str(e),
+                    "profiling": build_profiling_payload(mode, start_time),
+                },
+            )
+        token_usage = extract_token_usage_from_message(sql_result)
+        content = sql_result.content
         if content.startswith('```sql') and content.endswith('```'):
             sql_query = content[6:-3].strip()  # Remove the markdown ```sql and ```
         else:
@@ -373,7 +486,19 @@ async def handle_query(request: Request):
             sql_query
         )
 
-        return {"sql_query": sql_query, "query_results": query_results}
+        return {
+            "final_llm_response": sql_result.content,
+            "sql_query": sql_query,
+            "query_results": query_results["query_results"],
+            "sql_execution_success": query_results["sql_execution_success"],
+            "sql_execution_error": query_results["sql_execution_error"],
+            "profiling": build_profiling_payload(
+                mode,
+                start_time,
+                sql_execution_latency_ms=query_results["sql_execution_latency_ms"],
+                token_usage=token_usage,
+            ),
+        }
 
 if __name__ == "__main__":
     import uvicorn
