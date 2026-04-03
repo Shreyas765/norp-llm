@@ -20,8 +20,8 @@ q018,faa,What is FAA aircraft reference acftref code 7100510?
 q019,faa,Find FAA dealer records for Texas.
 q020,faa,Show FAA deregistration records for N10000.
 q021,sql,Count the number of rows in the us_shootings table.
-q022,sql,For each state, count the number of shooting incidents and return the top 10 states.
+q022,sql,"For each state, count the number of shooting incidents and return the top 10 states."
 q023,sql,What is the average unemployment rate in 2023 across all states?
 q024,sql,List the top 10 NGO categories by number of organizations.
 q025,sql,How many FAA master records are there for Oklahoma?
-q026,sql,For each state, count the number of NGOs and return the top 10 states.
+q026,sql,"For each state, count the number of NGOs and return the top 10 states."
