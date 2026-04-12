@@ -87,7 +87,10 @@ def run_sql_chain(question: str, history: List[dict], session_id: str, memory: C
         summary_data = summarize_chat_history(chat_messages, llm)
 
         summary_message = SystemMessage(content=summary_data["summary"])
-        new_history = [summary_message] + summary_data["messages"]
+        msgs = summary_data.get("messages", [])
+        if isinstance(msgs, str):
+            msgs = [msgs]
+        new_history = [summary_message] + msgs
         print("Conversation history was summarized due to length.")
         # Update Redis cache: delete old history and set the new summarized history
         redis_client.delete(f"chat:{session_id}")
@@ -180,7 +183,10 @@ async def run_mcp_chain(question: str, history: List[dict], session_id: str, mem
         summary_data = summarize_chat_history(chat_messages, llm)
 
         summary_message = SystemMessage(content=summary_data["summary"])
-        new_history = [summary_message] + summary_data["messages"]
+        msgs = summary_data.get("messages", [])
+        if isinstance(msgs, str):
+            msgs = [msgs]
+        new_history = [summary_message] + msgs
         print("Conversation history was summarized due to length.")
         # Update Redis cache: delete old history and set the new summarized history
         redis_client.delete(f"chat:{session_id}")
@@ -209,15 +215,60 @@ async def run_mcp_chain(question: str, history: List[dict], session_id: str, mem
 
     tools = await llm_manager.get_mcp_tools()
     agent = await llm_manager.build_mcp_agent(llm=llm, tools=tools)
-    result = await agent.ainvoke({"messages": formatted_messages})
-    result_messages = result.get("messages", [])
+
+    # Bounded retry loop: if the tool returns a standardized validation error,
+    # feed that back into the agent as a system instruction and retry.
+    max_retries = MAX_LLM_FEEDBACK_LOOP_RETRIES if 'MAX_LLM_FEEDBACK_LOOP_RETRIES' in globals() else 3
+    error_found = None
     final_message = None
-    for msg in reversed(result_messages):
-        if isinstance(msg, AIMessage):
-            final_message = msg
-            break
-    if final_message is None:
-        raise RuntimeError("MCP agent returned no AI message.")
+    result_messages = []
+
+    for attempt in range(max_retries):
+        result = await agent.ainvoke({"messages": formatted_messages})
+        result_messages = result.get("messages", [])
+
+        # print([msg for msg in result_messages if len(getattr(msg, 'tool_calls', [])) > 0])
+
+        # Find final AI message (last AIMessage in the result messages)
+        final_message = None
+        for msg in reversed(result_messages):
+            if isinstance(msg, AIMessage):
+                final_message = msg
+                break
+
+        if final_message is None:
+            raise RuntimeError("MCP agent returned no AI message.")
+
+        # Scan for standardized validation/execution error markers in any tool or system message
+        error_found = None
+        for msg in result_messages:
+            content = getattr(msg, "content", None)
+            if not isinstance(content, str):
+                continue
+            if content.startswith("VALIDATION_ERROR:") or content.startswith("EXECUTION_ERROR:"):
+                error_found = content
+                break
+
+        if error_found:
+            # If we've exhausted retries, stop and surface the last error
+            if attempt == max_retries - 1:
+                break
+
+            # Otherwise, instruct the model to revise the SQL and call execute_sql again.
+            feedback_msg = (
+                "The previous `execute_sql` call returned an error: "
+                f"{error_found}. Please revise the SQL query to correct the issue and call `execute_sql` again. "
+                "Do not return the validation error to the user; instead attempt another call with a corrected query."
+            )
+            # Add a system message so the agent sees the concrete failure context
+            formatted_messages.insert(0, SystemMessage(content=feedback_msg))
+            # also persist this system feedback into the session history
+            update_chat_memory_and_redis_history(session_id, error_found, "system", memory)
+            # Continue to next attempt
+            continue
+
+        # No validation/execution error found; accept the final message
+        break
 
     for msg in messages:
         if isinstance(msg, SystemMessage):

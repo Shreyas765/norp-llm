@@ -1,6 +1,6 @@
 from langchain_classic.prompts import ChatPromptTemplate, MessagesPlaceholder
 
-from constants import TOP_K_ROWS
+from constants import TOP_K_ROWS, MAX_LLM_FEEDBACK_LOOP_RETRIES
 
 ## Prompts to create SQL query
 # This is the first prompt with all table schema, 3 rows of every table information
@@ -77,11 +77,13 @@ MCP_SYSTEM_PROMPT = (
     "(e.g. 'Show 10 drug offenses in Georgia in 2023', 'Hate crimes in Georgia in 2024', "
     "'Simple assaults in Georgia 2022'). Pass year=2022, 2023, or 2024. "
     f"Default limit={TOP_K_ROWS} unless the user specifies otherwise.\n"
-    "• Use execute_sql only for: COUNT/SUM/AVG aggregations, questions about other tables, "
-    "date-range filters, JOINs, or when the dedicated tools cannot answer.\n"
+        "• Use execute_sql as the fallback when no other dedicated tool fits the user's request. Use it for COUNT/SUM/AVG aggregations, questions about other tables, date-range filters, JOINs, or when the dedicated tools cannot answer. When using execute_sql, always construct a safe, read-only SQL query and return the tool's exact CSV output without any additional commentary.\n"
     "\n"
     "If you use a tool, return the exact value from that tool and treat it as truth. "
     "Use tools when appropriate; otherwise respond directly.\n\n"
+    "RECOVERY - IMPORTANT:\n"
+    "• If `execute_sql` returns a string that begins with `VALIDATION_ERROR:`, do NOT return that error to the user. Instead, rewrite or correct the SQL query and call `execute_sql` again.\n"
+    f"• Retry this rewrite+call cycle up to {MAX_LLM_FEEDBACK_LOOP_RETRIES} times before giving up and returning a concise failure message to the user.\n\n"
     "Database schema:\n{table_info}"
 )
 # Aggregated Group by

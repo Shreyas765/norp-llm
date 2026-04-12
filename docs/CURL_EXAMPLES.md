@@ -251,3 +251,31 @@ From `llm-engine/app`:
 ```bash
 python test_responses.py --question "YOUR QUESTION" --session_id 585
 ```
+
+---
+
+## 9. SQL — direct `execute_sql` example
+
+Use this when you want the app to run a read-only SQL query via the `execute_sql` tool. The `question` is written in natural language and the agent maps it to an appropriate `SELECT` statement.
+
+**Command:**
+
+```bash
+curl -sS --max-time 180 "http://127.0.0.1:8000/query" \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data '{"question": "How many victims were killed in California in 2023?", "session_id": 320, "message_type": "human"}' \
+  | python3 -m json.tool
+```
+
+**Sample output (example):**
+
+```json
+{
+    "response": "Killed victims in CA in 2023: 123",
+    "sql_query": "SELECT COUNT(*) AS killed_count FROM us_shootings WHERE state = 'CA' AND YEAR(incident_date) = 2023 AND killed IS NOT NULL AND killed > 0;",
+    "query_results": "killed_count\n123"
+}
+```
+
+Note: actual `sql_query` and `query_results` fields depend on routing (MCP vs direct SQL tool) and the model's SQL translation; the agent will attempt only read-only SQL statements.
