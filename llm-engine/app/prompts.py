@@ -1,6 +1,6 @@
 from langchain_classic.prompts import ChatPromptTemplate, MessagesPlaceholder
 
-from constants import TOP_K_ROWS
+from constants import TOP_K_ROWS, MAX_LLM_FEEDBACK_LOOP_RETRIES
 
 ## Prompts to create SQL query
 # This is the first prompt with all table schema, 3 rows of every table information
@@ -81,6 +81,9 @@ MCP_SYSTEM_PROMPT = (
     "\n"
     "If you use a tool, return the exact value from that tool and treat it as truth. "
     "Use tools when appropriate; otherwise respond directly.\n\n"
+    "RECOVERY - IMPORTANT:\n"
+    "• If `execute_sql` returns a string that begins with `VALIDATION_ERROR:`, do NOT return that error to the user. Instead, rewrite or correct the SQL query and call `execute_sql` again.\n"
+    f"• Retry this rewrite+call cycle up to {MAX_LLM_FEEDBACK_LOOP_RETRIES} times before giving up and returning a concise failure message to the user.\n\n"
     "Database schema:\n{table_info}"
 )
 # Aggregated Group by
