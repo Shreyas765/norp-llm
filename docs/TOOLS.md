@@ -2,7 +2,7 @@
 
 | Tool | Table / dataset | Description | Example LLM query |
 | --- | --- | --- | --- |
-| `execute_sql` | Configured MySQL database, read-only queries only | Runs a read-only SQL query (`SELECT`, `SHOW`, `DESCRIBE`, `EXPLAIN`) against the configured MySQL database and returns CSV text. | N/A |
+| `execute_sql` | Configured MySQL database, read-only queries only | Runs a read-only SQL query (`SELECT`, `SHOW`, `DESCRIBE`, `EXPLAIN`) against the configured MySQL database and returns CSV text. | `How many victims were killed in California in 2023?` |
 | `fetch_us_shootings` | `us_shootings` | Fetches US shooting incident rows with optional state filter, limit, and sort order. | `Give me US shootings in Louisiana from the year 2014.` |
 | `get_state_unemployment_summary` | `unemployment_rates_by_state` | Fetches unemployment data for one state or the United States aggregate row. | `Give me the unemployment rate for Georgia in 2023.` |
 | `compare_unemployment_states` | `unemployment_rates_by_state` | Compares unemployment data for two states, or a state versus the United States. | `How does the unemployment rate in Hawaii compare to Indiana in 2023?` |
