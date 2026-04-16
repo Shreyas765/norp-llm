@@ -443,6 +443,30 @@ def upload_data_from_csv(file_path, insert_query):
             cursor.execute(insert_query, cleaned_row)
     conn.commit()
 
+
+def upload_data_from_csv_fixed(file_path, insert_query, expected_len):
+    """Upload CSV rows but ensure each row has exactly expected_len fields (pad/truncate)."""
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        next(reader, None)
+
+        for row in reader:
+            cleaned_row = [
+                None if field.strip() == "" else
+                1 if field.strip().lower() == "true" else
+                0 if field.strip().lower() == "false" else
+                field.strip()
+                for field in row
+            ]
+            # Pad or truncate to expected_len to avoid parameter mismatch
+            if len(cleaned_row) < expected_len:
+                cleaned_row += [None] * (expected_len - len(cleaned_row))
+            elif len(cleaned_row) > expected_len:
+                cleaned_row = cleaned_row[:expected_len]
+
+            cursor.execute(insert_query, cleaned_row)
+    conn.commit()
+
 # Path to the text file with data
 table_data = {
     "experiencing_homelessness_age_demographics": {
@@ -598,12 +622,18 @@ faa_table_data = {
 for table in table_data:
     if table == "food_access":
         continue
-    elif table in ("unemployment_rates_by_state", "ngos_with_categorization"):
-        upload_data_from_csv(table_data[table]["file_path"], table_data[table]["insert_query"])
+    try:
+        if table == "socioeconomic_data_2024":
+            upload_data_from_csv_fixed(table_data[table]["file_path"], table_data[table]["insert_query"], expected_len=6)
+        elif table in ("unemployment_rates_by_state", "ngos_with_categorization"):
+            upload_data_from_csv(table_data[table]["file_path"], table_data[table]["insert_query"])
+        else:
+            upload_data_from_file(table_data[table]["file_path"], table_data[table]["insert_query"])
         print(f"Done for {table}")
-    else:
-        upload_data_from_file(table_data[table]["file_path"], table_data[table]["insert_query"])
-        print(f"Done for {table}")
+    except Exception as exc:
+        print(f"Error loading {table}: {exc}")
+        # Continue with remaining tables even if one fails
+        continue
 
 for faa_table in faa_table_data:
     upload_data_from_csv(
