@@ -1,0 +1,1505 @@
+run_id,question_id,mode,category,question,session_id,http_status,request_success,validated_success,validation_status,assertion_type,assertion_detail,failure_type,error_detail,client_request_latency_ms,server_handler_latency_ms,app_startup_latency_ms,sql_execution_latency_ms,final_llm_response,response_text,sql_query,query_results,sql_execution_success,sql_execution_error,model_name,prompt_tokens,completion_tokens,total_tokens,estimated_cost_usd
+20260417_211633,q001,mcp,shootings,Give me US shootings in Louisiana from the year 2014.,100001,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,22884.267,22854.091,3101.32,,"IncidentID,Address,IncidentDate,State,CityOrCountry,VictimsKilled,VictimsInjured,SuspectsInjured,SuspectsKilled,SuspectsArrested
+95500,3600 block of Highway 80 W,2014-01-12,louisiana,Tallulah,0,6,0,0,8","IncidentID,Address,IncidentDate,State,CityOrCountry,VictimsKilled,VictimsInjured,SuspectsInjured,SuspectsKilled,SuspectsArrested
+95500,3600 block of Highway 80 W,2014-01-12,louisiana,Tallulah,0,6,0,0,8",,,,,gpt-5-mini,16620,1132,17752,
+20260417_211633,q002,mcp,unemployment,Give me the unemployment rate for Georgia in 2023.,100002,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,8309.513,8297.987,3101.32,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Georgia,3.2,3.3,0.1,35","State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Georgia,3.2,3.3,0.1,35",,,,,gpt-5-mini,16513,192,16705,
+20260417_211633,q003,mcp,unemployment,How does the unemployment rate in Hawaii compare to Indiana in 2023?,100003,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,10126.578,10119.597,3101.32,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Hawaii,3.3,2.9,-0.4,6
+Indiana,3.1,3.4,0.3,44","State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Hawaii,3.3,2.9,-0.4,6
+Indiana,3.1,3.4,0.3,44",,,,,gpt-5-mini,16541,285,16826,
+20260417_211633,q004,mcp,unemployment,What were the five states with the lowest unemployment rates in 2022?,100004,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,7844.032,7834.855,3101.32,,"State,Rate_2022
+South Dakota,1.9
+North Dakota,2.1
+Nebraska,2.2
+New Hampshire,2.4
+Utah,2.4","State,Rate_2022
+South Dakota,1.9
+North Dakota,2.1
+Nebraska,2.2
+New Hampshire,2.4
+Utah,2.4",,,,,gpt-5-mini,16606,152,16758,
+20260417_211633,q005,mcp,ngo,Give me the full name and full address of the NGO with EIN 100006500.,100005,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,12220.271,12213.579,3101.32,,"Ein,Name,Fulladdr,City,State,Zip,County,Ntee_Code,Category,Is_Category_Llm_Generated
+100006500,Lebanon Volunteer Fire Department,PO BOX 51,LEBANON,CT,06249-0051,Lebanon,CT,6249.0,Southeastern Connecticut Planning Region,M24,Public Safety, Disaster Preparedness & Relief,None","Ein,Name,Fulladdr,City,State,Zip,County,Ntee_Code,Category,Is_Category_Llm_Generated
+100006500,Lebanon Volunteer Fire Department,PO BOX 51,LEBANON,CT,06249-0051,Lebanon,CT,6249.0,Southeastern Connecticut Planning Region,M24,Public Safety, Disaster Preparedness & Relief,None",,,,,gpt-5-mini,16575,503,17078,
+20260417_211633,q006,mcp,ngo,Give me NGOs in Albany County.,100006,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,14160.55,14146.285,3101.32,,"Ein,Name,City,State,County,Ntee_Code,Category
+222719837,100 South Swan Street Realty Corp,Albany,NY,Albany County,S47,Community Improvement, Capacity Building
+352433476,105Th Military Police Company Alumni Association Troy New York,Latham,NY,Albany County,W30,Public & Societal Benefit
+100004869,195 Fort Edward Inc,Albany,NY,Albany County,S47,Community Improvement, Capacity Building
+352381188,2-1-1 New York Inc,Latham,NY,Albany County,E70,Health Care
+141760872,222 Riverside Plaza Corp,Albany,NY,Albany County,C99,Environment
+141800103,360 Whitehall Housing Development Fund Corp,Albany,NY,Albany County,H50,Medical Research
+261878508,4 Wheeling For Healing Inc,Altamont,NY,Albany County,P30,Human Services
+141821567,4-H Club And Affiliated 4-H Organization,Feura Bush,NY,Albany County,Z99,Unknown
+223242233,4325 S Salina Street Realty Corp,Glenmont,NY,Albany County,S47,Community Improvement, Capacity Building
+141823014,518 Elevated Inc,Albany,NY,Albany County,B82,Education","Ein,Name,City,State,County,Ntee_Code,Category
+222719837,100 South Swan Street Realty Corp,Albany,NY,Albany County,S47,Community Improvement, Capacity Building
+352433476,105Th Military Police Company Alumni Association Troy New York,Latham,NY,Albany County,W30,Public & Societal Benefit
+100004869,195 Fort Edward Inc,Albany,NY,Albany County,S47,Community Improvement, Capacity Building
+352381188,2-1-1 New York Inc,Latham,NY,Albany County,E70,Health Care
+141760872,222 Riverside Plaza Corp,Albany,NY,Albany County,C99,Environment
+141800103,360 Whitehall Housing Development Fund Corp,Albany,NY,Albany County,H50,Medical Research
+261878508,4 Wheeling For Healing Inc,Altamont,NY,Albany County,P30,Human Services
+141821567,4-H Club And Affiliated 4-H Organization,Feura Bush,NY,Albany County,Z99,Unknown
+223242233,4325 S Salina Street Realty Corp,Glenmont,NY,Albany County,S47,Community Improvement, Capacity Building
+141823014,518 Elevated Inc,Albany,NY,Albany County,B82,Education",,,,,gpt-5-mini,16750,575,17325,
+20260417_211633,q007,mcp,ngo,Which states have the most religion-related NGOs?,100007,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,23387.952,23370.795,3101.32,,"State,religion_ngos
+NY,25886
+CA,19616
+PA,16541
+OH,16482
+TX,10886
+NJ,10203
+IN,9866
+FL,9560
+IL,6497
+GA,5641","State,religion_ngos
+NY,25886
+CA,19616
+PA,16541
+OH,16482
+TX,10886
+NJ,10203
+IN,9866
+FL,9560
+IL,6497
+GA,5641",,,,,gpt-5-mini,24905,953,25858,
+20260417_211633,q008,mcp,faa,Look up FAA registration N100 in the master registry.,100008,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,11481.772,11476.691,3101.32,,"n_number,serial_number,mfr_mdl_code,eng_mfr_mdl,year_mfr,owner_type,registrant_name,street,street2,city,state,zip_code,region,county,country,last_action_date,cert_issue_date,certification,airworthiness_classification,approved_operations,type_aircraft,type_engine,status_code,mode_s_code,fract_owner,air_worth_date,other_names1,other_names2,other_names3,other_names4,other_names5,expiration_date,unique_id,kit_mfr,kit_model,mode_s_code_hex
+N100,5334,7100510,17003,1940,Individual,BENE MARY D,PO BOX 329,None,KETCHUM,OK,743490329,Southwestern,97,US,2023-01-22,2005-05-06,1,Standard,None,Fixed wing single engine,Reciprocating,Valid Registration,50002263,None,1954-04-30,None,None,None,None,None,2027-04-30,600060,None,None,A004B3","n_number,serial_number,mfr_mdl_code,eng_mfr_mdl,year_mfr,owner_type,registrant_name,street,street2,city,state,zip_code,region,county,country,last_action_date,cert_issue_date,certification,airworthiness_classification,approved_operations,type_aircraft,type_engine,status_code,mode_s_code,fract_owner,air_worth_date,other_names1,other_names2,other_names3,other_names4,other_names5,expiration_date,unique_id,kit_mfr,kit_model,mode_s_code_hex
+N100,5334,7100510,17003,1940,Individual,BENE MARY D,PO BOX 329,None,KETCHUM,OK,743490329,Southwestern,97,US,2023-01-22,2005-05-06,1,Standard,None,Fixed wing single engine,Reciprocating,Valid Registration,50002263,None,1954-04-30,None,None,None,None,None,2027-04-30,600060,None,None,A004B3",,,,,gpt-5-mini,16717,467,17184,
+20260417_211633,q009,mcp,shootings,Show 5 shooting incidents in Texas ordered by most recent date.,100009,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,15930.664,15918.495,3101.32,,"I queried the shootings table for Texas and found no rows (""No rows found."").
+
+Would you like me to:
+- Show the 5 most recent shootings nationwide instead?
+- Try a different state?
+- List which states are present in the shootings table?","I queried the shootings table for Texas and found no rows (""No rows found."").
+
+Would you like me to:
+- Show the 5 most recent shootings nationwide instead?
+- Try a different state?
+- List which states are present in the shootings table?",,,,,gpt-5-mini,24826,653,25479,
+20260417_211633,q010,mcp,unemployment,Which state had the highest unemployment rate in 2023?,100010,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,5604.637,5597.793,3101.32,,Nevada had the highest unemployment rate in 2023 at 5.2%.,Nevada had the highest unemployment rate in 2023 at 5.2%.,,,,,gpt-5-mini,16532,128,16660,
+20260417_211633,q011,mcp,unemployment,List the top 10 states by unemployment rate in 2023.,100011,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,13081.068,13076.963,3101.32,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Nevada,5.2,5.2,0.0,27
+District of Columbia,4.7,4.8,0.1,35
+California,4.3,4.7,0.4,49
+Illinois,4.6,4.5,-0.1,19
+Kentucky,4.0,4.3,0.3,44
+New Jersey,3.9,4.3,0.4,49
+Alaska,4.3,4.2,-0.1,19
+Washington,4.1,4.2,0.1,35
+New York,4.3,4.1,-0.2,13
+Texas,3.9,4.0,0.1,35","State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Nevada,5.2,5.2,0.0,27
+District of Columbia,4.7,4.8,0.1,35
+California,4.3,4.7,0.4,49
+Illinois,4.6,4.5,-0.1,19
+Kentucky,4.0,4.3,0.3,44
+New Jersey,3.9,4.3,0.4,49
+Alaska,4.3,4.2,-0.1,19
+Washington,4.1,4.2,0.1,35
+New York,4.3,4.1,-0.2,13
+Texas,3.9,4.0,0.1,35",,,,,gpt-5-mini,16686,623,17309,
+20260417_211633,q012,mcp,unemployment,Compare the unemployment rate in California and the United States in 2023.,100012,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,10967.398,10961.809,3101.32,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+California,4.3,4.7,0.4,49
+United States,3.6,3.6,0.0,None","State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+California,4.3,4.7,0.4,49
+United States,3.6,3.6,0.0,None",,,,,gpt-5-mini,16540,348,16888,
+20260417_211633,q013,mcp,ngo,Find NGOs in California in the Health Care category.,100013,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,12084.496,12077.322,3101.32,,"Ein,Name,City,State,County,Ntee_Code,Category
+274453105,2Nd Chance Kids,Colton,CA,San Bernardino County,E99,Health Care
+272791990,40 Million And Counting,Rolling Hills Estates,CA,Los Angeles County,E01,Health Care
+330551434,A & M Health Services Corporation,El Monte,CA,Los Angeles County,E21,Health Care
+320101760,A A Care Center,Santa Ana,CA,Orange County,E70,Health Care
+330818147,A C N M Inland Desert Chapter,Apple Valley,CA,San Bernardino County,E60,Health Care","Ein,Name,City,State,County,Ntee_Code,Category
+274453105,2Nd Chance Kids,Colton,CA,San Bernardino County,E99,Health Care
+272791990,40 Million And Counting,Rolling Hills Estates,CA,Los Angeles County,E01,Health Care
+330551434,A & M Health Services Corporation,El Monte,CA,Los Angeles County,E21,Health Care
+320101760,A A Care Center,Santa Ana,CA,Orange County,E70,Health Care
+330818147,A C N M Inland Desert Chapter,Apple Valley,CA,San Bernardino County,E60,Health Care",,,,,gpt-5-mini,16623,570,17193,
+20260417_211633,q014,mcp,ngo,List 10 NGOs in King County.,100014,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,22341.67,22324.052,3101.32,,"Ein,Name,City,State,County,Ntee_Code,Category
+271030377,1 Green Planet,Renton,WA,King County,C27,Environment
+203154031,10-99 Foundation,Issaquah,WA,King County,M12,Public Safety, Disaster Preparedness & Relief
+274318786,12 Baskets,Federal Way,WA,King County,Q33,International, Foreign Affairs and National Security
+272154518,15Th Street Ballard Guild,Seattle,WA,King County,A20,Arts, Culture and Humanities
+208536154,1In2,Issaquah,WA,King County,H11,Medical Research
+237108188,200 Plus 1 Club,Mercer Island,WA,King County,N50,Recreation & Sports
+270807517,206 Universal,Seattle,WA,King County,B84,Education
+300782059,21 Progress,Seattle,WA,King County,B60,Education
+200886897,21St Century Mission Church,Sammamish,WA,King County,X20,Religion-Related
+311672568,2Nd Chance Young Adult Organization,Seattle,WA,King County,I30,Crime & Legal-Related","Ein,Name,City,State,County,Ntee_Code,Category
+271030377,1 Green Planet,Renton,WA,King County,C27,Environment
+203154031,10-99 Foundation,Issaquah,WA,King County,M12,Public Safety, Disaster Preparedness & Relief
+274318786,12 Baskets,Federal Way,WA,King County,Q33,International, Foreign Affairs and National Security
+272154518,15Th Street Ballard Guild,Seattle,WA,King County,A20,Arts, Culture and Humanities
+208536154,1In2,Issaquah,WA,King County,H11,Medical Research
+237108188,200 Plus 1 Club,Mercer Island,WA,King County,N50,Recreation & Sports
+270807517,206 Universal,Seattle,WA,King County,B84,Education
+300782059,21 Progress,Seattle,WA,King County,B60,Education
+200886897,21St Century Mission Church,Sammamish,WA,King County,X20,Religion-Related
+311672568,2Nd Chance Young Adult Organization,Seattle,WA,King County,I30,Crime & Legal-Related",,,,,gpt-5-mini,16719,798,17517,
+20260417_211633,q015,mcp,ngo,Summarize NGO counts by category in Texas.,100015,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,13578.339,13571.784,3101.32,,"Category,ngo_count
+Religion-Related,7153
+Education,6677
+Human Services,3734
+Youth Development,3360
+Recreation & Sports,3331
+Philanthropy, Voluntarism and Grantmaking Foundations,3255
+Mutual/Membership Benefit,3010
+Community Improvement, Capacity Building,2831
+Arts, Culture and Humanities,2701
+Public & Societal Benefit,1461
+Health Care,1074
+International, Foreign Affairs and National Security,893
+Voluntary Health Associations & Medical Disciplines,871
+Animal-Related,843
+Crime & Legal-Related,810
+Housing & Shelter,721
+Unknown,716
+Public Safety, Disaster Preparedness & Relief,593
+Environment,592
+Science and Technology,591
+Employment,524
+Mental Health & Crisis Intervention,415
+Food, Agriculture and Nutrition,389
+Civil Rights, Social Action, Advocacy,280
+Medical Research,151
+Social Science,34","Category,ngo_count
+Religion-Related,7153
+Education,6677
+Human Services,3734
+Youth Development,3360
+Recreation & Sports,3331
+Philanthropy, Voluntarism and Grantmaking Foundations,3255
+Mutual/Membership Benefit,3010
+Community Improvement, Capacity Building,2831
+Arts, Culture and Humanities,2701
+Public & Societal Benefit,1461
+Health Care,1074
+International, Foreign Affairs and National Security,893
+Voluntary Health Associations & Medical Disciplines,871
+Animal-Related,843
+Crime & Legal-Related,810
+Housing & Shelter,721
+Unknown,716
+Public Safety, Disaster Preparedness & Relief,593
+Environment,592
+Science and Technology,591
+Employment,524
+Mental Health & Crisis Intervention,415
+Food, Agriculture and Nutrition,389
+Civil Rights, Social Action, Advocacy,280
+Medical Research,151
+Social Science,34",,,,,gpt-5-mini,16692,637,17329,
+20260417_211633,q016,mcp,ngo,Give me the NGO with EIN 141760872.,100016,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,7369.86,7367.397,3101.32,,"Ein,Name,Fulladdr,City,State,Zip,County,Ntee_Code,Category,Is_Category_Llm_Generated
+141760872,222 Riverside Plaza Corp,ALBANY,NY,12211,Albany,NY,12211.0,Albany County,C99,Environment,None","Ein,Name,Fulladdr,City,State,Zip,County,Ntee_Code,Category,Is_Category_Llm_Generated
+141760872,222 Riverside Plaza Corp,ALBANY,NY,12211,Albany,NY,12211.0,Albany County,C99,Environment,None",,,,,gpt-5-mini,16543,159,16702,
+20260417_211633,q017,mcp,faa,Show 3 aircraft registered in Oklahoma from the FAA master registry.,100017,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,13004.343,13002.443,3101.32,,"n_number,serial_number,mfr_mdl_code,eng_mfr_mdl,year_mfr,owner_type,registrant_name,street,street2,city,state,zip_code,region,county,country,last_action_date,cert_issue_date,certification,airworthiness_classification,approved_operations,type_aircraft,type_engine,status_code,mode_s_code,fract_owner,air_worth_date,other_names1,other_names2,other_names3,other_names4,other_names5,expiration_date,unique_id,kit_mfr,kit_model,mode_s_code_hex
+N100,5334,7100510,17003,1940,Individual,BENE MARY D,PO BOX 329,None,KETCHUM,OK,743490329,Southwestern,97,US,2023-01-22,2005-05-06,1,Standard,None,Fixed wing single engine,Reciprocating,Valid Registration,50002263,None,1954-04-30,None,None,None,None,None,2027-04-30,600060,None,None,A004B3
+N1000E,550-1011,2076604,52065,2002,Corporation,WR HESS CO,3636 S MERIDIAN AVE,None,OKLAHOMA CITY,OK,731192420,Southwestern,109,US,2023-07-18,2016-02-16,1T,Standard,Transport,Fixed wing multi engine,Turbo-fan,Valid Registration,50003421,None,2016-02-19,None,None,None,None,None,2029-02-28,1207444,None,None,A00711
+N1000J,M-1000,1151208,17033,1966,Corporation,EAGLE MOUNTAIN AVIATION INC,16653 E 78TH ST N,None,OWASSO,OK,740555726,Southwestern,143,US,2024-05-14,2024-05-14,1N,Standard,Normal,Fixed wing single engine,Reciprocating,Valid Registration,50003425,None,1966-10-28,None,None,None,None,None,2031-05-31,340110,None,None,A00715","n_number,serial_number,mfr_mdl_code,eng_mfr_mdl,year_mfr,owner_type,registrant_name,street,street2,city,state,zip_code,region,county,country,last_action_date,cert_issue_date,certification,airworthiness_classification,approved_operations,type_aircraft,type_engine,status_code,mode_s_code,fract_owner,air_worth_date,other_names1,other_names2,other_names3,other_names4,other_names5,expiration_date,unique_id,kit_mfr,kit_model,mode_s_code_hex
+N100,5334,7100510,17003,1940,Individual,BENE MARY D,PO BOX 329,None,KETCHUM,OK,743490329,Southwestern,97,US,2023-01-22,2005-05-06,1,Standard,None,Fixed wing single engine,Reciprocating,Valid Registration,50002263,None,1954-04-30,None,None,None,None,None,2027-04-30,600060,None,None,A004B3
+N1000E,550-1011,2076604,52065,2002,Corporation,WR HESS CO,3636 S MERIDIAN AVE,None,OKLAHOMA CITY,OK,731192420,Southwestern,109,US,2023-07-18,2016-02-16,1T,Standard,Transport,Fixed wing multi engine,Turbo-fan,Valid Registration,50003421,None,2016-02-19,None,None,None,None,None,2029-02-28,1207444,None,None,A00711
+N1000J,M-1000,1151208,17033,1966,Corporation,EAGLE MOUNTAIN AVIATION INC,16653 E 78TH ST N,None,OWASSO,OK,740555726,Southwestern,143,US,2024-05-14,2024-05-14,1N,Standard,Normal,Fixed wing single engine,Reciprocating,Valid Registration,50003425,None,1966-10-28,None,None,None,None,None,2031-05-31,340110,None,None,A00715",,,,,gpt-5-mini,16966,514,17480,
+20260417_211633,q018,mcp,faa,What is FAA aircraft reference acftref code 7100510?,100018,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,7222.223,7218.866,3101.32,,"code: 7100510
+mfr: PIPER
+model: J3C-65
+type_acft: Fixed wing single engine
+type_eng: Reciprocating
+ac_cat: Land
+build_cert_ind: Type Certificated
+no_eng: 1
+no_seats: 2
+ac_weight: Up to 12,499
+speed: 67","code: 7100510
+mfr: PIPER
+model: J3C-65
+type_acft: Fixed wing single engine
+type_eng: Reciprocating
+ac_cat: Land
+build_cert_ind: Type Certificated
+no_eng: 1
+no_seats: 2
+ac_weight: Up to 12,499
+speed: 67",,,,,gpt-5-mini,16591,187,16778,
+20260417_211633,q019,mcp,faa,Find FAA dealer records for Texas.,100019,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,16661.266,16648.091,3101.32,,"certificate_number,ownership,certificate_date,expiration_date,expired,certificate_issue_count,dealer_name,street,street2,city,state,zip_code,other_names_count,other_names_1,other_names_2,other_names_3,other_names_4,other_names_5,other_names_6,other_names_7,other_names_8,other_names_9,other_names_10,other_names_11,other_names_12,other_names_13,other_names_14,other_names_15,other_names_16,other_names_17,other_names_18,other_names_19,other_names_20,other_names_21,other_names_22,other_names_23,other_names_24,other_names_25
+00-0073,Corporation,2000-01-10,2001-01-09,1,0,JAMES H MCBURNEY JR I INC,6117 DEL NORTE LN,None,DALLAS,TX,752252804,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0333,Individual,2000-02-15,2001-02-14,1,0,MCFARLAND TIM,35 HALL RD,None,PORT LAVACA,TX,779795557,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0422,Corporation,2000-03-01,2001-02-28,1,0,CLUB AIR INC,411 E HIGHWAY 67,None,DUNCANVILLE,TX,751374156,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0494,Corporation,2000-03-08,2001-03-07,1,0,NEELY INVESTMENTS INC,PO BOX 1252,None,AUSTIN,TX,787671252,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0658,Individual,2000-03-30,2001-03-29,1,0,COBB WILLIAM B,PO BOX 70,None,RAINBOW,TX,760770070,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None","certificate_number,ownership,certificate_date,expiration_date,expired,certificate_issue_count,dealer_name,street,street2,city,state,zip_code,other_names_count,other_names_1,other_names_2,other_names_3,other_names_4,other_names_5,other_names_6,other_names_7,other_names_8,other_names_9,other_names_10,other_names_11,other_names_12,other_names_13,other_names_14,other_names_15,other_names_16,other_names_17,other_names_18,other_names_19,other_names_20,other_names_21,other_names_22,other_names_23,other_names_24,other_names_25
+00-0073,Corporation,2000-01-10,2001-01-09,1,0,JAMES H MCBURNEY JR I INC,6117 DEL NORTE LN,None,DALLAS,TX,752252804,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0333,Individual,2000-02-15,2001-02-14,1,0,MCFARLAND TIM,35 HALL RD,None,PORT LAVACA,TX,779795557,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0422,Corporation,2000-03-01,2001-02-28,1,0,CLUB AIR INC,411 E HIGHWAY 67,None,DUNCANVILLE,TX,751374156,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0494,Corporation,2000-03-08,2001-03-07,1,0,NEELY INVESTMENTS INC,PO BOX 1252,None,AUSTIN,TX,787671252,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0658,Individual,2000-03-30,2001-03-29,1,0,COBB WILLIAM B,PO BOX 70,None,RAINBOW,TX,760770070,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None",,,,,gpt-5-mini,17023,848,17871,
+20260417_211633,q020,mcp,faa,Show FAA deregistration records for N10000.,100020,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,13456.243,13436.787,3101.32,,"id,n_number,serial_number,mfr_mdl_code,status_code,registrant_name,street_mail,street2_mail,city_mail,state_abbrev_mail,zip_code_mail,eng_mfr_mdl,year_mfr,certification,airworthiness_classification,approved_operations,region,county_mail,country_mail,air_worth_date,cancel_date,mode_s_code,owner_type,exp_country,last_act_date,cert_issue_date,street_physical,street2_physical,city_physical,state_abbrev_physical,zip_code_physical,county_physical,country_physical,other_names1,other_names2,other_names3,other_names4,other_names5,kit_mfr,kit_model,mode_s_code_hex
+1,N10000,79-029,8930105,Second Triennial - no response,ILLIANA HELICOPTER SERVICES INC,BOX 244A RR 1,None,RIDGE FARM,IL,61870,41525,1979,31,Restricted,Agriculture and Pest Control,None,183,US,1979-04-25,2002-05-13,50003445,Corporation,None,1994-09-06,1984-10-02,None,None,None,None,None,None,None,None,None,None,None,None,None,None,A00725","id,n_number,serial_number,mfr_mdl_code,status_code,registrant_name,street_mail,street2_mail,city_mail,state_abbrev_mail,zip_code_mail,eng_mfr_mdl,year_mfr,certification,airworthiness_classification,approved_operations,region,county_mail,country_mail,air_worth_date,cancel_date,mode_s_code,owner_type,exp_country,last_act_date,cert_issue_date,street_physical,street2_physical,city_physical,state_abbrev_physical,zip_code_physical,county_physical,country_physical,other_names1,other_names2,other_names3,other_names4,other_names5,kit_mfr,kit_model,mode_s_code_hex
+1,N10000,79-029,8930105,Second Triennial - no response,ILLIANA HELICOPTER SERVICES INC,BOX 244A RR 1,None,RIDGE FARM,IL,61870,41525,1979,31,Restricted,Agriculture and Pest Control,None,183,US,1979-04-25,2002-05-13,50003445,Corporation,None,1994-09-06,1984-10-02,None,None,None,None,None,None,None,None,None,None,None,None,None,None,A00725",,,,,gpt-5-mini,16762,578,17340,
+20260417_211633,q021,mcp,sql,Count the number of rows in the us_shootings table.,100021,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,8860.246,8847.89,3101.32,,"row_count
+5","row_count
+5",,,,,gpt-5-mini,16489,303,16792,
+20260417_211633,q022,mcp,sql,"For each state, count the number of shooting incidents and return the top 10 states.",100022,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,9363.641,9359.769,3101.32,,"State,incident_count
+new york,1
+pennsylvania,1
+mississippi,1
+virginia,1
+louisiana,1","State,incident_count
+new york,1
+pennsylvania,1
+mississippi,1
+virginia,1
+louisiana,1",,,,,gpt-5-mini,16540,408,16948,
+20260417_211633,q023,mcp,sql,What is the average unemployment rate in 2023 across all states?,100023,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,9769.354,9765.058,3101.32,,"Avg_Rate_2023
+3.32","Avg_Rate_2023
+3.32",,,,,gpt-5-mini,16527,403,16930,
+20260417_211633,q024,mcp,sql,List the top 10 NGO categories by number of organizations.,100024,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,7700.805,7697.215,3101.32,,"Category,ngo_count
+Education,140708
+Religion-Related,126747
+Philanthropy, Voluntarism and Grantmaking Foundations,80880
+Recreation & Sports,79717
+Arts, Culture and Humanities,79054
+Community Improvement, Capacity Building,78179
+Human Services,70996
+Mutual/Membership Benefit,69515
+Youth Development,43642
+Public & Societal Benefit,42373","Category,ngo_count
+Education,140708
+Religion-Related,126747
+Philanthropy, Voluntarism and Grantmaking Foundations,80880
+Recreation & Sports,79717
+Arts, Culture and Humanities,79054
+Community Improvement, Capacity Building,78179
+Human Services,70996
+Mutual/Membership Benefit,69515
+Youth Development,43642
+Public & Societal Benefit,42373",,,,,gpt-5-mini,16583,262,16845,
+20260417_211633,q025,mcp,sql,How many FAA master records are there for Oklahoma?,100025,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,12747.826,12744.485,3101.32,,"count_oklahoma
+5747","count_oklahoma
+5747",,,,,gpt-5-mini,16499,639,17138,
+20260417_211633,q026,mcp,sql,"For each state, count the number of NGOs and return the top 10 states.",100026,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,10143.662,10131.428,3101.32,,"State,ngo_count
+NY,139046
+PA,98627
+OH,94040
+CA,87919
+NJ,57581
+IN,51432
+TX,47010
+FL,38915
+IL,35240
+MI,21289","State,ngo_count
+NY,139046
+PA,98627
+OH,94040
+CA,87919
+NJ,57581
+IN,51432
+TX,47010
+FL,38915
+IL,35240
+MI,21289",,,,,gpt-5-mini,16559,490,17049,
+20260417_211633,q027,mcp,sql,How many victims were killed in California in 2023?,100027,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,9245.054,9233.961,3101.32,,"total_killed
+0","total_killed
+0",,,,,gpt-5-mini,16521,395,16916,
+20260417_211633,q001,text2sql,shootings,Give me US shootings in Louisiana from the year 2014.,200001,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,11618.126,11608.78,2013.383,2.715,"SELECT IncidentID,
+       Address,
+       IncidentDate,
+       State,
+       CityOrCountry,
+       VictimsKilled,
+       VictimsInjured,
+       SuspectsInjured,
+       SuspectsKilled,
+       SuspectsArrested
+FROM us_shootings
+WHERE LOWER(State) = 'louisiana'
+  AND YEAR(IncidentDate) = 2014
+  AND IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+ORDER BY IncidentDate
+LIMIT 5;",,"SELECT IncidentID,
+       Address,
+       IncidentDate,
+       State,
+       CityOrCountry,
+       VictimsKilled,
+       VictimsInjured,
+       SuspectsInjured,
+       SuspectsKilled,
+       SuspectsArrested
+FROM us_shootings
+WHERE LOWER(State) = 'louisiana'
+  AND YEAR(IncidentDate) = 2014
+  AND IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+ORDER BY IncidentDate
+LIMIT 5;","[(95500, '3600 block of Highway 80 W', datetime.date(2014, 1, 12), 'louisiana', 'Tallulah', 0, 6, 0, 0, 8)]",True,,gpt-5-mini,6403,762,7165,
+20260417_211633,q002,text2sql,unemployment,Give me the unemployment rate for Georgia in 2023.,200002,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,8094.724,8091.172,2013.383,2.758,"SELECT State,
+       Rate_2023 AS UnemploymentRate2023
+FROM unemployment_rates_by_state
+WHERE LOWER(State) = 'georgia'
+  AND State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+LIMIT 5;",,"SELECT State,
+       Rate_2023 AS UnemploymentRate2023
+FROM unemployment_rates_by_state
+WHERE LOWER(State) = 'georgia'
+  AND State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+LIMIT 5;","[('Georgia', Decimal('3.3'))]",True,,gpt-5-mini,6402,472,6874,
+20260417_211633,q003,text2sql,unemployment,How does the unemployment rate in Hawaii compare to Indiana in 2023?,200003,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,23077.063,23066.256,2013.383,19.035,"SELECT
+  h.State AS State_Hawaii,
+  h.Rate_2023 AS Rate_2023_Hawaii,
+  i.State AS State_Indiana,
+  i.Rate_2023 AS Rate_2023_Indiana,
+  (h.Rate_2023 - i.Rate_2023) AS Rate_2023_Difference,
+  ROUND(h.Rate_2023 / NULLIF(i.Rate_2023, 0), 3) AS Rate_2023_Ratio
+FROM unemployment_rates_by_state h
+JOIN unemployment_rates_by_state i ON 1=1
+WHERE h.State = 'Hawaii'
+  AND i.State = 'Indiana'
+  AND h.State IS NOT NULL
+  AND h.Rate_2022 IS NOT NULL
+  AND h.Rate_2023 IS NOT NULL
+  AND h.Rate_Change IS NOT NULL
+  AND h.State_Rank IS NOT NULL
+  AND i.State IS NOT NULL
+  AND i.Rate_2022 IS NOT NULL
+  AND i.Rate_2023 IS NOT NULL
+  AND i.Rate_Change IS NOT NULL
+  AND i.State_Rank IS NOT NULL
+LIMIT 5;",,"SELECT
+  h.State AS State_Hawaii,
+  h.Rate_2023 AS Rate_2023_Hawaii,
+  i.State AS State_Indiana,
+  i.Rate_2023 AS Rate_2023_Indiana,
+  (h.Rate_2023 - i.Rate_2023) AS Rate_2023_Difference,
+  ROUND(h.Rate_2023 / NULLIF(i.Rate_2023, 0), 3) AS Rate_2023_Ratio
+FROM unemployment_rates_by_state h
+JOIN unemployment_rates_by_state i ON 1=1
+WHERE h.State = 'Hawaii'
+  AND i.State = 'Indiana'
+  AND h.State IS NOT NULL
+  AND h.Rate_2022 IS NOT NULL
+  AND h.Rate_2023 IS NOT NULL
+  AND h.Rate_Change IS NOT NULL
+  AND h.State_Rank IS NOT NULL
+  AND i.State IS NOT NULL
+  AND i.Rate_2022 IS NOT NULL
+  AND i.Rate_2023 IS NOT NULL
+  AND i.Rate_Change IS NOT NULL
+  AND i.State_Rank IS NOT NULL
+LIMIT 5;","[('Hawaii', Decimal('2.9'), 'Indiana', Decimal('3.4'), Decimal('-0.5'), Decimal('0.853'))]",True,,gpt-5-mini,6405,1858,8263,
+20260417_211633,q004,text2sql,unemployment,What were the five states with the lowest unemployment rates in 2022?,200004,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,5862.812,5855.882,2013.383,2.899,"SELECT State, Rate_2022, Rate_2023, Rate_Change, State_Rank
+FROM unemployment_rates_by_state
+WHERE State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+ORDER BY Rate_2022 ASC, State ASC
+LIMIT 5;",,"SELECT State, Rate_2022, Rate_2023, Rate_Change, State_Rank
+FROM unemployment_rates_by_state
+WHERE State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+ORDER BY Rate_2022 ASC, State ASC
+LIMIT 5;","[('South Dakota', Decimal('1.9'), Decimal('1.8'), Decimal('-0.1'), 19), ('North Dakota', Decimal('2.1'), Decimal('2.0'), Decimal('-0.1'), 19), ('Nebraska', Decimal('2.2'), Decimal('2.3'), Decimal('0.1'), 35), ('New Hampshire', Decimal('2.4'), Decimal('2.3'), Decimal('-0.1'), 19), ('Utah', Decimal('2.4'), Decimal('2.7'), Decimal('0.3'), 44)]",True,,gpt-5-mini,6405,415,6820,
+20260417_211633,q005,text2sql,ngo,Give me the full name and full address of the NGO with EIN 100006500.,200005,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,12891.325,12872.179,2013.383,24.018,"SELECT Name AS FullName,
+       Fulladdr AS FullAddress
+FROM ngos_with_categorization
+WHERE Ein = 100006500
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",,"SELECT Name AS FullName,
+       Fulladdr AS FullAddress
+FROM ngos_with_categorization
+WHERE Ein = 100006500
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",,True,,gpt-5-mini,6408,688,7096,
+20260417_211633,q006,text2sql,ngo,Give me NGOs in Albany County.,200006,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,8241.403,8234.104,2013.383,389.085,"SELECT Ein, Name, Fulladdr, City, State, Zip, County, Ntee_Code, Category, Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE County LIKE '%Albany%'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",,"SELECT Ein, Name, Fulladdr, City, State, Zip, County, Ntee_Code, Category, Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE County LIKE '%Albany%'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",,True,,gpt-5-mini,6397,582,6979,
+20260417_211633,q007,text2sql,ngo,Which states have the most religion-related NGOs?,200007,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,11969.653,11960.981,2013.383,370.099,"SELECT
+  State,
+  COUNT(*) AS ReligionNGOCount
+FROM
+  ngos_with_categorization
+WHERE
+  Category LIKE '%Religion%'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY
+  State
+ORDER BY
+  ReligionNGOCount DESC
+LIMIT 5;",,"SELECT
+  State,
+  COUNT(*) AS ReligionNGOCount
+FROM
+  ngos_with_categorization
+WHERE
+  Category LIKE '%Religion%'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY
+  State
+ORDER BY
+  ReligionNGOCount DESC
+LIMIT 5;",,True,,gpt-5-mini,6399,650,7049,
+20260417_211633,q008,text2sql,faa,Look up FAA registration N100 in the master registry.,200008,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,21119.452,21104.119,2013.383,23.492,"SELECT n_number,
+       serial_number,
+       mfr_mdl_code,
+       eng_mfr_mdl,
+       year_mfr,
+       owner_type,
+       registrant_name,
+       street,
+       street2,
+       city,
+       state,
+       zip_code,
+       region,
+       county,
+       country,
+       last_action_date,
+       cert_issue_date,
+       certification,
+       airworthiness_classification,
+       approved_operations,
+       type_aircraft,
+       type_engine,
+       status_code,
+       mode_s_code,
+       fract_owner,
+       air_worth_date,
+       other_names1,
+       other_names2,
+       other_names3,
+       other_names4,
+       other_names5,
+       expiration_date,
+       unique_id,
+       kit_mfr,
+       kit_model,
+       mode_s_code_hex
+FROM faa_master
+WHERE n_number = 'N100'
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND state IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND region IS NOT NULL
+  AND county IS NOT NULL
+  AND country IS NOT NULL
+  AND last_action_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND type_aircraft IS NOT NULL
+  AND type_engine IS NOT NULL
+  AND status_code IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND fract_owner IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND unique_id IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL
+LIMIT 5;",,"SELECT n_number,
+       serial_number,
+       mfr_mdl_code,
+       eng_mfr_mdl,
+       year_mfr,
+       owner_type,
+       registrant_name,
+       street,
+       street2,
+       city,
+       state,
+       zip_code,
+       region,
+       county,
+       country,
+       last_action_date,
+       cert_issue_date,
+       certification,
+       airworthiness_classification,
+       approved_operations,
+       type_aircraft,
+       type_engine,
+       status_code,
+       mode_s_code,
+       fract_owner,
+       air_worth_date,
+       other_names1,
+       other_names2,
+       other_names3,
+       other_names4,
+       other_names5,
+       expiration_date,
+       unique_id,
+       kit_mfr,
+       kit_model,
+       mode_s_code_hex
+FROM faa_master
+WHERE n_number = 'N100'
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND state IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND region IS NOT NULL
+  AND county IS NOT NULL
+  AND country IS NOT NULL
+  AND last_action_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND type_aircraft IS NOT NULL
+  AND type_engine IS NOT NULL
+  AND status_code IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND fract_owner IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND unique_id IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL
+LIMIT 5;",,True,,gpt-5-mini,6401,1571,7972,
+20260417_211633,q009,text2sql,shootings,Show 5 shooting incidents in Texas ordered by most recent date.,200009,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,13417.357,13403.74,2013.383,15.321,"SELECT IncidentID,
+       Address,
+       IncidentDate,
+       State,
+       CityOrCountry,
+       VictimsKilled,
+       VictimsInjured,
+       SuspectsInjured,
+       SuspectsKilled,
+       SuspectsArrested
+FROM us_shootings
+WHERE State = 'texas'
+  AND IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+ORDER BY IncidentDate DESC
+LIMIT 5;",,"SELECT IncidentID,
+       Address,
+       IncidentDate,
+       State,
+       CityOrCountry,
+       VictimsKilled,
+       VictimsInjured,
+       SuspectsInjured,
+       SuspectsKilled,
+       SuspectsArrested
+FROM us_shootings
+WHERE State = 'texas'
+  AND IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+ORDER BY IncidentDate DESC
+LIMIT 5;",,True,,gpt-5-mini,6403,869,7272,
+20260417_211633,q010,text2sql,unemployment,Which state had the highest unemployment rate in 2023?,200010,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,12277.339,12271.07,2013.383,5.357,"SELECT State,
+       Rate_2023 AS HighestRate2023
+FROM unemployment_rates_by_state
+WHERE State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+  AND Rate_2023 = (
+    SELECT MAX(Rate_2023)
+    FROM unemployment_rates_by_state
+    WHERE State IS NOT NULL
+      AND Rate_2022 IS NOT NULL
+      AND Rate_2023 IS NOT NULL
+      AND Rate_Change IS NOT NULL
+      AND State_Rank IS NOT NULL
+)
+LIMIT 5;",,"SELECT State,
+       Rate_2023 AS HighestRate2023
+FROM unemployment_rates_by_state
+WHERE State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+  AND Rate_2023 = (
+    SELECT MAX(Rate_2023)
+    FROM unemployment_rates_by_state
+    WHERE State IS NOT NULL
+      AND Rate_2022 IS NOT NULL
+      AND Rate_2023 IS NOT NULL
+      AND Rate_Change IS NOT NULL
+      AND State_Rank IS NOT NULL
+)
+LIMIT 5;","[('Nevada', Decimal('5.2'))]",True,,gpt-5-mini,6402,723,7125,
+20260417_211633,q011,text2sql,unemployment,List the top 10 states by unemployment rate in 2023.,200011,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,7264.802,7260.787,2013.383,2.597,"SELECT
+  State,
+  Rate_2023 AS UnemploymentRate2023,
+  Rate_Change AS RateChange,
+  State_Rank
+FROM unemployment_rates_by_state
+WHERE State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+ORDER BY Rate_2023 DESC
+LIMIT 10;",,"SELECT
+  State,
+  Rate_2023 AS UnemploymentRate2023,
+  Rate_Change AS RateChange,
+  State_Rank
+FROM unemployment_rates_by_state
+WHERE State IS NOT NULL
+  AND Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL
+ORDER BY Rate_2023 DESC
+LIMIT 10;","[('Nevada', Decimal('5.2'), Decimal('0.0'), 27), ('District of Columbia', Decimal('4.8'), Decimal('0.1'), 35), ('California', Decimal('4.7'), Decimal('0.4'), 49), ('Illinois', Decimal('4.5'), Decimal('-0.1'), 19), ('Kentucky', Decimal('4.3'), Decimal('0.3'), 44), ('New Jersey', Decimal('4.3'), Decimal('0.4'), 49), ('Washington', Decimal('4.2'), Decimal('0.1'), 35), ('Alaska', Decimal('4.2'), Decimal('-0.1'), 19), ('New York', Decimal('4.1'), Decimal('-0.2'), 13), ('Texas', Decimal('4.0'), Decimal('0.1'), 35)]",True,,gpt-5-mini,6404,485,6889,
+20260417_211633,q012,text2sql,unemployment,Compare the unemployment rate in California and the United States in 2023.,200012,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,25804.721,25799.374,2013.383,5.715,"SELECT
+  MAX(CASE WHEN State = 'California' THEN Rate_2023 END) AS California_UnemploymentRate_2023,
+  MAX(CASE WHEN State = 'United States' THEN Rate_2023 END) AS UnitedStates_UnemploymentRate_2023,
+  (MAX(CASE WHEN State = 'California' THEN Rate_2023 END) - MAX(CASE WHEN State = 'United States' THEN Rate_2023 END)) AS Rate_Difference_2023
+FROM unemployment_rates_by_state
+WHERE State IN ('California', 'United States') AND Rate_2023 IS NOT NULL
+HAVING California_UnemploymentRate_2023 IS NOT NULL AND UnitedStates_UnemploymentRate_2023 IS NOT NULL
+LIMIT 5;",,"SELECT
+  MAX(CASE WHEN State = 'California' THEN Rate_2023 END) AS California_UnemploymentRate_2023,
+  MAX(CASE WHEN State = 'United States' THEN Rate_2023 END) AS UnitedStates_UnemploymentRate_2023,
+  (MAX(CASE WHEN State = 'California' THEN Rate_2023 END) - MAX(CASE WHEN State = 'United States' THEN Rate_2023 END)) AS Rate_Difference_2023
+FROM unemployment_rates_by_state
+WHERE State IN ('California', 'United States') AND Rate_2023 IS NOT NULL
+HAVING California_UnemploymentRate_2023 IS NOT NULL AND UnitedStates_UnemploymentRate_2023 IS NOT NULL
+LIMIT 5;","[(Decimal('4.7'), Decimal('3.6'), Decimal('1.1'))]",True,,gpt-5-mini,6405,1827,8232,
+20260417_211633,q013,text2sql,ngo,Find NGOs in California in the Health Care category.,200013,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,15349.081,15344.361,2013.383,404.141,"SELECT Ein, Name, Fulladdr, City, State, Zip, County, Ntee_Code, Category, Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE TRIM(UPPER(State)) IN ('CA','CALIFORNIA')
+  AND TRIM(UPPER(Category)) = 'HEALTH CARE'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",,"SELECT Ein, Name, Fulladdr, City, State, Zip, County, Ntee_Code, Category, Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE TRIM(UPPER(State)) IN ('CA','CALIFORNIA')
+  AND TRIM(UPPER(Category)) = 'HEALTH CARE'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",,True,,gpt-5-mini,6400,1183,7583,
+20260417_211633,q014,text2sql,ngo,List 10 NGOs in King County.,200014,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,14222.519,14211.078,2013.383,411.874,"SELECT Ein,
+       Name,
+       Fulladdr,
+       City,
+       State,
+       Zip,
+       County,
+       Ntee_Code AS NteeCode,
+       Category,
+       Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE County LIKE '%King%'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 10;",,"SELECT Ein,
+       Name,
+       Fulladdr,
+       City,
+       State,
+       Zip,
+       County,
+       Ntee_Code AS NteeCode,
+       Category,
+       Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE County LIKE '%King%'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 10;",,True,,gpt-5-mini,6398,1042,7440,
+20260417_211633,q015,text2sql,ngo,Summarize NGO counts by category in Texas.,200015,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,9617.684,9611.995,2013.383,284.985,"SELECT
+  Category,
+  COUNT(*) AS NGOCount
+FROM ngos_with_categorization
+WHERE State = 'TX'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY Category
+ORDER BY NGOCount DESC
+LIMIT 5;",,"SELECT
+  Category,
+  COUNT(*) AS NGOCount
+FROM ngos_with_categorization
+WHERE State = 'TX'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY Category
+ORDER BY NGOCount DESC
+LIMIT 5;",,True,,gpt-5-mini,6400,702,7102,
+20260417_211633,q016,text2sql,ngo,Give me the NGO with EIN 141760872.,200016,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,6880.365,6878.09,2013.383,3.455,"SELECT Ein, Name, Fulladdr, City, State, Zip, County, Ntee_Code, Category, Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE Ein = 141760872
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",,"SELECT Ein, Name, Fulladdr, City, State, Zip, County, Ntee_Code, Category, Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE Ein = 141760872
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",,True,,gpt-5-mini,6401,519,6920,
+20260417_211633,q017,text2sql,faa,Show 3 aircraft registered in Oklahoma from the FAA master registry.,200017,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,18244.16,18239.508,2013.383,415.365,"SELECT n_number,
+       registrant_name,
+       city,
+       state,
+       serial_number,
+       mfr_mdl_code,
+       type_aircraft,
+       year_mfr
+FROM faa_master
+WHERE state = 'OK'
+  AND n_number IS NOT NULL
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND state IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND region IS NOT NULL
+  AND county IS NOT NULL
+  AND country IS NOT NULL
+  AND last_action_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND type_aircraft IS NOT NULL
+  AND type_engine IS NOT NULL
+  AND status_code IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND fract_owner IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND unique_id IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL
+ORDER BY n_number
+LIMIT 3;",,"SELECT n_number,
+       registrant_name,
+       city,
+       state,
+       serial_number,
+       mfr_mdl_code,
+       type_aircraft,
+       year_mfr
+FROM faa_master
+WHERE state = 'OK'
+  AND n_number IS NOT NULL
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND state IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND region IS NOT NULL
+  AND county IS NOT NULL
+  AND country IS NOT NULL
+  AND last_action_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND type_aircraft IS NOT NULL
+  AND type_engine IS NOT NULL
+  AND status_code IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND fract_owner IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND unique_id IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL
+ORDER BY n_number
+LIMIT 3;",,True,,gpt-5-mini,6403,1457,7860,
+20260417_211633,q018,text2sql,faa,What is FAA aircraft reference acftref code 7100510?,200018,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,15406.948,15402.42,2013.383,9.145,"SELECT code,
+       mfr_code,
+       model_code,
+       series_code,
+       mfr,
+       model,
+       type_acft,
+       type_eng,
+       ac_cat,
+       build_cert_ind,
+       no_eng,
+       no_seats,
+       ac_weight,
+       speed,
+       tc_data_sheet,
+       tc_data_holder
+FROM faa_acftref
+WHERE code = '7100510'
+  AND code IS NOT NULL
+  AND mfr_code IS NOT NULL
+  AND model_code IS NOT NULL
+  AND series_code IS NOT NULL
+  AND mfr IS NOT NULL
+  AND model IS NOT NULL
+  AND type_acft IS NOT NULL
+  AND type_eng IS NOT NULL
+  AND ac_cat IS NOT NULL
+  AND build_cert_ind IS NOT NULL
+  AND no_eng IS NOT NULL
+  AND no_seats IS NOT NULL
+  AND ac_weight IS NOT NULL
+  AND speed IS NOT NULL
+  AND tc_data_sheet IS NOT NULL
+  AND tc_data_holder IS NOT NULL
+LIMIT 5;",,"SELECT code,
+       mfr_code,
+       model_code,
+       series_code,
+       mfr,
+       model,
+       type_acft,
+       type_eng,
+       ac_cat,
+       build_cert_ind,
+       no_eng,
+       no_seats,
+       ac_weight,
+       speed,
+       tc_data_sheet,
+       tc_data_holder
+FROM faa_acftref
+WHERE code = '7100510'
+  AND code IS NOT NULL
+  AND mfr_code IS NOT NULL
+  AND model_code IS NOT NULL
+  AND series_code IS NOT NULL
+  AND mfr IS NOT NULL
+  AND model IS NOT NULL
+  AND type_acft IS NOT NULL
+  AND type_eng IS NOT NULL
+  AND ac_cat IS NOT NULL
+  AND build_cert_ind IS NOT NULL
+  AND no_eng IS NOT NULL
+  AND no_seats IS NOT NULL
+  AND ac_weight IS NOT NULL
+  AND speed IS NOT NULL
+  AND tc_data_sheet IS NOT NULL
+  AND tc_data_holder IS NOT NULL
+LIMIT 5;",,True,,gpt-5-mini,6404,1121,7525,
+20260417_211633,q019,text2sql,faa,Find FAA dealer records for Texas.,200019,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,17385.914,17375.02,2013.383,36.412,"SELECT *
+FROM faa_dealer
+WHERE state = 'TX'
+  AND certificate_number IS NOT NULL
+  AND ownership IS NOT NULL
+  AND certificate_date IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND expired IS NOT NULL
+  AND certificate_issue_count IS NOT NULL
+  AND dealer_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND other_names_count IS NOT NULL
+  AND other_names_1 IS NOT NULL
+  AND other_names_2 IS NOT NULL
+  AND other_names_3 IS NOT NULL
+  AND other_names_4 IS NOT NULL
+  AND other_names_5 IS NOT NULL
+  AND other_names_6 IS NOT NULL
+  AND other_names_7 IS NOT NULL
+  AND other_names_8 IS NOT NULL
+  AND other_names_9 IS NOT NULL
+  AND other_names_10 IS NOT NULL
+  AND other_names_11 IS NOT NULL
+  AND other_names_12 IS NOT NULL
+  AND other_names_13 IS NOT NULL
+  AND other_names_14 IS NOT NULL
+  AND other_names_15 IS NOT NULL
+  AND other_names_16 IS NOT NULL
+  AND other_names_17 IS NOT NULL
+  AND other_names_18 IS NOT NULL
+  AND other_names_19 IS NOT NULL
+  AND other_names_20 IS NOT NULL
+  AND other_names_21 IS NOT NULL
+  AND other_names_22 IS NOT NULL
+  AND other_names_23 IS NOT NULL
+  AND other_names_24 IS NOT NULL
+  AND other_names_25 IS NOT NULL
+LIMIT 5;",,"SELECT *
+FROM faa_dealer
+WHERE state = 'TX'
+  AND certificate_number IS NOT NULL
+  AND ownership IS NOT NULL
+  AND certificate_date IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND expired IS NOT NULL
+  AND certificate_issue_count IS NOT NULL
+  AND dealer_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND other_names_count IS NOT NULL
+  AND other_names_1 IS NOT NULL
+  AND other_names_2 IS NOT NULL
+  AND other_names_3 IS NOT NULL
+  AND other_names_4 IS NOT NULL
+  AND other_names_5 IS NOT NULL
+  AND other_names_6 IS NOT NULL
+  AND other_names_7 IS NOT NULL
+  AND other_names_8 IS NOT NULL
+  AND other_names_9 IS NOT NULL
+  AND other_names_10 IS NOT NULL
+  AND other_names_11 IS NOT NULL
+  AND other_names_12 IS NOT NULL
+  AND other_names_13 IS NOT NULL
+  AND other_names_14 IS NOT NULL
+  AND other_names_15 IS NOT NULL
+  AND other_names_16 IS NOT NULL
+  AND other_names_17 IS NOT NULL
+  AND other_names_18 IS NOT NULL
+  AND other_names_19 IS NOT NULL
+  AND other_names_20 IS NOT NULL
+  AND other_names_21 IS NOT NULL
+  AND other_names_22 IS NOT NULL
+  AND other_names_23 IS NOT NULL
+  AND other_names_24 IS NOT NULL
+  AND other_names_25 IS NOT NULL
+LIMIT 5;",,True,,gpt-5-mini,6397,1330,7727,
+20260417_211633,q020,text2sql,faa,Show FAA deregistration records for N10000.,200020,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,16221.476,16216.045,2013.383,211.207,"SELECT *
+FROM faa_dereg
+WHERE n_number = 'N10000'
+  AND id IS NOT NULL
+  AND n_number IS NOT NULL
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND status_code IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street_mail IS NOT NULL
+  AND street2_mail IS NOT NULL
+  AND city_mail IS NOT NULL
+  AND state_abbrev_mail IS NOT NULL
+  AND zip_code_mail IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND region IS NOT NULL
+  AND county_mail IS NOT NULL
+  AND country_mail IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND cancel_date IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND exp_country IS NOT NULL
+  AND last_act_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND street_physical IS NOT NULL
+  AND street2_physical IS NOT NULL
+  AND city_physical IS NOT NULL
+  AND state_abbrev_physical IS NOT NULL
+  AND zip_code_physical IS NOT NULL
+  AND county_physical IS NOT NULL
+  AND country_physical IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL
+LIMIT 5;",,"SELECT *
+FROM faa_dereg
+WHERE n_number = 'N10000'
+  AND id IS NOT NULL
+  AND n_number IS NOT NULL
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND status_code IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street_mail IS NOT NULL
+  AND street2_mail IS NOT NULL
+  AND city_mail IS NOT NULL
+  AND state_abbrev_mail IS NOT NULL
+  AND zip_code_mail IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND region IS NOT NULL
+  AND county_mail IS NOT NULL
+  AND country_mail IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND cancel_date IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND exp_country IS NOT NULL
+  AND last_act_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND street_physical IS NOT NULL
+  AND street2_physical IS NOT NULL
+  AND city_physical IS NOT NULL
+  AND state_abbrev_physical IS NOT NULL
+  AND zip_code_physical IS NOT NULL
+  AND county_physical IS NOT NULL
+  AND country_physical IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL
+LIMIT 5;",,True,,gpt-5-mini,6400,1288,7688,
+20260417_211633,q021,text2sql,sql,Count the number of rows in the us_shootings table.,200021,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,8725.149,8722.798,2013.383,1.874,"SELECT COUNT(*) AS CompleteRowCount
+FROM us_shootings
+WHERE IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL;",,"SELECT COUNT(*) AS CompleteRowCount
+FROM us_shootings
+WHERE IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL;","[(5,)]",True,,gpt-5-mini,6403,624,7027,
+20260417_211633,q022,text2sql,sql,"For each state, count the number of shooting incidents and return the top 10 states.",200022,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,9721.71,9717.999,2013.383,3.227,"SELECT State,
+       COUNT(*) AS IncidentCount
+FROM us_shootings
+WHERE IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+GROUP BY State
+ORDER BY IncidentCount DESC
+LIMIT 10;",,"SELECT State,
+       COUNT(*) AS IncidentCount
+FROM us_shootings
+WHERE IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+GROUP BY State
+ORDER BY IncidentCount DESC
+LIMIT 10;","[('new york', 1), ('pennsylvania', 1), ('mississippi', 1), ('virginia', 1), ('louisiana', 1)]",True,,gpt-5-mini,6408,768,7176,
+20260417_211633,q023,text2sql,sql,What is the average unemployment rate in 2023 across all states?,200023,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,6927.96,6880.486,2013.383,23.492,"SELECT AVG(Rate_2023) AS AverageUnemploymentRate2023
+FROM unemployment_rates_by_state
+WHERE Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL;",,"SELECT AVG(Rate_2023) AS AverageUnemploymentRate2023
+FROM unemployment_rates_by_state
+WHERE Rate_2022 IS NOT NULL
+  AND Rate_2023 IS NOT NULL
+  AND Rate_Change IS NOT NULL
+  AND State_Rank IS NOT NULL;","[(Decimal('3.31765'),)]",True,,gpt-5-mini,6404,452,6856,
+20260417_211633,q024,text2sql,sql,List the top 10 NGO categories by number of organizations.,200024,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,9279.145,9270.896,2013.383,548.816,"SELECT
+  Category,
+  COUNT(*) AS OrganizationCount
+FROM ngos_with_categorization
+WHERE Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY Category
+ORDER BY OrganizationCount DESC
+LIMIT 10;",,"SELECT
+  Category,
+  COUNT(*) AS OrganizationCount
+FROM ngos_with_categorization
+WHERE Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY Category
+ORDER BY OrganizationCount DESC
+LIMIT 10;",,True,,gpt-5-mini,6402,688,7090,
+20260417_211633,q025,text2sql,sql,How many FAA master records are there for Oklahoma?,200025,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,14182.366,14173.685,2013.383,365.139,"SELECT COUNT(*) AS OklahomaFAA_Master_Record_Count
+FROM faa_master
+WHERE (state = 'OK' OR state = 'Oklahoma')
+  AND n_number IS NOT NULL
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND state IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND region IS NOT NULL
+  AND county IS NOT NULL
+  AND country IS NOT NULL
+  AND last_action_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND type_aircraft IS NOT NULL
+  AND type_engine IS NOT NULL
+  AND status_code IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND fract_owner IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND unique_id IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL;",,"SELECT COUNT(*) AS OklahomaFAA_Master_Record_Count
+FROM faa_master
+WHERE (state = 'OK' OR state = 'Oklahoma')
+  AND n_number IS NOT NULL
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND state IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND region IS NOT NULL
+  AND county IS NOT NULL
+  AND country IS NOT NULL
+  AND last_action_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND type_aircraft IS NOT NULL
+  AND type_engine IS NOT NULL
+  AND status_code IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND fract_owner IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND unique_id IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL;","[(0,)]",True,,gpt-5-mini,6400,1046,7446,
+20260417_211633,q026,text2sql,sql,"For each state, count the number of NGOs and return the top 10 states.",200026,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,9685.053,9679.649,2013.383,509.303,"SELECT State,
+       COUNT(*) AS NGOCount
+FROM ngos_with_categorization
+WHERE Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY State
+ORDER BY NGOCount DESC
+LIMIT 10;",,"SELECT State,
+       COUNT(*) AS NGOCount
+FROM ngos_with_categorization
+WHERE Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY State
+ORDER BY NGOCount DESC
+LIMIT 10;",,True,,gpt-5-mini,6407,693,7100,
+20260417_211633,q027,text2sql,sql,How many victims were killed in California in 2023?,200027,200,True,,validation_disabled,,Validation was disabled for this profiling run.,none,,17170.478,17167.537,2013.383,6.174,"SELECT LOWER(State) AS State,
+       YEAR(IncidentDate) AS Year,
+       SUM(VictimsKilled) AS VictimsKilledInCalifornia2023
+FROM us_shootings
+WHERE IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+  AND LOWER(State) = 'california'
+  AND YEAR(IncidentDate) = 2023
+GROUP BY LOWER(State), YEAR(IncidentDate)
+LIMIT 5;",,"SELECT LOWER(State) AS State,
+       YEAR(IncidentDate) AS Year,
+       SUM(VictimsKilled) AS VictimsKilledInCalifornia2023
+FROM us_shootings
+WHERE IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+  AND LOWER(State) = 'california'
+  AND YEAR(IncidentDate) = 2023
+GROUP BY LOWER(State), YEAR(IncidentDate)
+LIMIT 5;",,True,,gpt-5-mini,6402,1260,7662,

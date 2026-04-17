@@ -1,0 +1,1227 @@
+question_id,mode,category,question,canonical_response,truth_status,truth_error,ground_truth_csv,verdict,is_correct,mismatch_type,confidence,rationale,raw_eval_json,evaluation_error
+q001,mcp,shootings,Give me US shootings in Louisiana from the year 2014.,"IncidentID,Address,IncidentDate,State,CityOrCountry,VictimsKilled,VictimsInjured,SuspectsInjured,SuspectsKilled,SuspectsArrested
+95500,3600 block of Highway 80 W,2014-01-12,louisiana,Tallulah,0,6,0,0,8",ok,,"IncidentID,Address,IncidentDate,State,CityOrCountry,VictimsKilled,VictimsInjured,SuspectsInjured,SuspectsKilled,SuspectsArrested
+95500,3600 block of Highway 80 W,2014-01-12,louisiana,Tallulah,0,6,0,0,8
+",correct,True,none,0.92,All fields and values in the model answer exactly match the provided ground truth row.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.92,
+  ""rationale"": ""All fields and values in the model answer exactly match the provided ground truth row.""
+}",
+q001,text2sql,shootings,Give me US shootings in Louisiana from the year 2014.,"[(95500, '3600 block of Highway 80 W', datetime.date(2014, 1, 12), 'louisiana', 'Tallulah', 0, 6, 0, 0, 8)]",ok,,"IncidentID,Address,IncidentDate,State,CityOrCountry,VictimsKilled,VictimsInjured,SuspectsInjured,SuspectsKilled,SuspectsArrested
+95500,3600 block of Highway 80 W,2014-01-12,louisiana,Tallulah,0,6,0,0,8
+",correct,True,none,0.93,The model answer exactly matches the single ground truth row for IncidentID 95500 in all fields.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.93,
+  ""rationale"": ""The model answer exactly matches the single ground truth row for IncidentID 95500 in all fields.""
+}",
+q002,mcp,unemployment,Give me the unemployment rate for Georgia in 2023.,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Georgia,3.2,3.3,0.1,35",ok,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Georgia,3.2,3.3,0.1,35
+",correct,True,none,0.95,"The model answer exactly matches the provided ground truth row for Georgia, including Rate_2023 = 3.3.","{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.95,
+  ""rationale"": ""The model answer exactly matches the provided ground truth row for Georgia, including Rate_2023 = 3.3.""
+}",
+q002,text2sql,unemployment,Give me the unemployment rate for Georgia in 2023.,"[('Georgia', Decimal('3.3'))]",ok,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Georgia,3.2,3.3,0.1,35
+",correct,True,none,0.92,"The model's answer returns Georgia with a 2023 rate of 3.3, which exactly matches the ground truth Rate_2023 value.","{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.92,
+  ""rationale"": ""The model's answer returns Georgia with a 2023 rate of 3.3, which exactly matches the ground truth Rate_2023 value.""
+}",
+q003,mcp,unemployment,How does the unemployment rate in Hawaii compare to Indiana in 2023?,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Hawaii,3.3,2.9,-0.4,6
+Indiana,3.1,3.4,0.3,44",ok,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Hawaii,3.3,2.9,-0.4,6
+Indiana,3.1,3.4,0.3,44
+",correct,True,none,0.93,The model answer exactly matches the provided ground truth for Hawaii and Indiana across all fields.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.93,
+  ""rationale"": ""The model answer exactly matches the provided ground truth for Hawaii and Indiana across all fields.""
+}",
+q003,text2sql,unemployment,How does the unemployment rate in Hawaii compare to Indiana in 2023?,"[('Hawaii', Decimal('2.9'), 'Indiana', Decimal('3.4'), Decimal('-0.5'), Decimal('0.853'))]",ok,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Hawaii,3.3,2.9,-0.4,6
+Indiana,3.1,3.4,0.3,44
+",incorrect,False,wrong_value,0.84,The model gives correct 2023 rates but reports a -0.5 change and an unexplained 0.853 value while the ground truth shows Hawaii's 2022→2023 change is -0.4 and includes different additional fields (Rate_2022 and State_Rank) which the answer omits.,"{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.84,
+  ""rationale"": ""The model gives correct 2023 rates but reports a -0.5 change and an unexplained 0.853 value while the ground truth shows Hawaii's 2022→2023 change is -0.4 and includes different additional fields (Rate_2022 and State_Rank) which the answer omits.""
+}",
+q004,mcp,unemployment,What were the five states with the lowest unemployment rates in 2022?,"State,Rate_2022
+South Dakota,1.9
+North Dakota,2.1
+Nebraska,2.2
+New Hampshire,2.4
+Utah,2.4",ok,,"State,Rate_2022
+South Dakota,1.9
+North Dakota,2.1
+Nebraska,2.2
+New Hampshire,2.4
+Utah,2.4
+",correct,True,none,0.92,The model answer exactly matches the provided ground truth rows for the five states and their 2022 unemployment rates.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.92,
+  ""rationale"": ""The model answer exactly matches the provided ground truth rows for the five states and their 2022 unemployment rates.""
+}",
+q004,text2sql,unemployment,What were the five states with the lowest unemployment rates in 2022?,"[('South Dakota', Decimal('1.9'), Decimal('1.8'), Decimal('-0.1'), 19), ('North Dakota', Decimal('2.1'), Decimal('2.0'), Decimal('-0.1'), 19), ('Nebraska', Decimal('2.2'), Decimal('2.3'), Decimal('0.1'), 35), ('New Hampshire', Decimal('2.4'), Decimal('2.3'), Decimal('-0.1'), 19), ('Utah', Decimal('2.4'), Decimal('2.7'), Decimal('0.3'), 44)]",ok,,"State,Rate_2022
+South Dakota,1.9
+North Dakota,2.1
+Nebraska,2.2
+New Hampshire,2.4
+Utah,2.4
+",correct,True,none,0.9,"All five states and their 2022 unemployment rates match the ground truth exactly, so the answer is correct despite extra columns.","{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.9,
+  ""rationale"": ""All five states and their 2022 unemployment rates match the ground truth exactly, so the answer is correct despite extra columns.""
+}",
+q005,mcp,ngo,Give me the full name and full address of the NGO with EIN 100006500.,"Ein,Name,Fulladdr,City,State,Zip,County,Ntee_Code,Category,Is_Category_Llm_Generated
+100006500,Lebanon Volunteer Fire Department,PO BOX 51,LEBANON,CT,06249-0051,Lebanon,CT,6249.0,Southeastern Connecticut Planning Region,M24,Public Safety, Disaster Preparedness & Relief,None",ok,,"Ein,Name,Fulladdr,City,State,Zip,County,Ntee_Code,Category,Is_Category_Llm_Generated
+100006500,Lebanon Volunteer Fire Department,""PO BOX 51,LEBANON,CT,06249-0051"",Lebanon,CT,6249.0,Southeastern Connecticut Planning Region,M24,""Public Safety, Disaster Preparedness & Relief"",
+",incorrect,False,wrong_value,0.86,"Although the model provided the correct name and address components, several fields are misaligned or contain incorrect values (e.g., County, NTEE code and other columns), so the answer does not exactly match the ground truth.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.86,
+  ""rationale"": ""Although the model provided the correct name and address components, several fields are misaligned or contain incorrect values (e.g., County, NTEE code and other columns), so the answer does not exactly match the ground truth.""
+}",
+q005,text2sql,ngo,Give me the full name and full address of the NGO with EIN 100006500.,"SELECT Name AS FullName,
+       Fulladdr AS FullAddress
+FROM ngos_with_categorization
+WHERE Ein = 100006500
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",ok,,"Ein,Name,Fulladdr,City,State,Zip,County,Ntee_Code,Category,Is_Category_Llm_Generated
+100006500,Lebanon Volunteer Fire Department,""PO BOX 51,LEBANON,CT,06249-0051"",Lebanon,CT,6249.0,Southeastern Connecticut Planning Region,M24,""Public Safety, Disaster Preparedness & Relief"",
+",incorrect,False,missing_value,0.86,"The query adds restrictive IS NOT NULL checks (notably Is_Category_Llm_Generated) which is NULL in the ground-truth row, so it would return no result and fail to provide the requested name and address.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""missing_value"",
+  ""confidence"": 0.86,
+  ""rationale"": ""The query adds restrictive IS NOT NULL checks (notably Is_Category_Llm_Generated) which is NULL in the ground-truth row, so it would return no result and fail to provide the requested name and address.""
+}",
+q006,mcp,ngo,Give me NGOs in Albany County.,"Ein,Name,City,State,County,Ntee_Code,Category
+222719837,100 South Swan Street Realty Corp,Albany,NY,Albany County,S47,Community Improvement, Capacity Building
+352433476,105Th Military Police Company Alumni Association Troy New York,Latham,NY,Albany County,W30,Public & Societal Benefit
+100004869,195 Fort Edward Inc,Albany,NY,Albany County,S47,Community Improvement, Capacity Building
+352381188,2-1-1 New York Inc,Latham,NY,Albany County,E70,Health Care
+141760872,222 Riverside Plaza Corp,Albany,NY,Albany County,C99,Environment
+141800103,360 Whitehall Housing Development Fund Corp,Albany,NY,Albany County,H50,Medical Research
+261878508,4 Wheeling For Healing Inc,Altamont,NY,Albany County,P30,Human Services
+141821567,4-H Club And Affiliated 4-H Organization,Feura Bush,NY,Albany County,Z99,Unknown
+223242233,4325 S Salina Street Realty Corp,Glenmont,NY,Albany County,S47,Community Improvement, Capacity Building
+141823014,518 Elevated Inc,Albany,NY,Albany County,B82,Education",ok,,"Ein,Name,City,State,County,Ntee_Code,Category
+2032112,New York Easter Seal Society For Crippled Children & Adults Inc,Albany,NY,Albany County,E50,Health Care
+2039117,Albany Catholic Press Assn Inc,Albany,NY,Albany County,X03,Religion-Related
+2039148,St Catherines Center For Children,Albany,NY,Albany County,P99,Human Services
+2040837,J S Standish Trust P 2718 Fbo C F Stadish State Bank Of Albany,Albany,NY,Albany County,B12,Education
+2040838,Florence Standish Trust P 2717 Fbo Cl Standish State Bk Of Albany,Albany,NY,Albany County,B11,Education
+2040839,J Standish Trust P 2715 F30 Cc Standish State Bk Of Albany,Albany,NY,Albany County,B12,Education
+2040840,Florence Standish Trust & 2714 Fbo J C Standish State Bk Of Albany,Albany,NY,Albany County,B11,Education
+10375804,Energy System Parameters,Albany,NY,Albany County,C35,Environment
+10485159,Outreach Institute For Gender Studies,Latham,NY,Albany County,B05,Education
+10519982,Blue Knights Motorcycle Club,Albany,NY,Albany County,Y42,Mutual/Membership Benefit
+",incorrect,False,wrong_value,0.93,The model's rows do not match the provided ground truth rows for Albany County (entirely different EINs and organization names).,"{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.93,
+  ""rationale"": ""The model's rows do not match the provided ground truth rows for Albany County (entirely different EINs and organization names).""
+}",
+q006,text2sql,ngo,Give me NGOs in Albany County.,"SELECT Ein, Name, Fulladdr, City, State, Zip, County, Ntee_Code, Category, Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE County LIKE '%Albany%'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",ok,,"Ein,Name,City,State,County,Ntee_Code,Category
+2032112,New York Easter Seal Society For Crippled Children & Adults Inc,Albany,NY,Albany County,E50,Health Care
+2039117,Albany Catholic Press Assn Inc,Albany,NY,Albany County,X03,Religion-Related
+2039148,St Catherines Center For Children,Albany,NY,Albany County,P99,Human Services
+2040837,J S Standish Trust P 2718 Fbo C F Stadish State Bank Of Albany,Albany,NY,Albany County,B12,Education
+2040838,Florence Standish Trust P 2717 Fbo Cl Standish State Bk Of Albany,Albany,NY,Albany County,B11,Education
+2040839,J Standish Trust P 2715 F30 Cc Standish State Bk Of Albany,Albany,NY,Albany County,B12,Education
+2040840,Florence Standish Trust & 2714 Fbo J C Standish State Bk Of Albany,Albany,NY,Albany County,B11,Education
+10375804,Energy System Parameters,Albany,NY,Albany County,C35,Environment
+10485159,Outreach Institute For Gender Studies,Latham,NY,Albany County,B05,Education
+10519982,Blue Knights Motorcycle Club,Albany,NY,Albany County,Y42,Mutual/Membership Benefit
+",incorrect,False,partial_answer,0.77,"The query adds extra NOT NULL constraints (Fulladdr, Zip, Is_Category_Llm_Generated) and LIMIT 5, which can exclude valid ground-truth Albany County rows so it does not return the full correct result set.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""partial_answer"",
+  ""confidence"": 0.77,
+  ""rationale"": ""The query adds extra NOT NULL constraints (Fulladdr, Zip, Is_Category_Llm_Generated) and LIMIT 5, which can exclude valid ground-truth Albany County rows so it does not return the full correct result set.""
+}",
+q007,mcp,ngo,Which states have the most religion-related NGOs?,"State,religion_ngos
+NY,25886
+CA,19616
+PA,16541
+OH,16482
+TX,10886
+NJ,10203
+IN,9866
+FL,9560
+IL,6497
+GA,5641",ok,,"State,religion_ngos
+NY,17655
+CA,12977
+OH,11201
+PA,11124
+TX,7153
+IN,7148
+NJ,6804
+FL,6081
+IL,4311
+GA,3453
+",incorrect,False,wrong_value,0.86,"The listed states match but the religion_ngos counts differ from the ground truth (e.g., NY 25886 vs 17655).","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.86,
+  ""rationale"": ""The listed states match but the religion_ngos counts differ from the ground truth (e.g., NY 25886 vs 17655).""
+}",
+q007,text2sql,ngo,Which states have the most religion-related NGOs?,"SELECT
+  State,
+  COUNT(*) AS ReligionNGOCount
+FROM
+  ngos_with_categorization
+WHERE
+  Category LIKE '%Religion%'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY
+  State
+ORDER BY
+  ReligionNGOCount DESC
+LIMIT 5;",ok,,"State,religion_ngos
+NY,17655
+CA,12977
+OH,11201
+PA,11124
+TX,7153
+IN,7148
+NJ,6804
+FL,6081
+IL,4311
+GA,3453
+",incorrect,False,missing_value,0.75,"The query returns only the top 5 and adds extra IS NOT NULL filters that may exclude rows, so it does not produce the full top-10 state counts given in the ground truth.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""missing_value"",
+  ""confidence"": 0.75,
+  ""rationale"": ""The query returns only the top 5 and adds extra IS NOT NULL filters that may exclude rows, so it does not produce the full top-10 state counts given in the ground truth.""
+}",
+q008,mcp,faa,Look up FAA registration N100 in the master registry.,"n_number,serial_number,mfr_mdl_code,eng_mfr_mdl,year_mfr,owner_type,registrant_name,street,street2,city,state,zip_code,region,county,country,last_action_date,cert_issue_date,certification,airworthiness_classification,approved_operations,type_aircraft,type_engine,status_code,mode_s_code,fract_owner,air_worth_date,other_names1,other_names2,other_names3,other_names4,other_names5,expiration_date,unique_id,kit_mfr,kit_model,mode_s_code_hex
+N100,5334,7100510,17003,1940,Individual,BENE MARY D,PO BOX 329,None,KETCHUM,OK,743490329,Southwestern,97,US,2023-01-22,2005-05-06,1,Standard,None,Fixed wing single engine,Reciprocating,Valid Registration,50002263,None,1954-04-30,None,None,None,None,None,2027-04-30,600060,None,None,A004B3",ok,,"n_number,serial_number,mfr_mdl_code,eng_mfr_mdl,year_mfr,owner_type,registrant_name,street,street2,city,state,zip_code,region,county,country,last_action_date,cert_issue_date,certification,airworthiness_classification,approved_operations,type_aircraft,type_engine,status_code,mode_s_code,fract_owner,air_worth_date,other_names1,other_names2,other_names3,other_names4,other_names5,expiration_date,unique_id,kit_mfr,kit_model,mode_s_code_hex
+N100,5334,7100510,17003,1940,Individual,BENE MARY D,PO BOX 329,,KETCHUM,OK,743490329,Southwestern,97,US,2023-01-22,2005-05-06,1,Standard,,Fixed wing single engine,Reciprocating,Valid Registration,50002263,,1954-04-30,,,,,,2027-04-30,600060,,,A004B3
+",incorrect,False,wrong_value,0.82,"The model output replaces several empty ground-truth fields (street2, approved_operations, fract_owner, other_names1-5, kit_mfr, kit_model) with the literal 'None', which does not match the provided ground-truth values.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.82,
+  ""rationale"": ""The model output replaces several empty ground-truth fields (street2, approved_operations, fract_owner, other_names1-5, kit_mfr, kit_model) with the literal 'None', which does not match the provided ground-truth values.""
+}",
+q008,text2sql,faa,Look up FAA registration N100 in the master registry.,"SELECT n_number,
+       serial_number,
+       mfr_mdl_code,
+       eng_mfr_mdl,
+       year_mfr,
+       owner_type,
+       registrant_name,
+       street,
+       street2,
+       city,
+       state,
+       zip_code,
+       region,
+       county,
+       country,
+       last_action_date,
+       cert_issue_date,
+       certification,
+       airworthiness_classification,
+       approved_operations,
+       type_aircraft,
+       type_engine,
+       status_code,
+       mode_s_code,
+       fract_owner,
+       air_worth_date,
+       other_names1,
+       other_names2,
+       other_names3,
+       other_names4,
+       other_names5,
+       expiration_date,
+       unique_id,
+       kit_mfr,
+       kit_model,
+       mode_s_code_hex
+FROM faa_master
+WHERE n_number = 'N100'
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND state IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND region IS NOT NULL
+  AND county IS NOT NULL
+  AND country IS NOT NULL
+  AND last_action_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND type_aircraft IS NOT NULL
+  AND type_engine IS NOT NULL
+  AND status_code IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND fract_owner IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND unique_id IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL
+LIMIT 5;",ok,,"n_number,serial_number,mfr_mdl_code,eng_mfr_mdl,year_mfr,owner_type,registrant_name,street,street2,city,state,zip_code,region,county,country,last_action_date,cert_issue_date,certification,airworthiness_classification,approved_operations,type_aircraft,type_engine,status_code,mode_s_code,fract_owner,air_worth_date,other_names1,other_names2,other_names3,other_names4,other_names5,expiration_date,unique_id,kit_mfr,kit_model,mode_s_code_hex
+N100,5334,7100510,17003,1940,Individual,BENE MARY D,PO BOX 329,,KETCHUM,OK,743490329,Southwestern,97,US,2023-01-22,2005-05-06,1,Standard,,Fixed wing single engine,Reciprocating,Valid Registration,50002263,,1954-04-30,,,,,,2027-04-30,600060,,,A004B3
+",incorrect,False,wrong_value,0.85,"The query imposes many IS NOT NULL conditions (e.g., street2, other_names1-5, kit_mfr, kit_model) that are NULL/empty in the ground-truth row for N100, so it would exclude the correct record.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.85,
+  ""rationale"": ""The query imposes many IS NOT NULL conditions (e.g., street2, other_names1-5, kit_mfr, kit_model) that are NULL/empty in the ground-truth row for N100, so it would exclude the correct record.""
+}",
+q009,mcp,shootings,Show 5 shooting incidents in Texas ordered by most recent date.,"I queried the shootings table for Texas and found no rows (""No rows found."").
+
+Would you like me to:
+- Show the 5 most recent shootings nationwide instead?
+- Try a different state?
+- List which states are present in the shootings table?",ok,,No rows found.,correct,True,none,0.92,"The model correctly reported that no rows were found for Texas, which matches the ground truth 'No rows found.'","{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.92,
+  ""rationale"": ""The model correctly reported that no rows were found for Texas, which matches the ground truth 'No rows found.'""
+}",
+q009,text2sql,shootings,Show 5 shooting incidents in Texas ordered by most recent date.,"SELECT IncidentID,
+       Address,
+       IncidentDate,
+       State,
+       CityOrCountry,
+       VictimsKilled,
+       VictimsInjured,
+       SuspectsInjured,
+       SuspectsKilled,
+       SuspectsArrested
+FROM us_shootings
+WHERE State = 'texas'
+  AND IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+ORDER BY IncidentDate DESC
+LIMIT 5;",ok,,No rows found.,unscorable,,unscorable,0.33,"Ground truth rows are not provided ('No rows found'), so the model answer cannot be evaluated for correctness.","{
+  ""verdict"": ""unscorable"",
+  ""is_correct"": null,
+  ""mismatch_type"": ""unscorable"",
+  ""confidence"": 0.33,
+  ""rationale"": ""Ground truth rows are not provided ('No rows found'), so the model answer cannot be evaluated for correctness.""
+}",
+q010,mcp,unemployment,Which state had the highest unemployment rate in 2023?,Nevada had the highest unemployment rate in 2023 at 5.2%.,ok,,"State,Rate_2023
+Nevada,5.2
+",correct,True,none,0.95,The model answer matches the ground truth row which lists Nevada with a 2023 unemployment rate of 5.2%.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.95,
+  ""rationale"": ""The model answer matches the ground truth row which lists Nevada with a 2023 unemployment rate of 5.2%.""
+}",
+q010,text2sql,unemployment,Which state had the highest unemployment rate in 2023?,"[('Nevada', Decimal('5.2'))]",ok,,"State,Rate_2023
+Nevada,5.2
+",correct,True,none,0.93,"The model's output (Nevada, 5.2) exactly matches the provided ground truth row.","{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.93,
+  ""rationale"": ""The model's output (Nevada, 5.2) exactly matches the provided ground truth row.""
+}",
+q011,mcp,unemployment,List the top 10 states by unemployment rate in 2023.,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Nevada,5.2,5.2,0.0,27
+District of Columbia,4.7,4.8,0.1,35
+California,4.3,4.7,0.4,49
+Illinois,4.6,4.5,-0.1,19
+Kentucky,4.0,4.3,0.3,44
+New Jersey,3.9,4.3,0.4,49
+Alaska,4.3,4.2,-0.1,19
+Washington,4.1,4.2,0.1,35
+New York,4.3,4.1,-0.2,13
+Texas,3.9,4.0,0.1,35",ok,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Nevada,5.2,5.2,0.0,27
+District of Columbia,4.7,4.8,0.1,35
+California,4.3,4.7,0.4,49
+Illinois,4.6,4.5,-0.1,19
+Kentucky,4.0,4.3,0.3,44
+New Jersey,3.9,4.3,0.4,49
+Alaska,4.3,4.2,-0.1,19
+Washington,4.1,4.2,0.1,35
+New York,4.3,4.1,-0.2,13
+Texas,3.9,4.0,0.1,35
+",correct,True,none,0.87,The model answer exactly matches the provided ground truth rows for all states and values.,"{""verdict"":""correct"",""is_correct"":true,""mismatch_type"":""none"",""confidence"":0.87,""rationale"":""The model answer exactly matches the provided ground truth rows for all states and values.""}",
+q011,text2sql,unemployment,List the top 10 states by unemployment rate in 2023.,"[('Nevada', Decimal('5.2'), Decimal('0.0'), 27), ('District of Columbia', Decimal('4.8'), Decimal('0.1'), 35), ('California', Decimal('4.7'), Decimal('0.4'), 49), ('Illinois', Decimal('4.5'), Decimal('-0.1'), 19), ('Kentucky', Decimal('4.3'), Decimal('0.3'), 44), ('New Jersey', Decimal('4.3'), Decimal('0.4'), 49), ('Washington', Decimal('4.2'), Decimal('0.1'), 35), ('Alaska', Decimal('4.2'), Decimal('-0.1'), 19), ('New York', Decimal('4.1'), Decimal('-0.2'), 13), ('Texas', Decimal('4.0'), Decimal('0.1'), 35)]",ok,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+Nevada,5.2,5.2,0.0,27
+District of Columbia,4.7,4.8,0.1,35
+California,4.3,4.7,0.4,49
+Illinois,4.6,4.5,-0.1,19
+Kentucky,4.0,4.3,0.3,44
+New Jersey,3.9,4.3,0.4,49
+Alaska,4.3,4.2,-0.1,19
+Washington,4.1,4.2,0.1,35
+New York,4.3,4.1,-0.2,13
+Texas,3.9,4.0,0.1,35
+",incorrect,False,missing_value,0.86,"The model's rows match the Rate_2023, Rate_Change, and State_Rank values but omit the Rate_2022 column present in the ground-truth rows.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""missing_value"",
+  ""confidence"": 0.86,
+  ""rationale"": ""The model's rows match the Rate_2023, Rate_Change, and State_Rank values but omit the Rate_2022 column present in the ground-truth rows.""
+}",
+q012,mcp,unemployment,Compare the unemployment rate in California and the United States in 2023.,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+California,4.3,4.7,0.4,49
+United States,3.6,3.6,0.0,None",ok,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+California,4.3,4.7,0.4,49.0
+United States,3.6,3.6,0.0,
+",correct,True,none,0.93,All numeric values match the ground truth (the United States rank is blank in the ground truth and represented as None in the answer).,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.93,
+  ""rationale"": ""All numeric values match the ground truth (the United States rank is blank in the ground truth and represented as None in the answer).""
+}",
+q012,text2sql,unemployment,Compare the unemployment rate in California and the United States in 2023.,"[(Decimal('4.7'), Decimal('3.6'), Decimal('1.1'))]",ok,,"State,Rate_2022,Rate_2023,Rate_Change,State_Rank
+California,4.3,4.7,0.4,49.0
+United States,3.6,3.6,0.0,
+",correct,True,none,0.92,"The model output lists California 2023 rate 4.7, United States 2023 rate 3.6, and their difference 1.1, which matches the ground truth rows.","{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.92,
+  ""rationale"": ""The model output lists California 2023 rate 4.7, United States 2023 rate 3.6, and their difference 1.1, which matches the ground truth rows.""
+}",
+q013,mcp,ngo,Find NGOs in California in the Health Care category.,"Ein,Name,City,State,County,Ntee_Code,Category
+274453105,2Nd Chance Kids,Colton,CA,San Bernardino County,E99,Health Care
+272791990,40 Million And Counting,Rolling Hills Estates,CA,Los Angeles County,E01,Health Care
+330551434,A & M Health Services Corporation,El Monte,CA,Los Angeles County,E21,Health Care
+320101760,A A Care Center,Santa Ana,CA,Orange County,E70,Health Care
+330818147,A C N M Inland Desert Chapter,Apple Valley,CA,San Bernardino County,E60,Health Care",ok,,"Ein,Name,City,State,County,Ntee_Code,Category
+2281864,Watsonville Community Hospital,Watsonville,CA,Santa Cruz County,E20,Health Care
+2281989,Palo Alto Medical Research Foundation,Palo Alto,CA,Santa Clara County,E11,Health Care
+2285660,Family Health Foundation Of Alviso Inc,Alviso,CA,Santa Clara County,E11,Health Care
+2294520,Hospital Of The Good Samaritan,Los Angeles,CA,Los Angeles County,E20,Health Care
+2301085,Central Valley Medical Foundation A Charitable Corporation,El Centro,CA,Imperial County,E11,Health Care
+",incorrect,False,wrong_value,0.8,The model's returned organizations and EINs do not match any of the ground-truth rows for California Health Care NGOs.,"{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.8,
+  ""rationale"": ""The model's returned organizations and EINs do not match any of the ground-truth rows for California Health Care NGOs.""
+}",
+q013,text2sql,ngo,Find NGOs in California in the Health Care category.,"SELECT Ein, Name, Fulladdr, City, State, Zip, County, Ntee_Code, Category, Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE TRIM(UPPER(State)) IN ('CA','CALIFORNIA')
+  AND TRIM(UPPER(Category)) = 'HEALTH CARE'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",ok,,"Ein,Name,City,State,County,Ntee_Code,Category
+2281864,Watsonville Community Hospital,Watsonville,CA,Santa Cruz County,E20,Health Care
+2281989,Palo Alto Medical Research Foundation,Palo Alto,CA,Santa Clara County,E11,Health Care
+2285660,Family Health Foundation Of Alviso Inc,Alviso,CA,Santa Clara County,E11,Health Care
+2294520,Hospital Of The Good Samaritan,Los Angeles,CA,Los Angeles County,E20,Health Care
+2301085,Central Valley Medical Foundation A Charitable Corporation,El Centro,CA,Imperial County,E11,Health Care
+",incorrect,False,partial_answer,0.74,"The query adds unnecessary NOT NULL filters and selects columns (Fulladdr, Zip, Is_Category_Llm_Generated) not present in the ground-truth rows, which could exclude or misrepresent the expected Health Care NGOs in CA.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""partial_answer"",
+  ""confidence"": 0.74,
+  ""rationale"": ""The query adds unnecessary NOT NULL filters and selects columns (Fulladdr, Zip, Is_Category_Llm_Generated) not present in the ground-truth rows, which could exclude or misrepresent the expected Health Care NGOs in CA.""
+}",
+q014,mcp,ngo,List 10 NGOs in King County.,"Ein,Name,City,State,County,Ntee_Code,Category
+271030377,1 Green Planet,Renton,WA,King County,C27,Environment
+203154031,10-99 Foundation,Issaquah,WA,King County,M12,Public Safety, Disaster Preparedness & Relief
+274318786,12 Baskets,Federal Way,WA,King County,Q33,International, Foreign Affairs and National Security
+272154518,15Th Street Ballard Guild,Seattle,WA,King County,A20,Arts, Culture and Humanities
+208536154,1In2,Issaquah,WA,King County,H11,Medical Research
+237108188,200 Plus 1 Club,Mercer Island,WA,King County,N50,Recreation & Sports
+270807517,206 Universal,Seattle,WA,King County,B84,Education
+300782059,21 Progress,Seattle,WA,King County,B60,Education
+200886897,21St Century Mission Church,Sammamish,WA,King County,X20,Religion-Related
+311672568,2Nd Chance Young Adult Organization,Seattle,WA,King County,I30,Crime & Legal-Related",ok,,"Ein,Name,City,State,County,Ntee_Code,Category
+2068121,Koleda Ensemble,Seattle,WA,King County,A6C,""Arts, Culture and Humanities""
+2275093,Marie H Hamilton Scholarship Fund,Seattle,WA,King County,B82,Education
+10566082,Oromo Cultural Center,Seattle,WA,King County,A23,""Arts, Culture and Humanities""
+10571904,Chinese Business And Technology Association Of Greater Seattle,Bellevue,WA,King County,A23,""Arts, Culture and Humanities""
+10602428,Washington Association Of Physicians Of Indian Origin,Bellevue,WA,King County,B99,Education
+10609984,Trilogy Dance Company,Seattle,WA,King County,A62,""Arts, Culture and Humanities""
+10615720,Family Autism Network,Kent,WA,King County,G84,Voluntary Health Associations & Medical Disciplines
+10622272,Spiritvision,Federal Way,WA,King County,B99,Education
+10627575,Ohio Pride Track Club,Renton,WA,King County,N60,Recreation & Sports
+10630717,Flying Ajs,Bellevue,WA,King County,N70,Recreation & Sports
+",incorrect,False,wrong_value,0.86,None of the ten NGOs returned by the model answer match the ground-truth rows provided.,"{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.86,
+  ""rationale"": ""None of the ten NGOs returned by the model answer match the ground-truth rows provided.""
+}",
+q014,text2sql,ngo,List 10 NGOs in King County.,"SELECT Ein,
+       Name,
+       Fulladdr,
+       City,
+       State,
+       Zip,
+       County,
+       Ntee_Code AS NteeCode,
+       Category,
+       Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE County LIKE '%King%'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 10;",ok,,"Ein,Name,City,State,County,Ntee_Code,Category
+2068121,Koleda Ensemble,Seattle,WA,King County,A6C,""Arts, Culture and Humanities""
+2275093,Marie H Hamilton Scholarship Fund,Seattle,WA,King County,B82,Education
+10566082,Oromo Cultural Center,Seattle,WA,King County,A23,""Arts, Culture and Humanities""
+10571904,Chinese Business And Technology Association Of Greater Seattle,Bellevue,WA,King County,A23,""Arts, Culture and Humanities""
+10602428,Washington Association Of Physicians Of Indian Origin,Bellevue,WA,King County,B99,Education
+10609984,Trilogy Dance Company,Seattle,WA,King County,A62,""Arts, Culture and Humanities""
+10615720,Family Autism Network,Kent,WA,King County,G84,Voluntary Health Associations & Medical Disciplines
+10622272,Spiritvision,Federal Way,WA,King County,B99,Education
+10627575,Ohio Pride Track Club,Renton,WA,King County,N60,Recreation & Sports
+10630717,Flying Ajs,Bellevue,WA,King County,N70,Recreation & Sports
+",incorrect,False,missing_value,0.78,"The query requires and selects columns (Fulladdr, Zip, Is_Category_Llm_Generated) not present in the ground-truth rows and adds extra NOT NULL filters, so it would not return the provided 10 King County NGOs.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""missing_value"",
+  ""confidence"": 0.78,
+  ""rationale"": ""The query requires and selects columns (Fulladdr, Zip, Is_Category_Llm_Generated) not present in the ground-truth rows and adds extra NOT NULL filters, so it would not return the provided 10 King County NGOs.""
+}",
+q015,mcp,ngo,Summarize NGO counts by category in Texas.,"Category,ngo_count
+Religion-Related,7153
+Education,6677
+Human Services,3734
+Youth Development,3360
+Recreation & Sports,3331
+Philanthropy, Voluntarism and Grantmaking Foundations,3255
+Mutual/Membership Benefit,3010
+Community Improvement, Capacity Building,2831
+Arts, Culture and Humanities,2701
+Public & Societal Benefit,1461
+Health Care,1074
+International, Foreign Affairs and National Security,893
+Voluntary Health Associations & Medical Disciplines,871
+Animal-Related,843
+Crime & Legal-Related,810
+Housing & Shelter,721
+Unknown,716
+Public Safety, Disaster Preparedness & Relief,593
+Environment,592
+Science and Technology,591
+Employment,524
+Mental Health & Crisis Intervention,415
+Food, Agriculture and Nutrition,389
+Civil Rights, Social Action, Advocacy,280
+Medical Research,151
+Social Science,34",ok,,"Category,ngo_count
+Religion-Related,7153
+Education,6677
+Human Services,3734
+Youth Development,3360
+Recreation & Sports,3331
+""Philanthropy, Voluntarism and Grantmaking Foundations"",3255
+Mutual/Membership Benefit,3010
+""Community Improvement, Capacity Building"",2831
+""Arts, Culture and Humanities"",2701
+Public & Societal Benefit,1461
+Health Care,1074
+""International, Foreign Affairs and National Security"",893
+Voluntary Health Associations & Medical Disciplines,871
+Animal-Related,843
+Crime & Legal-Related,810
+Housing & Shelter,721
+Unknown,716
+""Public Safety, Disaster Preparedness & Relief"",593
+Environment,592
+Science and Technology,591
+Employment,524
+Mental Health & Crisis Intervention,415
+""Food, Agriculture and Nutrition"",389
+""Civil Rights, Social Action, Advocacy"",280
+Medical Research,151
+Social Science,34
+",correct,True,none,0.9,The model answer exactly matches the provided ground truth rows in categories and counts.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.9,
+  ""rationale"": ""The model answer exactly matches the provided ground truth rows in categories and counts.""
+}",
+q015,text2sql,ngo,Summarize NGO counts by category in Texas.,"SELECT
+  Category,
+  COUNT(*) AS NGOCount
+FROM ngos_with_categorization
+WHERE State = 'TX'
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY Category
+ORDER BY NGOCount DESC
+LIMIT 5;",ok,,"Category,ngo_count
+Religion-Related,7153
+Education,6677
+Human Services,3734
+Youth Development,3360
+Recreation & Sports,3331
+""Philanthropy, Voluntarism and Grantmaking Foundations"",3255
+Mutual/Membership Benefit,3010
+""Community Improvement, Capacity Building"",2831
+""Arts, Culture and Humanities"",2701
+Public & Societal Benefit,1461
+Health Care,1074
+""International, Foreign Affairs and National Security"",893
+Voluntary Health Associations & Medical Disciplines,871
+Animal-Related,843
+Crime & Legal-Related,810
+Housing & Shelter,721
+Unknown,716
+""Public Safety, Disaster Preparedness & Relief"",593
+Environment,592
+Science and Technology,591
+Employment,524
+Mental Health & Crisis Intervention,415
+""Food, Agriculture and Nutrition"",389
+""Civil Rights, Social Action, Advocacy"",280
+Medical Research,151
+Social Science,34
+",incorrect,False,missing_value,0.86,"The query applies extra NOT NULL filters and LIMIT 5, so it would omit many categories and produce a truncated/filtered result that does not match the full ground-truth counts.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""missing_value"",
+  ""confidence"": 0.86,
+  ""rationale"": ""The query applies extra NOT NULL filters and LIMIT 5, so it would omit many categories and produce a truncated/filtered result that does not match the full ground-truth counts."" 
+}",
+q016,mcp,ngo,Give me the NGO with EIN 141760872.,"Ein,Name,Fulladdr,City,State,Zip,County,Ntee_Code,Category,Is_Category_Llm_Generated
+141760872,222 Riverside Plaza Corp,ALBANY,NY,12211,Albany,NY,12211.0,Albany County,C99,Environment,None",ok,,"Ein,Name,Fulladdr,City,State,Zip,County,Ntee_Code,Category,Is_Category_Llm_Generated
+141760872,222 Riverside Plaza Corp,""ALBANY,NY,12211"",Albany,NY,12211.0,Albany County,C99,Environment,
+",incorrect,False,wrong_value,0.92,"The model's row misaligned fields and contains incorrect values (e.g., Fulladdr split across columns and Is_Category_Llm_Generated set to 'None' instead of blank), so it does not match the ground truth.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.92,
+  ""rationale"": ""The model's row misaligned fields and contains incorrect values (e.g., Fulladdr split across columns and Is_Category_Llm_Generated set to 'None' instead of blank), so it does not match the ground truth.""
+}",
+q016,text2sql,ngo,Give me the NGO with EIN 141760872.,"SELECT Ein, Name, Fulladdr, City, State, Zip, County, Ntee_Code, Category, Is_Category_Llm_Generated
+FROM ngos_with_categorization
+WHERE Ein = 141760872
+  AND Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+LIMIT 5;",ok,,"Ein,Name,Fulladdr,City,State,Zip,County,Ntee_Code,Category,Is_Category_Llm_Generated
+141760872,222 Riverside Plaza Corp,""ALBANY,NY,12211"",Albany,NY,12211.0,Albany County,C99,Environment,
+",incorrect,False,missing_value,0.9,"The query adds IS NOT NULL checks (including Is_Category_Llm_Generated which is NULL in the ground truth), so it would exclude the matching row and fail to return the required NGO.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""missing_value"",
+  ""confidence"": 0.9,
+  ""rationale"": ""The query adds IS NOT NULL checks (including Is_Category_Llm_Generated which is NULL in the ground truth), so it would exclude the matching row and fail to return the required NGO.""
+}",
+q017,mcp,faa,Show 3 aircraft registered in Oklahoma from the FAA master registry.,"n_number,serial_number,mfr_mdl_code,eng_mfr_mdl,year_mfr,owner_type,registrant_name,street,street2,city,state,zip_code,region,county,country,last_action_date,cert_issue_date,certification,airworthiness_classification,approved_operations,type_aircraft,type_engine,status_code,mode_s_code,fract_owner,air_worth_date,other_names1,other_names2,other_names3,other_names4,other_names5,expiration_date,unique_id,kit_mfr,kit_model,mode_s_code_hex
+N100,5334,7100510,17003,1940,Individual,BENE MARY D,PO BOX 329,None,KETCHUM,OK,743490329,Southwestern,97,US,2023-01-22,2005-05-06,1,Standard,None,Fixed wing single engine,Reciprocating,Valid Registration,50002263,None,1954-04-30,None,None,None,None,None,2027-04-30,600060,None,None,A004B3
+N1000E,550-1011,2076604,52065,2002,Corporation,WR HESS CO,3636 S MERIDIAN AVE,None,OKLAHOMA CITY,OK,731192420,Southwestern,109,US,2023-07-18,2016-02-16,1T,Standard,Transport,Fixed wing multi engine,Turbo-fan,Valid Registration,50003421,None,2016-02-19,None,None,None,None,None,2029-02-28,1207444,None,None,A00711
+N1000J,M-1000,1151208,17033,1966,Corporation,EAGLE MOUNTAIN AVIATION INC,16653 E 78TH ST N,None,OWASSO,OK,740555726,Southwestern,143,US,2024-05-14,2024-05-14,1N,Standard,Normal,Fixed wing single engine,Reciprocating,Valid Registration,50003425,None,1966-10-28,None,None,None,None,None,2031-05-31,340110,None,None,A00715",ok,,"n_number,serial_number,mfr_mdl_code,eng_mfr_mdl,year_mfr,owner_type,registrant_name,street,street2,city,state,zip_code,region,county,country,last_action_date,cert_issue_date,certification,airworthiness_classification,approved_operations,type_aircraft,type_engine,status_code,mode_s_code,fract_owner,air_worth_date,other_names1,other_names2,other_names3,other_names4,other_names5,expiration_date,unique_id,kit_mfr,kit_model,mode_s_code_hex
+N100,5334,7100510,17003,1940,Individual,BENE MARY D,PO BOX 329,,KETCHUM,OK,743490329,Southwestern,97,US,2023-01-22,2005-05-06,1,Standard,,Fixed wing single engine,Reciprocating,Valid Registration,50002263,,1954-04-30,,,,,,2027-04-30,600060,,,A004B3
+N1000E,550-1011,2076604,52065,2002,Corporation,WR HESS CO,3636 S MERIDIAN AVE,,OKLAHOMA CITY,OK,731192420,Southwestern,109,US,2023-07-18,2016-02-16,1T,Standard,Transport,Fixed wing multi engine,Turbo-fan,Valid Registration,50003421,,2016-02-19,,,,,,2029-02-28,1207444,,,A00711
+N1000J,M-1000,1151208,17033,1966,Corporation,EAGLE MOUNTAIN AVIATION INC,16653 E 78TH ST N,,OWASSO,OK,740555726,Southwestern,143,US,2024-05-14,2024-05-14,1N,Standard,Normal,Fixed wing single engine,Reciprocating,Valid Registration,50003425,,1966-10-28,,,,,,2031-05-31,340110,,,A00715
+",correct,True,none,0.92,"The model answer matches the ground truth rows for the three Oklahoma-registered aircraft with only empty fields represented as 'None', which is a non-substantive formatting difference.","{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.92,
+  ""rationale"": ""The model answer matches the ground truth rows for the three Oklahoma-registered aircraft with only empty fields represented as 'None', which is a non-substantive formatting difference.""
+}",
+q017,text2sql,faa,Show 3 aircraft registered in Oklahoma from the FAA master registry.,"SELECT n_number,
+       registrant_name,
+       city,
+       state,
+       serial_number,
+       mfr_mdl_code,
+       type_aircraft,
+       year_mfr
+FROM faa_master
+WHERE state = 'OK'
+  AND n_number IS NOT NULL
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND state IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND region IS NOT NULL
+  AND county IS NOT NULL
+  AND country IS NOT NULL
+  AND last_action_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND type_aircraft IS NOT NULL
+  AND type_engine IS NOT NULL
+  AND status_code IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND fract_owner IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND unique_id IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL
+ORDER BY n_number
+LIMIT 3;",ok,,"n_number,serial_number,mfr_mdl_code,eng_mfr_mdl,year_mfr,owner_type,registrant_name,street,street2,city,state,zip_code,region,county,country,last_action_date,cert_issue_date,certification,airworthiness_classification,approved_operations,type_aircraft,type_engine,status_code,mode_s_code,fract_owner,air_worth_date,other_names1,other_names2,other_names3,other_names4,other_names5,expiration_date,unique_id,kit_mfr,kit_model,mode_s_code_hex
+N100,5334,7100510,17003,1940,Individual,BENE MARY D,PO BOX 329,,KETCHUM,OK,743490329,Southwestern,97,US,2023-01-22,2005-05-06,1,Standard,,Fixed wing single engine,Reciprocating,Valid Registration,50002263,,1954-04-30,,,,,,2027-04-30,600060,,,A004B3
+N1000E,550-1011,2076604,52065,2002,Corporation,WR HESS CO,3636 S MERIDIAN AVE,,OKLAHOMA CITY,OK,731192420,Southwestern,109,US,2023-07-18,2016-02-16,1T,Standard,Transport,Fixed wing multi engine,Turbo-fan,Valid Registration,50003421,,2016-02-19,,,,,,2029-02-28,1207444,,,A00711
+N1000J,M-1000,1151208,17033,1966,Corporation,EAGLE MOUNTAIN AVIATION INC,16653 E 78TH ST N,,OWASSO,OK,740555726,Southwestern,143,US,2024-05-14,2024-05-14,1N,Standard,Normal,Fixed wing single engine,Reciprocating,Valid Registration,50003425,,1966-10-28,,,,,,2031-05-31,340110,,,A00715
+",incorrect,False,missing_value,0.86,"The query adds many IS NOT NULL conditions (e.g., street2, other_names1-5, kit_mfr) that are null in the provided ground-truth rows, so it would not return the three Oklahoma aircraft.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""missing_value"",
+  ""confidence"": 0.86,
+  ""rationale"": ""The query adds many IS NOT NULL conditions (e.g., street2, other_names1-5, kit_mfr) that are null in the provided ground-truth rows, so it would not return the three Oklahoma aircraft."" 
+}",
+q018,mcp,faa,What is FAA aircraft reference acftref code 7100510?,"code: 7100510
+mfr: PIPER
+model: J3C-65
+type_acft: Fixed wing single engine
+type_eng: Reciprocating
+ac_cat: Land
+build_cert_ind: Type Certificated
+no_eng: 1
+no_seats: 2
+ac_weight: Up to 12,499
+speed: 67",ok,,"code,mfr,model,type_acft,type_eng,ac_cat,build_cert_ind,no_eng,no_seats,ac_weight,speed
+7100510,PIPER,J3C-65,Fixed wing single engine,Reciprocating,Land,Type Certificated,1,2,""Up to 12,499"",67
+",correct,True,none,0.82,Every field and value in the model answer exactly matches the provided ground truth row.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.82,
+  ""rationale"": ""Every field and value in the model answer exactly matches the provided ground truth row.""
+}",
+q018,text2sql,faa,What is FAA aircraft reference acftref code 7100510?,"SELECT code,
+       mfr_code,
+       model_code,
+       series_code,
+       mfr,
+       model,
+       type_acft,
+       type_eng,
+       ac_cat,
+       build_cert_ind,
+       no_eng,
+       no_seats,
+       ac_weight,
+       speed,
+       tc_data_sheet,
+       tc_data_holder
+FROM faa_acftref
+WHERE code = '7100510'
+  AND code IS NOT NULL
+  AND mfr_code IS NOT NULL
+  AND model_code IS NOT NULL
+  AND series_code IS NOT NULL
+  AND mfr IS NOT NULL
+  AND model IS NOT NULL
+  AND type_acft IS NOT NULL
+  AND type_eng IS NOT NULL
+  AND ac_cat IS NOT NULL
+  AND build_cert_ind IS NOT NULL
+  AND no_eng IS NOT NULL
+  AND no_seats IS NOT NULL
+  AND ac_weight IS NOT NULL
+  AND speed IS NOT NULL
+  AND tc_data_sheet IS NOT NULL
+  AND tc_data_holder IS NOT NULL
+LIMIT 5;",ok,,"code,mfr,model,type_acft,type_eng,ac_cat,build_cert_ind,no_eng,no_seats,ac_weight,speed
+7100510,PIPER,J3C-65,Fixed wing single engine,Reciprocating,Land,Type Certificated,1,2,""Up to 12,499"",67
+",incorrect,False,wrong_value,0.75,"The query adds and requires columns (mfr_code, model_code, series_code, tc_data_sheet, tc_data_holder) that are not present in the ground-truth row and therefore would not return the provided ground-truth values.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.75,
+  ""rationale"": ""The query adds and requires columns (mfr_code, model_code, series_code, tc_data_sheet, tc_data_holder) that are not present in the ground-truth row and therefore would not return the provided ground-truth values.""
+}",
+q019,mcp,faa,Find FAA dealer records for Texas.,"certificate_number,ownership,certificate_date,expiration_date,expired,certificate_issue_count,dealer_name,street,street2,city,state,zip_code,other_names_count,other_names_1,other_names_2,other_names_3,other_names_4,other_names_5,other_names_6,other_names_7,other_names_8,other_names_9,other_names_10,other_names_11,other_names_12,other_names_13,other_names_14,other_names_15,other_names_16,other_names_17,other_names_18,other_names_19,other_names_20,other_names_21,other_names_22,other_names_23,other_names_24,other_names_25
+00-0073,Corporation,2000-01-10,2001-01-09,1,0,JAMES H MCBURNEY JR I INC,6117 DEL NORTE LN,None,DALLAS,TX,752252804,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0333,Individual,2000-02-15,2001-02-14,1,0,MCFARLAND TIM,35 HALL RD,None,PORT LAVACA,TX,779795557,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0422,Corporation,2000-03-01,2001-02-28,1,0,CLUB AIR INC,411 E HIGHWAY 67,None,DUNCANVILLE,TX,751374156,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0494,Corporation,2000-03-08,2001-03-07,1,0,NEELY INVESTMENTS INC,PO BOX 1252,None,AUSTIN,TX,787671252,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+00-0658,Individual,2000-03-30,2001-03-29,1,0,COBB WILLIAM B,PO BOX 70,None,RAINBOW,TX,760770070,0,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None",ok,,"certificate_number,ownership,certificate_date,expiration_date,expired,certificate_issue_count,dealer_name,street,street2,city,state,zip_code,other_names_count,other_names_1,other_names_2,other_names_3,other_names_4,other_names_5,other_names_6,other_names_7,other_names_8,other_names_9,other_names_10,other_names_11,other_names_12,other_names_13,other_names_14,other_names_15,other_names_16,other_names_17,other_names_18,other_names_19,other_names_20,other_names_21,other_names_22,other_names_23,other_names_24,other_names_25
+00-0073,Corporation,2000-01-10,2001-01-09,1,0,JAMES H MCBURNEY JR I INC,6117 DEL NORTE LN,,DALLAS,TX,752252804,0,,,,,,,,,,,,,,,,,,,,,,,,,
+00-0333,Individual,2000-02-15,2001-02-14,1,0,MCFARLAND TIM,35 HALL RD,,PORT LAVACA,TX,779795557,0,,,,,,,,,,,,,,,,,,,,,,,,,
+00-0422,Corporation,2000-03-01,2001-02-28,1,0,CLUB AIR INC,411 E HIGHWAY 67,,DUNCANVILLE,TX,751374156,0,,,,,,,,,,,,,,,,,,,,,,,,,
+00-0494,Corporation,2000-03-08,2001-03-07,1,0,NEELY INVESTMENTS INC,PO BOX 1252,,AUSTIN,TX,787671252,0,,,,,,,,,,,,,,,,,,,,,,,,,
+00-0658,Individual,2000-03-30,2001-03-29,1,0,COBB WILLIAM B,PO BOX 70,,RAINBOW,TX,760770070,0,,,,,,,,,,,,,,,,,,,,,,,,,
+",incorrect,False,wrong_value,0.79,"The model answer uses 'None' placeholders for street2 and the other_names fields where the ground truth has empty values, so the returned values do not match the ground truth.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.79,
+  ""rationale"": ""The model answer uses 'None' placeholders for street2 and the other_names fields where the ground truth has empty values, so the returned values do not match the ground truth.""
+}",
+q019,text2sql,faa,Find FAA dealer records for Texas.,"SELECT *
+FROM faa_dealer
+WHERE state = 'TX'
+  AND certificate_number IS NOT NULL
+  AND ownership IS NOT NULL
+  AND certificate_date IS NOT NULL
+  AND expiration_date IS NOT NULL
+  AND expired IS NOT NULL
+  AND certificate_issue_count IS NOT NULL
+  AND dealer_name IS NOT NULL
+  AND street IS NOT NULL
+  AND street2 IS NOT NULL
+  AND city IS NOT NULL
+  AND zip_code IS NOT NULL
+  AND other_names_count IS NOT NULL
+  AND other_names_1 IS NOT NULL
+  AND other_names_2 IS NOT NULL
+  AND other_names_3 IS NOT NULL
+  AND other_names_4 IS NOT NULL
+  AND other_names_5 IS NOT NULL
+  AND other_names_6 IS NOT NULL
+  AND other_names_7 IS NOT NULL
+  AND other_names_8 IS NOT NULL
+  AND other_names_9 IS NOT NULL
+  AND other_names_10 IS NOT NULL
+  AND other_names_11 IS NOT NULL
+  AND other_names_12 IS NOT NULL
+  AND other_names_13 IS NOT NULL
+  AND other_names_14 IS NOT NULL
+  AND other_names_15 IS NOT NULL
+  AND other_names_16 IS NOT NULL
+  AND other_names_17 IS NOT NULL
+  AND other_names_18 IS NOT NULL
+  AND other_names_19 IS NOT NULL
+  AND other_names_20 IS NOT NULL
+  AND other_names_21 IS NOT NULL
+  AND other_names_22 IS NOT NULL
+  AND other_names_23 IS NOT NULL
+  AND other_names_24 IS NOT NULL
+  AND other_names_25 IS NOT NULL
+LIMIT 5;",ok,,"certificate_number,ownership,certificate_date,expiration_date,expired,certificate_issue_count,dealer_name,street,street2,city,state,zip_code,other_names_count,other_names_1,other_names_2,other_names_3,other_names_4,other_names_5,other_names_6,other_names_7,other_names_8,other_names_9,other_names_10,other_names_11,other_names_12,other_names_13,other_names_14,other_names_15,other_names_16,other_names_17,other_names_18,other_names_19,other_names_20,other_names_21,other_names_22,other_names_23,other_names_24,other_names_25
+00-0073,Corporation,2000-01-10,2001-01-09,1,0,JAMES H MCBURNEY JR I INC,6117 DEL NORTE LN,,DALLAS,TX,752252804,0,,,,,,,,,,,,,,,,,,,,,,,,,
+00-0333,Individual,2000-02-15,2001-02-14,1,0,MCFARLAND TIM,35 HALL RD,,PORT LAVACA,TX,779795557,0,,,,,,,,,,,,,,,,,,,,,,,,,
+00-0422,Corporation,2000-03-01,2001-02-28,1,0,CLUB AIR INC,411 E HIGHWAY 67,,DUNCANVILLE,TX,751374156,0,,,,,,,,,,,,,,,,,,,,,,,,,
+00-0494,Corporation,2000-03-08,2001-03-07,1,0,NEELY INVESTMENTS INC,PO BOX 1252,,AUSTIN,TX,787671252,0,,,,,,,,,,,,,,,,,,,,,,,,,
+00-0658,Individual,2000-03-30,2001-03-29,1,0,COBB WILLIAM B,PO BOX 70,,RAINBOW,TX,760770070,0,,,,,,,,,,,,,,,,,,,,,,,,,
+",incorrect,False,missing_value,0.85,"The query adds many IS NOT NULL filters (e.g., street2 and other_names_1..25) that the ground-truth rows do not satisfy, so it would exclude the Texas records shown.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""missing_value"",
+  ""confidence"": 0.85,
+  ""rationale"": ""The query adds many IS NOT NULL filters (e.g., street2 and other_names_1..25) that the ground-truth rows do not satisfy, so it would exclude the Texas records shown.""
+}",
+q020,mcp,faa,Show FAA deregistration records for N10000.,"id,n_number,serial_number,mfr_mdl_code,status_code,registrant_name,street_mail,street2_mail,city_mail,state_abbrev_mail,zip_code_mail,eng_mfr_mdl,year_mfr,certification,airworthiness_classification,approved_operations,region,county_mail,country_mail,air_worth_date,cancel_date,mode_s_code,owner_type,exp_country,last_act_date,cert_issue_date,street_physical,street2_physical,city_physical,state_abbrev_physical,zip_code_physical,county_physical,country_physical,other_names1,other_names2,other_names3,other_names4,other_names5,kit_mfr,kit_model,mode_s_code_hex
+1,N10000,79-029,8930105,Second Triennial - no response,ILLIANA HELICOPTER SERVICES INC,BOX 244A RR 1,None,RIDGE FARM,IL,61870,41525,1979,31,Restricted,Agriculture and Pest Control,None,183,US,1979-04-25,2002-05-13,50003445,Corporation,None,1994-09-06,1984-10-02,None,None,None,None,None,None,None,None,None,None,None,None,None,None,A00725",ok,,"id,n_number,serial_number,mfr_mdl_code,status_code,registrant_name,street_mail,street2_mail,city_mail,state_abbrev_mail,zip_code_mail,eng_mfr_mdl,year_mfr,certification,airworthiness_classification,approved_operations,region,county_mail,country_mail,air_worth_date,cancel_date,mode_s_code,owner_type,exp_country,last_act_date,cert_issue_date,street_physical,street2_physical,city_physical,state_abbrev_physical,zip_code_physical,county_physical,country_physical,other_names1,other_names2,other_names3,other_names4,other_names5,kit_mfr,kit_model,mode_s_code_hex
+1,N10000,79-029,8930105,Second Triennial - no response,ILLIANA HELICOPTER SERVICES INC,BOX 244A RR 1,,RIDGE FARM,IL,61870,41525,1979,31,Restricted,Agriculture and Pest Control,,183,US,1979-04-25,2002-05-13,50003445,Corporation,,1994-09-06,1984-10-02,,,,,,,,,,,,,,,A00725
+",incorrect,False,wrong_value,0.86,"The model answer inserts literal ""None"" values in multiple fields that are empty in the ground truth, causing mismatched values.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.86,
+  ""rationale"": ""The model answer inserts literal \""None\"" values in multiple fields that are empty in the ground truth, causing mismatched values.""
+}",
+q020,text2sql,faa,Show FAA deregistration records for N10000.,"SELECT *
+FROM faa_dereg
+WHERE n_number = 'N10000'
+  AND id IS NOT NULL
+  AND n_number IS NOT NULL
+  AND serial_number IS NOT NULL
+  AND mfr_mdl_code IS NOT NULL
+  AND status_code IS NOT NULL
+  AND registrant_name IS NOT NULL
+  AND street_mail IS NOT NULL
+  AND street2_mail IS NOT NULL
+  AND city_mail IS NOT NULL
+  AND state_abbrev_mail IS NOT NULL
+  AND zip_code_mail IS NOT NULL
+  AND eng_mfr_mdl IS NOT NULL
+  AND year_mfr IS NOT NULL
+  AND certification IS NOT NULL
+  AND airworthiness_classification IS NOT NULL
+  AND approved_operations IS NOT NULL
+  AND region IS NOT NULL
+  AND county_mail IS NOT NULL
+  AND country_mail IS NOT NULL
+  AND air_worth_date IS NOT NULL
+  AND cancel_date IS NOT NULL
+  AND mode_s_code IS NOT NULL
+  AND owner_type IS NOT NULL
+  AND exp_country IS NOT NULL
+  AND last_act_date IS NOT NULL
+  AND cert_issue_date IS NOT NULL
+  AND street_physical IS NOT NULL
+  AND street2_physical IS NOT NULL
+  AND city_physical IS NOT NULL
+  AND state_abbrev_physical IS NOT NULL
+  AND zip_code_physical IS NOT NULL
+  AND county_physical IS NOT NULL
+  AND country_physical IS NOT NULL
+  AND other_names1 IS NOT NULL
+  AND other_names2 IS NOT NULL
+  AND other_names3 IS NOT NULL
+  AND other_names4 IS NOT NULL
+  AND other_names5 IS NOT NULL
+  AND kit_mfr IS NOT NULL
+  AND kit_model IS NOT NULL
+  AND mode_s_code_hex IS NOT NULL
+LIMIT 5;",ok,,"id,n_number,serial_number,mfr_mdl_code,status_code,registrant_name,street_mail,street2_mail,city_mail,state_abbrev_mail,zip_code_mail,eng_mfr_mdl,year_mfr,certification,airworthiness_classification,approved_operations,region,county_mail,country_mail,air_worth_date,cancel_date,mode_s_code,owner_type,exp_country,last_act_date,cert_issue_date,street_physical,street2_physical,city_physical,state_abbrev_physical,zip_code_physical,county_physical,country_physical,other_names1,other_names2,other_names3,other_names4,other_names5,kit_mfr,kit_model,mode_s_code_hex
+1,N10000,79-029,8930105,Second Triennial - no response,ILLIANA HELICOPTER SERVICES INC,BOX 244A RR 1,,RIDGE FARM,IL,61870,41525,1979,31,Restricted,Agriculture and Pest Control,,183,US,1979-04-25,2002-05-13,50003445,Corporation,,1994-09-06,1984-10-02,,,,,,,,,,,,,,,A00725
+",incorrect,False,missing_value,0.86,"The model's WHERE includes many IS NOT NULL checks that exclude fields which are NULL in the provided ground-truth row, so it would return no record for N10000.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""missing_value"",
+  ""confidence"": 0.86,
+  ""rationale"": ""The model's WHERE includes many IS NOT NULL checks that exclude fields which are NULL in the provided ground-truth row, so it would return no record for N10000.""
+}",
+q021,mcp,sql,Count the number of rows in the us_shootings table.,"row_count
+5",ok,,"row_count
+5
+",correct,True,none,0.92,The model's output row_count = 5 exactly matches the provided ground truth row_count = 5.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.92,
+  ""rationale"": ""The model's output row_count = 5 exactly matches the provided ground truth row_count = 5.""
+}",
+q021,text2sql,sql,Count the number of rows in the us_shootings table.,"[(5,)]",ok,,"row_count
+5
+",correct,True,none,0.76,"The model returned a single row with value 5, which matches the ground truth row_count of 5.","{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.76,
+  ""rationale"": ""The model returned a single row with value 5, which matches the ground truth row_count of 5.""
+}",
+q022,mcp,sql,"For each state, count the number of shooting incidents and return the top 10 states.","State,incident_count
+new york,1
+pennsylvania,1
+mississippi,1
+virginia,1
+louisiana,1",ok,,"State,incident_count
+louisiana,1
+mississippi,1
+new york,1
+pennsylvania,1
+virginia,1
+",correct,True,none,0.92,The model answer contains the same five states with identical incident_count values as the ground truth; ordering differences are irrelevant.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.92,
+  ""rationale"": ""The model answer contains the same five states with identical incident_count values as the ground truth; ordering differences are irrelevant.""
+}",
+q022,text2sql,sql,"For each state, count the number of shooting incidents and return the top 10 states.","[('new york', 1), ('pennsylvania', 1), ('mississippi', 1), ('virginia', 1), ('louisiana', 1)]",ok,,"State,incident_count
+louisiana,1
+mississippi,1
+new york,1
+pennsylvania,1
+virginia,1
+",correct,True,none,0.86,The model's five state-count pairs match the ground truth rows exactly (order is irrelevant).,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.86,
+  ""rationale"": ""The model's five state-count pairs match the ground truth rows exactly (order is irrelevant).""
+}",
+q023,mcp,sql,What is the average unemployment rate in 2023 across all states?,"Avg_Rate_2023
+3.32",ok,,"Avg_Rate_2023
+3.32
+",correct,True,none,0.94,The model's reported value 3.32 exactly matches the ground truth Avg_Rate_2023 value.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.94,
+  ""rationale"": ""The model's reported value 3.32 exactly matches the ground truth Avg_Rate_2023 value.""
+}",
+q023,text2sql,sql,What is the average unemployment rate in 2023 across all states?,"[(Decimal('3.31765'),)]",ok,,"Avg_Rate_2023
+3.32
+",correct,True,none,0.9,"The model's value 3.31765 rounds to 3.32, which matches the ground truth average unemployment rate for 2023.","{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.9,
+  ""rationale"": ""The model's value 3.31765 rounds to 3.32, which matches the ground truth average unemployment rate for 2023.""
+}",
+q024,mcp,sql,List the top 10 NGO categories by number of organizations.,"Category,ngo_count
+Education,140708
+Religion-Related,126747
+Philanthropy, Voluntarism and Grantmaking Foundations,80880
+Recreation & Sports,79717
+Arts, Culture and Humanities,79054
+Community Improvement, Capacity Building,78179
+Human Services,70996
+Mutual/Membership Benefit,69515
+Youth Development,43642
+Public & Societal Benefit,42373",ok,,"Category,ngo_count
+Education,140708
+Religion-Related,126747
+""Philanthropy, Voluntarism and Grantmaking Foundations"",80880
+Recreation & Sports,79717
+""Arts, Culture and Humanities"",79054
+""Community Improvement, Capacity Building"",78179
+Human Services,70996
+Mutual/Membership Benefit,69515
+Youth Development,43642
+Public & Societal Benefit,42373
+",correct,True,none,0.94,All ten categories and their ngo_count values match the provided ground truth exactly (formatting differences allowed).,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.94,
+  ""rationale"": ""All ten categories and their ngo_count values match the provided ground truth exactly (formatting differences allowed).""
+}",
+q024,text2sql,sql,List the top 10 NGO categories by number of organizations.,"SELECT
+  Category,
+  COUNT(*) AS OrganizationCount
+FROM ngos_with_categorization
+WHERE Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY Category
+ORDER BY OrganizationCount DESC
+LIMIT 10;",ok,,"Category,ngo_count
+Education,140708
+Religion-Related,126747
+""Philanthropy, Voluntarism and Grantmaking Foundations"",80880
+Recreation & Sports,79717
+""Arts, Culture and Humanities"",79054
+""Community Improvement, Capacity Building"",78179
+Human Services,70996
+Mutual/Membership Benefit,69515
+Youth Development,43642
+Public & Societal Benefit,42373
+",incorrect,False,wrong_value,0.89,"The query adds many NOT NULL filters (e.g., Fulladdr, City, State, Zip, County, Ntee_Code, Is_Category_Llm_Generated) that can change counts and ordering compared to the ground-truth top-10 counts.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.89,
+  ""rationale"": ""The query adds many NOT NULL filters (e.g., Fulladdr, City, State, Zip, County, Ntee_Code, Is_Category_Llm_Generated) that can change counts and ordering compared to the ground-truth top-10 counts.""
+}",
+q025,mcp,sql,How many FAA master records are there for Oklahoma?,"count_oklahoma
+5747",ok,,"count_oklahoma
+5747
+",correct,True,none,0.95,The model answer exactly matches the provided ground truth value of 5747 for count_oklahoma.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.95,
+  ""rationale"": ""The model answer exactly matches the provided ground truth value of 5747 for count_oklahoma.""
+}",
+q025,text2sql,sql,How many FAA master records are there for Oklahoma?,"[(0,)]",ok,,"count_oklahoma
+5747
+",incorrect,False,wrong_value,0.86,"The model returned 0 FAA master records for Oklahoma but the ground truth count is 5747, so the value is incorrect.","{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.86,
+  ""rationale"": ""The model returned 0 FAA master records for Oklahoma but the ground truth count is 5747, so the value is incorrect.""
+}",
+q026,mcp,sql,"For each state, count the number of NGOs and return the top 10 states.","State,ngo_count
+NY,139046
+PA,98627
+OH,94040
+CA,87919
+NJ,57581
+IN,51432
+TX,47010
+FL,38915
+IL,35240
+MI,21289",ok,,"State,ngo_count
+NY,139046
+PA,98627
+OH,94040
+CA,87919
+NJ,57581
+IN,51432
+TX,47010
+FL,38915
+IL,35240
+MI,21289
+",correct,True,none,0.92,The model answer exactly matches the provided ground truth rows for all states and counts.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.92,
+  ""rationale"": ""The model answer exactly matches the provided ground truth rows for all states and counts.""
+}",
+q026,text2sql,sql,"For each state, count the number of NGOs and return the top 10 states.","SELECT State,
+       COUNT(*) AS NGOCount
+FROM ngos_with_categorization
+WHERE Ein IS NOT NULL
+  AND Name IS NOT NULL
+  AND Fulladdr IS NOT NULL
+  AND City IS NOT NULL
+  AND State IS NOT NULL
+  AND Zip IS NOT NULL
+  AND County IS NOT NULL
+  AND Ntee_Code IS NOT NULL
+  AND Category IS NOT NULL
+  AND Is_Category_Llm_Generated IS NOT NULL
+GROUP BY State
+ORDER BY NGOCount DESC
+LIMIT 10;",ok,,"State,ngo_count
+NY,139046
+PA,98627
+OH,94040
+CA,87919
+NJ,57581
+IN,51432
+TX,47010
+FL,38915
+IL,35240
+MI,21289
+",incorrect,False,wrong_value,0.9,The model's query adds many IS NOT NULL filters that would change the NGO counts per state and thus not produce the provided ground-truth top-10 counts.,"{
+  ""verdict"": ""incorrect"",
+  ""is_correct"": false,
+  ""mismatch_type"": ""wrong_value"",
+  ""confidence"": 0.9,
+  ""rationale"": ""The model's query adds many IS NOT NULL filters that would change the NGO counts per state and thus not produce the provided ground-truth top-10 counts.""
+}",
+q027,mcp,sql,How many victims were killed in California in 2023?,"total_killed
+0",ok,,"total_killed
+0
+",correct,True,none,0.95,The model answer (total_killed = 0) exactly matches the provided ground truth row.,"{
+  ""verdict"": ""correct"",
+  ""is_correct"": true,
+  ""mismatch_type"": ""none"",
+  ""confidence"": 0.95,
+  ""rationale"": ""The model answer (total_killed = 0) exactly matches the provided ground truth row.""
+}",
+q027,text2sql,sql,How many victims were killed in California in 2023?,"SELECT LOWER(State) AS State,
+       YEAR(IncidentDate) AS Year,
+       SUM(VictimsKilled) AS VictimsKilledInCalifornia2023
+FROM us_shootings
+WHERE IncidentID IS NOT NULL
+  AND Address IS NOT NULL
+  AND IncidentDate IS NOT NULL
+  AND State IS NOT NULL
+  AND CityOrCountry IS NOT NULL
+  AND VictimsKilled IS NOT NULL
+  AND VictimsInjured IS NOT NULL
+  AND SuspectsInjured IS NOT NULL
+  AND SuspectsKilled IS NOT NULL
+  AND SuspectsArrested IS NOT NULL
+  AND LOWER(State) = 'california'
+  AND YEAR(IncidentDate) = 2023
+GROUP BY LOWER(State), YEAR(IncidentDate)
+LIMIT 5;",ok,,"total_killed
+0
+",correct,True,none,0.75,"The query sums VictimsKilled for California in 2023, which corresponds to the ground-truth total_killed value of 0.","{""verdict"":""correct"",""is_correct"":true,""mismatch_type"":""none"",""confidence"":0.75,""rationale"":""The query sums VictimsKilled for California in 2023, which corresponds to the ground-truth total_killed value of 0.""}",
